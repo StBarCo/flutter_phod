@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "453509254572",
+    "firebase_url": "https://iphod-f50ee.firebaseio.com",
+    "project_id": "iphod-f50ee",
+    "storage_bucket": "iphod-f50ee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:453509254572:android:4d2459385b6dba2355fe09",
+        "android_client_info": {
+          "package_name": "com.legereme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "453509254572-q51seafuuqu619td7hfp243r9eqst4v9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyzq9I3qP_gFIo9dZKFyGAmyWduabY0tU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "453509254572-q51seafuuqu619td7hfp243r9eqst4v9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
