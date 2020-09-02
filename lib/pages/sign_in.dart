@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phod/services/auth.dart';
 import 'package:flutter_phod/helpers/constants.dart';
+import 'package:flutter_phod/pages/loading.dart';
 
 class SignIn extends StatefulWidget {
   final Function toggleView;
@@ -15,12 +16,13 @@ class _SignInState extends State<SignIn> {
   String email = '';
   String password = '';
   String error = '';
+  bool loading = false;
 
   final AuthService _auth = AuthService();
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? Loading() : Scaffold(
       backgroundColor: Colors.blue[50],
       appBar: AppBar(
         centerTitle: true
@@ -65,9 +67,13 @@ class _SignInState extends State<SignIn> {
                   ),
                 onPressed: () async {
                   if( _formKey.currentState.validate() ) {
+                    setState(() => loading = true );
                     dynamic resp = await _auth.signInWithEmailAndPassword(email, password);
                     if ( resp == null ) {
-                      setState( () => error = 'Could not sign in with those credentials');
+                      setState( () {
+                        error = 'Could not sign in with those credentials';
+                        loading = false;
+                      });
                     }
                   }
                 },
