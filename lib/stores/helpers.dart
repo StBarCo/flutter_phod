@@ -22,6 +22,7 @@ bool isItSunday(dow) => dow == sunday;
 
 int dateToDOY( DateTime now) {
   List<int> dpm = [
+    0, // zeroth month place holder - months are 1 - 12 not 0 - 11 (like javascript)
     306, // January 1 - 31
     337, // February 1 - 28/29
     0, // March 1 - 31

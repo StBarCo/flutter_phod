@@ -30,4 +30,10 @@ class DatabaseService {
       });
     }
 
+    Future getPsalmByName(Ps ps ) async {
+      var resp = await psalmsCollection.doc("acna${ps.ps}").get();
+      PsalmMap pm = PsalmMap(ps, resp);
+      return pm;
+    }
 }
+

@@ -18,19 +18,23 @@ class PsalmVs {
   }
 }
 
+class Ps {
+  int ps;
+  int from;
+  int to;
+
+  Ps(int ps, int from, int to) {
+    this.ps = ps;
+    this.from = from;
+    this.to = to;
+  }
+}
+
 
 class PsalmMap {
   String name = '';
   String title = '';
   List<PsalmVs> vss = [];
-/*
-  PsalmMap( String name, String title, List<PsalmVs> vss) {
-    this.name = name;
-    this.title = title;
-    this.vss = vss;
-  }
-
- */
 
   PsalmMap( Ps ps, DocumentSnapshot snapshot) {
     final int from = ps.from;

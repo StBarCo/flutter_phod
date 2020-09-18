@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phod/stores/litday.dart';
 import 'package:flutter_phod/helpers/rubric.dart';
 import 'package:flutter_phod/helpers/line.dart';
-// import 'package:flutter_phod/helpers/scripture.dart';
+import 'package:flutter_phod/helpers/scripture_ref.dart';
 // import 'dart:developer' as dev;
 
 class OpeningSentences extends StatelessWidget {
@@ -30,7 +30,7 @@ class OpeningSentences extends StatelessWidget {
   // need to add reference
   List<Widget> addOpeningSentence(String text, bool moreToCome) {
     return moreToCome
-      ? [Line(text: text), Rubric(text: 'or this')]
+      ? [Line(text: text), Rubric('or this')]
         : [Line(text: text)];
   }
 

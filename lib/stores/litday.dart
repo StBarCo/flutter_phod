@@ -22,7 +22,8 @@ class LitDay {
 
   LitDay init({String service, DateTime now}) {
     // I want to init with or without now set
-    now = (now != null) ? now : this.now;
+    service ??= '';
+    now ??= this.now;
     bool leapYear = DateUtil().leapYear(now.year);
     int easter = easterDOY(now.year);
 

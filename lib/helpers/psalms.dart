@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phod/helpers/psalm_verses.dart';
+import 'package:flutter_phod/helpers/show_one_psalms.dart';
 import 'package:flutter_phod/services/database.dart';
 import 'package:flutter_phod/stores/litday.dart';
 import 'package:flutter_phod/stores/daily_psalms.dart';
@@ -38,7 +40,6 @@ class _PsalmsState extends State<Psalms> {
           case ConnectionState.waiting:
             return Text("Waiting for Psalms");
           case ConnectionState.done:
-            print("SNAPSHOT DATA: ${snapshot.data}");
             return ShowPsalms(pss: snapshot.data); // snapshot data
           default:
             return Text('PSALMS GO HERE');
@@ -57,50 +58,9 @@ class ShowPsalms extends StatelessWidget {
     return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
          children: pss.map<Widget>( (p) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(height: 20.0),
-              Text(
-                  "${p.name}  ${p.title}",
-                  style: TextStyle(
-                    fontSize: 20.0,
-                    letterSpacing: 2.0,
-                  ),
-              ),
-              Verses(vss: p.vss),
-              ]
-        );
-      }).toList()
-    );
-  }
-}
-
-class Verses extends StatelessWidget {
-  List<PsalmVs> vss;
-  Verses({Key key, this.vss}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: vss.map<Widget>( (v) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-                "${v.vsNumber} ${v.first}",
-                style: TextStyle(
-                  fontSize: 16.0
-                )
-            ),
-            Text(
-                "\t\t ${v.second}",
-              style: TextStyle( fontSize: 16.0)
-            ),
-            SizedBox(height: 8.0),
-          ]
-        );
-      }).toList()
+            return ShowOnePsalm(psalm: p);
+          }
+        ).toList()
     );
   }
 }

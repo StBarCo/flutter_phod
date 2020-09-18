@@ -1,12 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-TextSpan Reference({String text = ''}) {
-    return TextSpan(
-        text: text,
-            style: TextStyle(
-              fontSize: 12.0,
-              fontStyle: FontStyle.italic
-            )
+class Reference extends StatelessWidget {
+  Reference(this.text);
+  final String text;
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: TextStyle(
+          fontSize: 12.0
+        , fontStyle: FontStyle.italic
+      )
     );
+  }
 }

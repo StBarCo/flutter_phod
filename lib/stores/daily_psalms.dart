@@ -1,16 +1,5 @@
 import 'package:flutter_phod/stores/litday.dart';
-
-class Ps {
-  int ps;
-  int from;
-  int to;
-
-  Ps(int ps, int from, int to) {
-    this.ps = ps;
-    this.from = from;
-    this.to = to;
-  }
-}
+import 'package:flutter_phod/stores/psalm_map.dart';
 
 
 class DailyPsalms {
