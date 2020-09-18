@@ -77,7 +77,7 @@ int advent1DOY(int year) {
   int christmasDOY = 300;
   DateTime xday = new DateTime(year, 12, 25);
   int dow = xday.weekday;
-  return (dow == sunday) ? christmasDOY - 28 : christmasDOY - 21;
+  return christmasDOY - (21 + dow);
 }
 
 int lastSundayDOY(int doy, int weekday, bool leapYear) {

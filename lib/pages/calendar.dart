@@ -53,6 +53,7 @@ class _CalendarState extends State<Calendar> {
                     case 'purple': liturgicalColor = Colors.purple; break;
                     case 'blue': liturgicalColor = Colors.blue; break;
                     case 'rose': liturgicalColor = Colors.pinkAccent; break;
+                    case 'black': liturgicalColor = Colors.grey[800]; break;
                     default: liturgicalColor = Colors.orange;
                   }
                   return IphodDay(

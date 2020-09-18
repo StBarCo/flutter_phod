@@ -11,37 +11,37 @@ class Season {
   Season({this.id, this.title, this.week, this.colors, this.lityear});
 }
 
-Season findRLD(String season, DateTime now) {
+Season findRLD(Season season, DateTime now) {
   int doy = dateToDOY(now);
   int dayOfWeek = now.weekday;
   bool leapYear = DateUtil().leapYear(now.year);
   int sunday = thisSunday(doy, dayOfWeek, leapYear);
-  bool tranlateRLD = !(season == 'epiphany' || season == 'proper');
+  bool tranlateRLD = !(season.id == 'epiphany' || season.id == 'proper');
   bool isSunday = isItSunday(now);
-  if (isSunday && tranlateRLD) return notRLD;
+  if (isSunday && tranlateRLD) return season;
   // so far it's OK to RLD even if Sunday
-  if (redLetterDays[doy]) return redLetterDays[doy];
+  if (redLetterDays[doy] != null) return redLetterDays[doy];
   // so far: today isn' an RLD
   // if it's Sunday, we're done
-  if (isSunday) return notRLD;
+  if (isSunday) return season;
   // so far: it's not Sunday and not RLD
   // if last Sunday wasn't an RLD, we're done
   Season rld = redLetterDays[thisSunday(doy, now.weekday, DateUtil().leapYear(now.year))];
-  if (rld == null) return notRLD;
+  if (rld == null) return season;
   // so far, today is not Sunday and not an RLD
   // and last Sunday was an RLD that needs to be translated
   // NOW for the special case where last Sunday's RLD needs to be translated
   int i = sunday + 1;
   // find the first none RLD after Sunday
   // usually Monday, but there are instances...
-  while (redLetterDays[i]) {
+  while (redLetterDays[i] != null) {
     i += 1;
   }
   // i is now the first none RLD after Sunday, use it for translating
   // if i is today, today is the first available day to transfer; return the RLD
   if (i == doy) return rld;
   // if i isn't today, we've already displayed the RLD
-  return notRLD;
+  return season;
 }
 
 Season findTheSeason(int doy, int easterDOY, DateTime now) {
@@ -49,30 +49,34 @@ Season findTheSeason(int doy, int easterDOY, DateTime now) {
   // if (rld.id.isNotEmpty) return rld;
   bool leapYear = DateUtil().leapYear(now.year);
   int d;
+  Season seasonSoFar;
   if (inRange(doy, d = advent1DOY(now.year), dayBefore(christmasDOY))) {
-      return createSeason('advent', 'Advent', daysToWeeks(doy -d), now);
+    seasonSoFar = createSeason('advent', 'Advent', daysToWeeks(doy -d), now);
   } else if (inRange(doy, d = christmasDOY, dayBefore(epiphanyDOY))) {
-      return createSeason('christmas', 'Christmas', daysToWeeks(doy -d), now);
+    seasonSoFar = createSeason('christmas', 'Christmas', daysToWeeks(doy -d), now);
   } else if (inRange(doy, d = epiphanyDOY, dayBefore(ashWednesdayDOY(easterDOY, leapYear)))) {
-      return createSeason('epiphany', 'Epiphany', daysToWeeks(doy -d), now);
+    seasonSoFar = createSeason('epiphany', 'Epiphany', daysToWeeks(doy -d), now);
   } else if (inRange(doy, d = ashWednesdayDOY(easterDOY, leapYear), dayBefore(palmSundayDOY(easterDOY)))) {
-      return createSeason('lent', 'Lent', daysToWeeks(doy -d), now);
+    seasonSoFar = createSeason('lent', 'Lent', daysToWeeks(doy -d), now);
   } else if (inRange(doy, d = palmSundayDOY(easterDOY), dayBefore(easterDOY))) {
-      return createSeason('holyWeek', 'Holy Week', daysToWeeks(doy -d), now);
+    seasonSoFar = createSeason('holyWeek', 'Holy Week', daysToWeeks(doy -d), now);
   } else if (inRange(doy, d = ascensionDOY(easterDOY), d + 2)) {
-      return createSeason('ascension', 'Ascension', daysToWeeks(doy -d), now);
+    seasonSoFar = createSeason('ascension', 'Ascension', daysToWeeks(doy -d), now);
   } else if (inRange(doy, d = easterDOY, dayBefore(pentecostDOY(easterDOY)))) {
-      return createSeason('easter', 'Easter', daysToWeeks(doy -d), now);
+    seasonSoFar = createSeason('easter', 'Easter', daysToWeeks(doy -d), now);
   } else if (inRange(doy, d = pentecostDOY(easterDOY), d + 6)) {
-      return createSeason('pentecost', 'Pentecost', daysToWeeks(doy -d), now);
+    seasonSoFar = createSeason('pentecost', 'Pentecost', daysToWeeks(doy -d), now);
   } else if (inRange(doy, d = trinityDOY(easterDOY), d + 6)) {
-      return createSeason('trinity', 'Trinity Sunday', daysToWeeks(doy -d), now);
+    seasonSoFar = createSeason('trinity', 'Trinity Sunday', daysToWeeks(doy -d), now);
   } else { // season following Pentecost
-      return createSeason('proper', 'Season following Pentecost', daysToWeeks(doy -d), now);
+    seasonSoFar = createSeason('proper', 'Season following Pentecost', daysToWeeks(doy -d), now);
   }
+  
+  return findRLD(seasonSoFar, now);
+
 }
 
-Season notRLD = Season(id: "", title: "", week: 0, colors: []);
+// Season notRLD = Season(id: "", title: "", week: 0, colors: []);
 Map redLetterDays = {
   324: Season(id: 'confessionOfStPeter',
       title: 'Confession Of St Peter',
