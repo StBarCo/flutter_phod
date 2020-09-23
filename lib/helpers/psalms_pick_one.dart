@@ -44,7 +44,6 @@ class _PsalmsPickOneState extends State<PsalmsPickOne> {
       , FutureBuilder(
           future: futurePsalm
           , builder: (context, snapshot) {
-        print('PSALM: ${snapshot}');
         return (snapshot.connectionState == ConnectionState.done)
             ? ShowOnePsalm(psalm: snapshot.data)
             : Container();

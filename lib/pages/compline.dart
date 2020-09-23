@@ -28,7 +28,7 @@ class _ComplineState extends State<Compline> {
         body: DefaultTextStyle(
             style: TextStyle(fontSize: 18.0, color: Colors.black87),
             child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                     PageHeader(litDay: LitDay().init())
                   , Rubric("The Officiant begins")

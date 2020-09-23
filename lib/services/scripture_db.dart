@@ -25,7 +25,7 @@ class ScriptureDB {
 
   Future getESV( LitDay litDay, int lesson) async {
     String lessonKey = "${litDay.service}${lesson}";
-    var dailyRefs = await getDailyRef(litDay, lesson);
+    var dailyRefs = await getDailyRef(litDay);
 
       var x = dailyRefs.get(lessonKey).map( (r) { return r['read']; });
       String esvRefs = dailyRefs.get(lessonKey).map( (r) { return r['read']; }).join(';');
@@ -41,9 +41,25 @@ class ScriptureDB {
       else { throw('Cannot get lesson'); }
   }
 
-  Future getDailyRef (LitDay litDay, int lesson) async {
+  Future getDailyRef (LitDay litDay) async {
     // String lessonKey = "${litDay.service}${lesson}";
     String docId = "mpep${litDay.now.month.toString().padLeft(2,'0')}${litDay.now.day.toString().padLeft(2, '0')}";
     return dailyLectionaryCollection.doc(docId).get();
+  }
+
+  Future getServiceRefs(LitDay litDay, String service) async {
+    if (service == "eu") {
+      String docId;
+      if (litDay.season.week == null) {
+        // season.week is null on RLDs
+        docId = litDay.season.id;
+      }
+      else {
+        docId = "${litDay.season.id}${litDay.season.week}${litDay.litYear}";
+      }
+      print("EU KEY: $docId");
+      return sundaylectionaryCollection.doc(docId).get();
+    }
+    return getDailyRef(litDay);
   }
 }

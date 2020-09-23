@@ -18,7 +18,6 @@ const int ascensionOffset = 39;
 const int pentecostOffset = 49;
 const int trinityOffset = 56;
 
-bool isItSunday(dow) => dow == sunday;
 
 int dateToDOY( DateTime now) {
   List<int> dpm = [
@@ -39,6 +38,11 @@ int dateToDOY( DateTime now) {
   return dpm[now.month] + now.day;
 }
 
+int proper1Sunday(DateTime now) {
+  // may 8 = 68 == first day for proper 1
+  return 76 - (new DateTime(now.year, 5, 8)).weekday;
+}
+
 // get date of easter for given year
 DateTime yearToEaster(int year) {
   int a = year % 19;
@@ -54,7 +58,7 @@ DateTime yearToEaster(int year) {
   int l = (32 + 2 * e + 2 * i - h - k) % 7;
   int m = ( (a + 11 * h + 22 * l) / 451 ).floor();
   int n0 = (h + l + 7 * m + 114);
-  int n = ( n0 / 31).floor() - 1;
+  int n = ( n0 / 31).floor();
   int p = n0 % 31 + 1;
   return DateTime(year, n, p);
 }
@@ -92,7 +96,7 @@ List<int> doyToMonDay(int doy) {
   [
     [1,   31, 3], // mar
     [32,  30, 4], // apr
-    [63,  31, 5], // may
+    [62,  31, 5], // may
     [93,  30, 6], // jun
     [123, 31, 7], // jul
     [154, 31, 8], // aug

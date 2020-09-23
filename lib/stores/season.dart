@@ -15,23 +15,23 @@ Season findRLD(Season season, DateTime now) {
   int doy = dateToDOY(now);
   int dayOfWeek = now.weekday;
   bool leapYear = DateUtil().leapYear(now.year);
-  int sunday = thisSunday(doy, dayOfWeek, leapYear);
-  bool tranlateRLD = !(season.id == 'epiphany' || season.id == 'proper');
-  bool isSunday = isItSunday(now);
-  if (isSunday && tranlateRLD) return season;
+  int lastSunday = thisSunday(doy, dayOfWeek, leapYear);
+  bool translateRLD = !(season.id == 'epiphany' || season.id == 'proper');
+  bool isSunday = dayOfWeek == sunday;
+  if (isSunday && translateRLD) return season;
   // so far it's OK to RLD even if Sunday
   if (redLetterDays[doy] != null) return redLetterDays[doy];
-  // so far: today isn' an RLD
+  // so far: today isn't an RLD
   // if it's Sunday, we're done
   if (isSunday) return season;
   // so far: it's not Sunday and not RLD
   // if last Sunday wasn't an RLD, we're done
-  Season rld = redLetterDays[thisSunday(doy, now.weekday, DateUtil().leapYear(now.year))];
+  Season rld = redLetterDays[lastSunday];
   if (rld == null) return season;
   // so far, today is not Sunday and not an RLD
   // and last Sunday was an RLD that needs to be translated
   // NOW for the special case where last Sunday's RLD needs to be translated
-  int i = sunday + 1;
+  int i = lastSunday + 1;
   // find the first none RLD after Sunday
   // usually Monday, but there are instances...
   while (redLetterDays[i] != null) {
@@ -43,7 +43,7 @@ Season findRLD(Season season, DateTime now) {
   // if i isn't today, we've already displayed the RLD
   return season;
 }
-
+// Sunday on May 8 - May 14 is proper 1
 Season findTheSeason(int doy, int easterDOY, DateTime now) {
   // Season rld = this.findRLD(season, now);
   // if (rld.id.isNotEmpty) return rld;
@@ -69,7 +69,7 @@ Season findTheSeason(int doy, int easterDOY, DateTime now) {
   } else if (inRange(doy, d = trinityDOY(easterDOY), d + 6)) {
     seasonSoFar = createSeason('trinity', 'Trinity Sunday', daysToWeeks(doy -d), now);
   } else { // season following Pentecost
-    seasonSoFar = createSeason('proper', 'Season following Pentecost', daysToWeeks(doy -d), now);
+    seasonSoFar = createSeason('proper', 'Season following Pentecost', daysToWeeks(doy - proper1Sunday(now)), now);
   }
   
   return findRLD(seasonSoFar, now);
@@ -126,7 +126,7 @@ Map redLetterDays = {
 };
 
 List<String> getColors(String season, int week, DateTime now) {
-  bool isSunday = isItSunday(now.weekday);
+  bool isSunday = now.weekday == sunday;
   Map basicColors = {
     'advent': ["purple"],
     'christmas': ["white", "gold"],

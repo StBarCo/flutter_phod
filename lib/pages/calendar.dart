@@ -1,10 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phod/helpers/iphod_scaffold.dart';
 import 'package:flutter_phod/helpers/section_title.dart';
+import 'package:flutter_phod/services/scripture_db.dart';
 import 'package:flutter_phod/stores/litday.dart';
 import 'package:flutter_phod/helpers/page_header.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' show CalendarCarousel;
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' show defaultDayContainer;
+import 'package:intl/intl.dart';
 class Calendar extends StatefulWidget {
   @override
   _CalendarState createState() => _CalendarState();
@@ -13,6 +17,7 @@ class Calendar extends StatefulWidget {
 class _CalendarState extends State<Calendar> {
   // CalendarController _controller;
   LitDay litDay = LitDay().init();
+  String readingsFor;
   @override
 //  initState() {
 //    super.initState();
@@ -21,16 +26,18 @@ class _CalendarState extends State<Calendar> {
   Widget build(BuildContext context) {
     return IphodScaffold(
       title: 'Calendar',
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      body: DefaultTextStyle(
+        style: TextStyle(fontSize: 18.0, color: Colors.black87),
+        child: ListView(
+        padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
         children: <Widget>[
             PageHeader(litDay: LitDay().init())
           , CalendarCarousel(
               onDayPressed: (date, events) {
                 setState(() {
                   litDay = LitDay().init(now: date);
+                  readingsFor = null;
                 });
-                print('LITDAY COLLORS: ${litDay.season.colors}');
               }
               , customDayBuilder: (
                     bool isSelectable
@@ -77,22 +84,189 @@ class _CalendarState extends State<Calendar> {
 
               , weekFormat: false
               // , markedDatesMap: _markedDateMap // List<Events>
-              , height: 420.0
+              , height: 452.0
               , selectedDateTime: litDay.now
               , daysHaveCircularBorder: false
           )
-          , SectionTitle(text: 'Readings For ')
-          , SizedBox(height: 12.0)
+          , SectionTitle(text: 'Readings For ', center: true, leadingSpace: 0.0)
+          // , SizedBox(height: 12.0)
           , PageHeader(litDay: litDay)
-          , Text('Morning Prayer')
-          , Text('Evening Prayer')
-          , Text('Eucharist')
+          , ButtonBar(
+                // mainAxisSize: MainAxisSize.min
+               alignment: MainAxisAlignment.center
+             , buttonMinWidth: 100.0
+             , children: <Widget>[
+                    RaisedButton(
+                        onPressed: () {
+                          setState(() {
+                            readingsFor = "mp";
+                          });
+                        }
+                        , child: Text("Morning Prayer")
+                    )
+                  , RaisedButton(
+                      onPressed: () {
+                        setState(() {
+                          readingsFor = "ep";
+                        });
+                      }
+                      , child: Text("Evening Prayer")
+                  )
+                  , RaisedButton(
+                      onPressed: () {
+                        setState(() {
+                          readingsFor = "eu";
+                        });
+                      }
+                      , child: Text("Eucharist")
+                  )
+          ]
+          )
+          , ReferencesFor(litDay, readingsFor)
         ],
       )
+      )
     );
-
   }
 }
+
+class ReferencesFor extends StatefulWidget {
+  ReferencesFor(this.litDay, this.service);
+  final LitDay litDay;
+  final String service;
+
+  @override
+  _ReferencesForState createState() => _ReferencesForState();
+}
+
+class _ReferencesForState extends State<ReferencesFor> {
+  Future futureRefs;
+
+  void  initState() {
+    super.initState();
+    futureRefs = _getRefs();
+  }
+
+  _getRefs() async {
+  return await ScriptureDB().getServiceRefs(widget.litDay, widget.service);
+  }
+
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+        future: ScriptureDB().getServiceRefs(widget.litDay, widget.service),
+        builder: (context, snapshot) {
+          switch( snapshot.connectionState) {
+            case ConnectionState.none:
+              return Text("Service Refs go here");
+            case ConnectionState.active:
+            case ConnectionState.waiting:
+              return Text("Waiting for Service Refs");
+            case ConnectionState.done:
+              return ShowRefs(refs: snapshot.data, service: widget.service); // snapshot data
+            default:
+              return Text('CANTICLE GOES HERE');
+          }
+        }
+    );
+  }
+}
+
+class ShowRefs extends StatelessWidget {
+  DocumentSnapshot refs;
+  String service;
+  ShowRefs({Key key, this.refs, this.service}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    switch(service) {
+      case "mp":
+      case "ep":
+        return MPEPRefs(refs, service);
+        break;
+      case "eu":
+        return EURefs(refs);
+        break;
+      default:
+        return Container();
+    };
+  }
+}
+
+class MPEPRefs extends StatelessWidget {
+  MPEPRefs(this.doc, this.service);
+  final DocumentSnapshot doc;
+  final String service;
+
+
+  Widget build(BuildContext context) {
+    List psalms = (service == 'mp') ? doc.get('mpp') : doc.get('epp');
+    List firstReading = (service == 'mp') ? doc.get('mp1') : doc.get('ep2');
+    List secondReading = (service == 'mp') ? doc.get('mp2') : doc.get('ep2');
+
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.start
+      , children: <Widget>[
+            _PsalmRefs(psalms)
+          , _ReadingRefs(firstReading)
+          , _ReadingRefs(secondReading)
+    ]
+    );
+  }
+}
+
+class EURefs extends StatelessWidget {
+  EURefs(this.doc);
+  final DocumentSnapshot doc;
+
+  Widget build(BuildContext context) {
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.start
+      , children: <Widget>[
+            _ReadingRefs(doc.get('ot'))
+          , _PsalmRefs(doc.get('ps'))
+          , _ReadingRefs(doc.get('nt'))
+          , _ReadingRefs(doc.get('gs'))
+    ]
+    );
+  }
+}
+
+class _ReadingRefs extends StatelessWidget {
+  _ReadingRefs(this.refs);
+  final List refs;
+  Widget build(BuildContext context) {
+    print("READING REFS: $refs");
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.start
+      , children: refs.map<Widget>( (ref) =>
+            Text("${ref['read']} - ${ref['style']}")
+        ).toList()
+    );
+  }
+}
+
+
+class _PsalmRefs extends StatelessWidget {
+  _PsalmRefs(this.psalms);
+  final List psalms;
+  Widget build(BuildContext context) {
+    print("PS REFS: $psalms");
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.start
+      , children: psalms.map<Widget>((ps) {
+          // if eucharistic psalm, ps['ps'] is null
+          // and has different format, which really should be fixed
+          // setting of psTo is for readability
+          String psTo = "${ (ps['to'] == 999) ? 'end' : ps['to']}";
+          return (ps['ps'] == null)
+            ? Text("${ps['read']} - ${ps['style']}")
+            : Text("Psalm ${ps['ps']}: ${ps['from']} - $psTo");
+        }).toList()
+    );
+  }
+}
+
+
 
 class IphodDay extends StatelessWidget {
   IphodDay(

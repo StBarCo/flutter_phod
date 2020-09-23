@@ -21,6 +21,7 @@ class OpeningSentences extends StatelessWidget {
   List<Widget> findOpeningSentences(LitDay liyDay, String key) {
     List<Widget> resp = [];
     List<Map> maps = ops[litDay.service][litDay.season.id];
+    maps ??= ops[litDay.service]['proper']; // for RLDs
     int i = 0;
     maps.forEach( (s) => {
       resp += addOpeningSentence(s['text'] as String, (i += 1) < maps.length),

@@ -6,15 +6,25 @@ class SectionTitle extends StatelessWidget {
   String text;
   String ref;
   bool italic;
-  SectionTitle({Key key, this.text, this.ref='', this.italic = false}) : super(key: key);
+  bool center;
+  double leadingSpace;
+  SectionTitle(
+      { Key key
+      , this.text
+      , this.ref=''
+      , this.italic = false
+      , this.center = false
+      , this.leadingSpace = 20.0
+      }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var thisFontStyle = italic ? FontStyle.italic : FontStyle.normal;
+    var alignment = center ? CrossAxisAlignment.center : CrossAxisAlignment.start;
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: alignment,
       children: <Widget>[
-        SizedBox(height: 20.0),
+        SizedBox(height: leadingSpace),
         Text(
             text
           , style: TextStyle(
