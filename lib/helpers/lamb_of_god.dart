@@ -11,7 +11,7 @@ class LambOfGod extends StatelessWidget {
         , Line(text: "Lamb of God, you take away the sin of the world;")
         , Line(text: "have mercy on us.", indent: true, bold: true)
         , Line(text: "Lamb of God, you take away the sin of the world;")
-        , Line("grant us your peace.", indent: true, bold: true)
+        , Line(text: "grant us your peace.", indent: true, bold: true)
         ]
     );
   }

@@ -23,12 +23,27 @@ class ScriptureDB {
   final String esvUrl = 'https://api.esv.org/v3/passage/html?q=';
   final String esvOptions = ";include-audio-link=false";
 
-  Future getESV( LitDay litDay, int lesson) async {
+  Future getFromEsv(String ref) async {
+    String query = "$esvUrl$ref$esvOptions";
+    Response resp = await get
+      ( query
+      , headers: { HttpHeaders.authorizationHeader: authToken }
+      );
+    if ( resp.statusCode == 200 ) {
+      Map body = jsonDecode(resp.body);
+      return Lesson(passage: body['passages'][0], style: 'req');
+    }
+    else { throw('Cannot get lesson'); };
+  }
+
+  Future getDailyESV( LitDay litDay, int lesson) async {
     String lessonKey = "${litDay.service}${lesson}";
     var dailyRefs = await getDailyRef(litDay);
 
       var x = dailyRefs.get(lessonKey).map( (r) { return r['read']; });
       String esvRefs = dailyRefs.get(lessonKey).map( (r) { return r['read']; }).join(';');
+      return await getFromEsv(esvRefs);
+      /*
       String query = "$esvUrl$esvRefs$esvOptions";
       Response resp = await get(
         query,
@@ -39,6 +54,8 @@ class ScriptureDB {
         return Lesson(passage: body['passages'][0], style: 'req');
       }
       else { throw('Cannot get lesson'); }
+
+       */
   }
 
   Future getDailyRef (LitDay litDay) async {
@@ -57,7 +74,6 @@ class ScriptureDB {
       else {
         docId = "${litDay.season.id}${litDay.season.week}${litDay.litYear}";
       }
-      print("EU KEY: $docId");
       return sundaylectionaryCollection.doc(docId).get();
     }
     return getDailyRef(litDay);

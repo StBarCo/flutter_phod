@@ -22,12 +22,12 @@ class _LessonState extends State<Lesson> {
   }
 
   _getESV() async {
-    return await ScriptureDB().getESV(widget.litDay, widget.lesson);
+    return await ScriptureDB().getDailyESV(widget.litDay, widget.lesson);
   }
 
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: ScriptureDB().getESV(widget.litDay, widget.lesson),
+        future: ScriptureDB().getDailyESV(widget.litDay, widget.lesson),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return ShowLesson(lesson: snapshot.data);
@@ -40,6 +40,32 @@ class _LessonState extends State<Lesson> {
     );
   }
 }
+
+class ShowScripture extends StatefulWidget {
+  String ref;
+  ShowScripture({Key key, this.ref}) : super(key: key);
+  @override
+  _ShowScriptureState createState() => _ShowScriptureState();
+}
+
+class _ShowScriptureState extends State<ShowScripture> {
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+        future: ScriptureDB().getFromEsv( widget.ref),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return ShowLesson(lesson: snapshot.data);
+          }
+          else if (snapshot.hasError) {
+            return Text('Error getting lesson: ${snapshot.error}');
+          };
+          return Container();
+        }
+    );
+  }
+}
+
 
 class ShowLesson extends StatelessWidget {
   var lesson;

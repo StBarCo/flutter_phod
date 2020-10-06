@@ -43,9 +43,14 @@ class Iphod extends StatelessWidget {
           return StreamProvider.value(
             value: AuthService().user,
             child: MaterialApp(
+              theme: ThemeData(
+                pageTransitionsTheme: PageTransitionsTheme(builders: {
+                  TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+                  TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+                })),
               initialRoute: '/', //Scaffold(
               routes: {
-                '/': (context) => Wrapper(),
+                '/': (context) => CommunionToSick(), // Wrapper(),
                 '/calendar': (context) => Calendar(),
                 '/mp': (context) => MorningPrayer(),
                 '/midday': (context) => Midday(),
