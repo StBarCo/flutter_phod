@@ -3,7 +3,7 @@ import 'package:flutter_phod/helpers/rubric.dart';
 import 'package:flutter_phod/helpers/section_title.dart';
 import 'package:flutter_phod/helpers/versical.dart';
 import 'package:flutter_phod/stores/litday.dart';
-import 'package:flutter_phod/services/cantiles_db.dart';
+import 'package:flutter_phod/services/canticles_db.dart';
 
 import 'antiphon.dart';
 
@@ -99,8 +99,9 @@ class ShowInvitatory extends StatelessWidget {
   ShowInvitatory({Key key, this.inv}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    print("INVITATORY: ${inv.data().keys}");
-    return Column(
+    return (inv == null)
+      ? Text("Invitatory not available")
+      : Column(
           crossAxisAlignment: CrossAxisAlignment.start
         , children: <Widget>[
               Text(inv.get('name'))

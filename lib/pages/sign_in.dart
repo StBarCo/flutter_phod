@@ -78,6 +78,19 @@ class _SignInState extends State<SignIn> {
                   }
                 },
               ),
+              SizedBox( height: 12.0),
+              RaisedButton(
+                onPressed: () {
+                  dynamic resp = _auth.signInAnon();
+                  if ( resp == null ) {
+                    setState( () {
+                      error = 'Could not sign in with those credentials';
+                      loading = false;
+                    });
+                  }
+                },
+                child: Text("Sign in Anonymously")
+              ),
               SizedBox( height: 12.0,),
               Text(
                 error,

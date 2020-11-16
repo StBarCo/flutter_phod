@@ -55,7 +55,9 @@ class ShowPsalms extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return (pss == null)
+      ? Text("Psalms unavailable")
+      : Column(
         crossAxisAlignment: CrossAxisAlignment.start,
          children: pss.map<Widget>( (p) {
             return ShowOnePsalm(psalm: p);

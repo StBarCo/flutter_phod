@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 class Line extends StatelessWidget {
   String text;
@@ -24,6 +25,7 @@ class Line extends StatelessWidget {
     final FontWeight fw = bold ? FontWeight.bold : FontWeight.normal;
     final Alignment align = center ? Alignment.center : Alignment.centerLeft;
     final FontStyle it = italic ? FontStyle.italic : FontStyle.normal;
+
     return Container(
         alignment: align,
         margin: EdgeInsets.symmetric(vertical: 0.0, horizontal: inset),

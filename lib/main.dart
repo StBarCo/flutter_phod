@@ -50,7 +50,7 @@ class Iphod extends StatelessWidget {
                 })),
               initialRoute: '/', //Scaffold(
               routes: {
-                '/': (context) => CommunionToSick(), // Wrapper(),
+                '/': (context) => Wrapper(),
                 '/calendar': (context) => Calendar(),
                 '/mp': (context) => MorningPrayer(),
                 '/midday': (context) => Midday(),

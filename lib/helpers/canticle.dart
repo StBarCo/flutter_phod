@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phod/helpers/rubric.dart';
 import 'package:flutter_phod/stores/litday.dart';
-import 'package:flutter_phod/services/cantiles_db.dart';
+import 'package:flutter_phod/services/canticles_db.dart';
 
 class Canticle extends StatefulWidget {
   int lesson;
   LitDay litDay;
-  Canticle({Key key, this.litDay, this.lesson}) : super(key: key);
+  String named;
+  Canticle({Key key, this.litDay, this.lesson = 0, this.named = ""}) : super(key: key);
   @override
   _CanticleState createState() => _CanticleState();
 }
@@ -21,7 +22,9 @@ class _CanticleState extends State<Canticle> {
   }
 
   _getCanticle() async {
-    return await CanticleDB().getCanticle(widget.litDay, widget.lesson);
+    return (widget.named == "")
+        ? await CanticleDB().getCanticle(widget.litDay, widget.lesson)
+        : await CanticleDB().getCanticleByName(widget.named);
   }
   Widget build(BuildContext context) {
     return FutureBuilder(
@@ -49,7 +52,9 @@ class ShowCanticle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return (canticle == null)
+      ? Text("Canticles unavailable")
+      : Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Column(

@@ -2,13 +2,40 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_phod/stores/litday.dart';
 import 'package:flutter_phod/stores/season.dart';
 
+class Canticle {
+  String id;
+  String name;
+  String notes;
+  String number;
+  String reference;
+  String text;
+  String title;
+
+  Canticle({this.id, this.name, this.notes, this.number, this.reference, this.text, this.title});
+}
+
 class CanticleDB {
 
   final CollectionReference canticleCollection = FirebaseFirestore.instance.collection('canticles');
 
-  Stream<QuerySnapshot> get canticles {
-    return canticleCollection.snapshots();
+  Stream<List<Canticle>> get canticles {
+    return canticleCollection.snapshots().map(_canticleListFromSnapshot);
   }
+
+ // get all the canticles
+ List<Canticle> _canticleListFromSnapshot(QuerySnapshot snapshot) {
+    return snapshot.docs.map( (doc) {
+      return Canticle(
+          id: doc.data()['_id'] ?? ""
+        , name: doc.data()['name'] ?? ""
+        , notes: doc.data()['notes'] ?? ""
+        , number: doc.data()['number'] ?? ""
+        , reference: doc.data()['reference'] ?? ""
+        , text: doc.data()['text'] ?? ""
+        , title: doc.data()['title'] ?? ""
+      );
+    }).toList();
+ }
 
   Future getCanticle(LitDay litDay, int lesson) async {
     String key = canticle(
