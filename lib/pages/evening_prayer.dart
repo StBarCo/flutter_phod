@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phod/helpers/ep_versicals.dart';
-import 'package:flutter_phod/helpers/invitatory.dart';
 import 'package:flutter_phod/helpers/iphod_scaffold.dart';
 import 'package:flutter_phod/helpers/scripture_ref.dart';
 import 'package:flutter_phod/helpers/section_title.dart';
@@ -13,7 +12,7 @@ import 'package:flutter_phod/helpers/confession.dart';
 import 'package:flutter_phod/helpers/psalms.dart';
 import 'package:flutter_phod/stores/daily_psalms.dart';
 import 'package:flutter_phod/helpers/lesson.dart';
-import 'package:flutter_phod/helpers/canticle.dart';
+import 'package:flutter_phod/helpers/show_canticle.dart';
 import 'package:flutter_phod/helpers/apostles_creed.dart';
 import 'package:flutter_phod/helpers/versical.dart';
 import 'package:flutter_phod/helpers/lords_prayer.dart';
@@ -50,9 +49,9 @@ class _EveningPrayerState extends State<EveningPrayer> {
             , Psalms( pss: DailyPsalms().getDailyPsalms(litDay, "30DayCycle") )
             , SectionTitle(text: 'The Lessons')
             , Lesson(litDay: litDay, lesson: 1)
-            , Canticle(litDay: litDay, lesson: 1)
+            , TodaysCanticle(litDay: litDay, lesson: 1)
             , Lesson(litDay: litDay, lesson: 2)
-            , Canticle(litDay: litDay, lesson: 2)
+            , TodaysCanticle(litDay: litDay, lesson: 2)
             , ApostlesCreed()
             , SectionTitle(text: 'The Prayers')
             , Versical( speaker: 'Officient', says: 'The Lord be with you.')

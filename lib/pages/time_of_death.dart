@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phod/helpers/canticle.dart';
+import 'package:flutter_phod/helpers/show_canticle.dart';
 import 'package:flutter_phod/helpers/iphod_scaffold.dart';
 import 'package:flutter_phod/helpers/line.dart';
 import 'package:flutter_phod/helpers/litany.dart';
@@ -108,7 +108,7 @@ class _TimeOfDeathState extends State<TimeOfDeath> {
                     the saints in light. *Amen*.
                   """)
                 , Rubric("The Officiant and People may say")
-                , Canticle(named: 'nunc_dimittis')
+                , TodaysCanticle(named: 'nunc_dimittis')
                 , SectionTitle(text: "Closing Prayer")
                 , Rubric("The Officiant prays")
                 , Paragraph( """

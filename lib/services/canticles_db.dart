@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_phod/stores/litday.dart';
-import 'package:flutter_phod/stores/season.dart';
 
 class Canticle {
   String id;
@@ -25,16 +24,20 @@ class CanticleDB {
  // get all the canticles
  List<Canticle> _canticleListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map( (doc) {
-      return Canticle(
-          id: doc.data()['_id'] ?? ""
-        , name: doc.data()['name'] ?? ""
-        , notes: doc.data()['notes'] ?? ""
-        , number: doc.data()['number'] ?? ""
-        , reference: doc.data()['reference'] ?? ""
-        , text: doc.data()['text'] ?? ""
-        , title: doc.data()['title'] ?? ""
-      );
+      return _canticleFromDoc( doc );
     }).toList();
+ }
+
+ Canticle _canticleFromDoc( doc ) {
+    return Canticle
+      ( id: doc.data()['_id'] ?? ""
+      , name: doc.data()['name'] ?? ""
+      , notes: doc.data()['notes'] ?? ""
+      , number: doc.data()['number'] ?? ""
+      , reference: doc.data()['reference'] ?? ""
+      , text: doc.data()['text'] ?? ""
+      , title: doc.data()['title'] ?? ""
+      );
  }
 
   Future getCanticle(LitDay litDay, int lesson) async {
@@ -44,12 +47,15 @@ class CanticleDB {
     key ??= "${litDay.service}${lesson}_${litDay.now.weekday}";
     // for the programmer: weekday for sunday is 7 (not 0)
     String docName = canticle(key);
-    print("CANTICLE KEY: ${docName}; $key");
     return await getCanticleByName(docName);
 }
 
   Future getCanticleByName(String name) async {
-    return canticleCollection.doc(name).get();
+    DocumentSnapshot c = await canticleCollection.doc(name).get();
+    return _canticleFromDoc(c);
+    //Canticle cant = _canticleFromDoc(c);
+    //print(">>>>> CANT DATA: $cant");
+    //return canticleCollection.doc(name).get();
   }
 
 }

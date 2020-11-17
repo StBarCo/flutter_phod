@@ -12,7 +12,7 @@ import 'package:flutter_phod/helpers/confession.dart';
 import 'package:flutter_phod/helpers/psalms.dart';
 import 'package:flutter_phod/stores/daily_psalms.dart';
 import 'package:flutter_phod/helpers/lesson.dart';
-import 'package:flutter_phod/helpers/canticle.dart';
+import 'package:flutter_phod/helpers/show_canticle.dart';
 import 'package:flutter_phod/helpers/apostles_creed.dart';
 import 'package:flutter_phod/helpers/versical.dart';
 import 'package:flutter_phod/helpers/lords_prayer.dart';
@@ -50,12 +50,12 @@ class _MorningPrayerState extends State<MorningPrayer> {
             , Psalms( pss: DailyPsalms().getDailyPsalms(litDay, "30DayCycle") )
             , SectionTitle(text: 'The Lessons')
             , Lesson(litDay: litDay, lesson: 1)
-            , Canticle(litDay: litDay, lesson: 1)
+            , TodaysCanticle(litDay: litDay, lesson: 1)
             , Lesson(litDay: litDay, lesson: 2)
-            , Canticle(litDay: litDay, lesson: 2)
+            , TodaysCanticle(litDay: litDay, lesson: 2)
             , ApostlesCreed()
             , SectionTitle(text: 'The Prayers')
-            , Versical( speaker: 'Officient', says: 'The Lord be with you.')
+            , Versical( speaker: 'Officiant', says: 'The Lord be with you.')
             , Versical( speaker: "People", says: "And with your spirit.")
             , Versical( speaker: "Officiant", says: "Let us pray.")
             , Rubric( "The People kneel or stand.")

@@ -104,10 +104,10 @@ class ShowInvitatory extends StatelessWidget {
       : Column(
           crossAxisAlignment: CrossAxisAlignment.start
         , children: <Widget>[
-              Text(inv.get('name'))
-            , Text(inv.get('title'))
+              Text(inv.name)
+            , Text(inv.title)
             , SizedBox(height: 16.0)
-            , Text(inv.get('text'))
+            , Text(inv.text)
     ]);
   }
 

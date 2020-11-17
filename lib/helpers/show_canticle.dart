@@ -3,16 +3,16 @@ import 'package:flutter_phod/helpers/rubric.dart';
 import 'package:flutter_phod/stores/litday.dart';
 import 'package:flutter_phod/services/canticles_db.dart';
 
-class Canticle extends StatefulWidget {
+class TodaysCanticle extends StatefulWidget {
   int lesson;
   LitDay litDay;
   String named;
-  Canticle({Key key, this.litDay, this.lesson = 0, this.named = ""}) : super(key: key);
+  TodaysCanticle({Key key, this.litDay, this.lesson = 0, this.named = ""}) : super(key: key);
   @override
-  _CanticleState createState() => _CanticleState();
+  _TodaysCanticleState createState() => _TodaysCanticleState();
 }
 
-class _CanticleState extends State<Canticle> {
+class _TodaysCanticleState extends State<TodaysCanticle> {
   Future futureCanticle;
   @override
 
@@ -62,14 +62,14 @@ class ShowCanticle extends StatelessWidget {
             children: <Widget>[
               SizedBox(height: 20.0),
               Text(
-                canticle.get('number'),
+                canticle.number,
                 style: TextStyle(
                   fontSize: 20.0,
                   letterSpacing: 2.0
                 )
               ),
               Text(
-                canticle.get('name'),
+                canticle.name,
                 style: TextStyle(
                   fontSize: 20.0,
                   letterSpacing: 2.0,
@@ -78,9 +78,9 @@ class ShowCanticle extends StatelessWidget {
               ),
             ]
           ),
-          Rubric(canticle.get('notes')),
+          Rubric(canticle.notes),
           Text(
-            canticle.get('text'),
+            canticle.text,
             style: TextStyle(
               fontSize: 16.0,
               )

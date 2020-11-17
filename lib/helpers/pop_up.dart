@@ -13,32 +13,34 @@ class _PopUpState extends State<PopUp> {
   Widget build(BuildContext context) {
     return Visibility(
       visible: widget.ready
-      , child: Container
-      ( child: Column(
-        children:
-        [ widget.widget
-          , Ink
-          ( decoration: const ShapeDecoration
-          ( color: Colors.lightBlue
-            , shape: CircleBorder( )
-        )
-          , child: IconButton
-            ( icon: Icon(Icons.arrow_back_rounded)
-              , onPressed: () => setState( () => widget.ready = false )
-              , color: Colors.red
-          ),
-        )
-        ]
+      , child: Center(
+        child: Container
+        ( child: Column(
+          children:
+          [ widget.widget
+            , Ink
+            ( decoration: const ShapeDecoration
+            ( color: Colors.lightBlue
+              , shape: CircleBorder( )
+          )
+            , child: IconButton
+              ( icon: Icon(Icons.arrow_back_rounded)
+                , onPressed: () => setState( () => widget.ready = false )
+                , color: Colors.red
+            ),
+          )
+          ]
     )
-        , width: 350.0
-        , margin: EdgeInsets.all(10.0)
-        , padding: EdgeInsets.all(10.0)
-        , decoration: BoxDecoration(
-            color: Colors.grey[100]
-            , border: Border.all( width: 2.0, color: Colors.blueGrey )
-            , borderRadius: BorderRadius.circular(4)
-        )
+          , width: 350.0
+          , margin: EdgeInsets.all(10.0)
+          , padding: EdgeInsets.all(10.0)
+          , decoration: BoxDecoration(
+              color: Colors.grey[100]
+              , border: Border.all( width: 2.0, color: Colors.blueGrey )
+              , borderRadius: BorderRadius.circular(4)
+          )
     ),
+      ),
     );
   }
 }
