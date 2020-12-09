@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phod/helpers/confession_short.dart';
+import 'package:flutter_phod/helpers/reusablePieces/confession_short.dart';
 import 'package:flutter_phod/helpers/iphod_scaffold.dart';
-import 'package:flutter_phod/helpers/lamb_of_god.dart';
+import 'package:flutter_phod/helpers/reusablePieces/lamb_of_god.dart';
 import 'package:flutter_phod/helpers/lesson.dart';
-import 'package:flutter_phod/helpers/lords_prayer.dart';
-import 'package:flutter_phod/helpers/paragraph.dart';
+import 'package:flutter_phod/helpers/reusablePieces/lords_prayer.dart';
+import 'package:flutter_phod/helpers/parts.dart';
 import 'package:flutter_phod/helpers/pick_one.dart';
-import 'package:flutter_phod/helpers/post_communion_prayer.dart';
-import 'package:flutter_phod/helpers/rubric.dart';
-import 'package:flutter_phod/helpers/scripture_ref.dart';
-import 'package:flutter_phod/helpers/section_title.dart';
-import 'package:flutter_phod/helpers/versical.dart';
+import 'package:flutter_phod/helpers/reusablePieces/post_communion_prayer.dart';
+import 'package:flutter_phod/helpers/parts.dart';
+import 'package:flutter_phod/helpers/parts/scripture_ref.dart';
+
 import 'package:flutter_phod/stores/litday.dart';
 import 'package:flutter_phod/helpers/page_header.dart';
 import 'package:flutter_phod/stores/overlay_selection.dart';
@@ -34,23 +33,23 @@ class _CommunionToSickState extends State<CommunionToSick> {
             , padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0)
             , children: <Widget>
               [ PageHeader(litDay: LitDay().init())
-              , Rubric( """
+              , Rubric( text:  """
                   This rite is used when the consecrated elements are brought 
                   from an earlier celebration of Holy Communion.
                   """)
-              , Rubric("The Minister says")
+              , Rubric( text: "The Minister says")
               , ScriptureRef( text: """
                   Grace to you and peace from God our Father and the Lord Jesus Christ.
                   """, ref: "Philippians 1:2")
-              , Rubric("The Minister continues")
-              , Paragraph( """
+              , Rubric( text: "The Minister continues")
+              , Paragraph( text: """
                   Almighty God, to you all hearts are open, all desires known,
                   and from you no secrets are hid: Cleanse the thoughts of our
                   hearts by the inspiration of your Holy Spirit, that we may
                   perfectly love you, and worthily magnify your holy Name;
                   through Christ our Lord. *Amen*.
                   """)
-              , Rubric("One of the following Gospel lessons is read, or the readings appropriate to the day.")
+              , Rubric( text: "One of the following Gospel lessons is read, or the readings appropriate to the day.")
               , ScriptureRef( text: """
                   God so loved the world, that he gave his only-begotten Son,
                   that whoever believes in him should not perish but have eternal life.
@@ -63,15 +62,15 @@ class _CommunionToSickState extends State<CommunionToSick> {
                   feeds on my flesh and drinks my blood abides in me, and I in him.”
                   """, ref: "John 6:51, 55-56")
               , _AdditionalScripture()
-              , Rubric("""
+              , Rubric( text: """
                   Reflection on the Lessons may follow. Additional prayers may
                   be offered. The Minister may say the Confession, and the sick 
                   person joins in as able.
                   """)
               , OverlaySelection(title: "Additional Prayers", items: _additionalPrayers)
               , ConfessionShort()
-              , Rubric("A Priest, if present, says")
-              , Paragraph( """
+              , Rubric( text: "A Priest, if present, says")
+              , Paragraph( text: """
                   Almighty God, our heavenly Father, who in his great mercy has
                   promised forgiveness of sins to all those who sincerely repent
                   and with true faith turn to him, have mercy upon you, pardon
@@ -79,50 +78,50 @@ class _CommunionToSickState extends State<CommunionToSick> {
                   you in all goodness, and bring you to everlasting life;
                   through Jesus Christ our Lord. *Amen*.
                   """)
-              , Rubric("A Deacon or lay person prays")
-              , Paragraph( """
+              , Rubric( text: "A Deacon or lay person prays")
+              , Paragraph( text: """
                   Grant to your faithful people, merciful Lord, pardon and peace;
                   that we may be cleansed from all our sins, and serve you with 
                   a quiet mind; through Jesus Christ our Lord. *Amen*.
                   """)
-              , Versical( speaker: "Minister", says: "The peace of the Lord be always with you.")
-              , Versical( speaker: "People", says: "And with your spirit.")
-              , Versical( speaker: "Minister", says: "Let us pray.")
-              , Rubric("Minister and People")
+              , Versical( speaker: "Minister", text: "The peace of the Lord be always with you.")
+              , Versical( speaker: "People", text: "And with your spirit.")
+              , Versical( speaker: "Minister", text: "Let us pray.")
+              , Rubric( text: "Minister and People")
               , LordsPrayer()
-              , Rubric("Then may be said")
+              , Rubric( text: "Then may be said")
               , LambOfGod()
-              , Rubric("The minister may say")
-              , Paragraph( """
+              , Rubric( text: "The minister may say")
+              , Paragraph( text: """
                   The Gifts of God for the People of God. Take them in 
                   remembrance that Christ died for you, and feed on him in your 
                   hearts by faith, with thanksgiving.
                   """)
-              , Rubric("The Sacrament is then distributed with the following words")
-              , Paragraph( """
+              , Rubric( text: "The Sacrament is then distributed with the following words")
+              , Paragraph( text: """
                   The Body of our Lord Jesus Christ, which was given for you, 
                   preserve your body and soul to everlasting life.
                   """)
-              , Paragraph( """
+              , Paragraph( text: """
                   The Blood of our Lord Jesus Christ, which was shed for you, 
                   preserve your body and soul to everlasting life.
                   """)
               , PostCommunionPrayer()
-              , Rubric("A Priest gives this blessing")
-              , Paragraph( """
+              , Rubric( text: "A Priest gives this blessing")
+              , Paragraph( text: """
                   The peace of God which passes all understanding keep your
                   hearts and minds in the knowledge and love of God, and of
                   his Son Jesus Christ our Lord; and the blessing of God
                   Almighty, the Father, the Son, and the Holy Spirit, be among
                   you, and remain with you always. *Amen*.
                   """)
-              , Rubric("A Deacon or lay person says the following")
+              , Rubric( text: "A Deacon or lay person says the following")
               , ScriptureRef( text: """
                   The grace of our Lord Jesus Christ, and the love of God, and 
                   the fellowship of the Holy Spirit, be with us all evermore. Amen.
                   """, ref: "2 Corinthians 13:14t")
-              , Versical( speaker: "Minister", says: "Let us bless the Lord.")
-              , Versical( speaker: "People", says: "Thanks be to God.")
+              , Versical( speaker: "Minister", text: "Let us bless the Lord.")
+              , Versical( speaker: "People", text: "Thanks be to God.")
 
               ],
             )
@@ -205,7 +204,7 @@ class __AdditionalScriptureState extends State<_AdditionalScripture> {
             : ShowScripture(ref: thisScripture) // do something smart here
 
          */
-        , Rubric( "See also the Selections of Psalms on page 269.")
+        , Rubric( text:  "See also the Selections of Psalms on page 269.")
         ]
     );
   }
@@ -408,7 +407,7 @@ class __AdditionalPrayersButtonBarState extends State<_AdditionalPrayersButtonBa
           ]
           , (thisPrayer == null)
             ? [ Container() ]
-            : prayers[thisPrayer].map<Widget>( (p) => Paragraph( p ) ).toList()
+            : prayers[thisPrayer].map<Widget>( (p) => Paragraph( text: p ) ).toList()
         ].expand<Widget>((element) => element).toList(),
     );
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phod/helpers/paragraph.dart';
-import 'package:flutter_phod/helpers/section_title.dart';
+import 'package:flutter_phod/helpers/parts.dart';
+
 
 class Chrysostom extends StatelessWidget {
   @override
@@ -8,8 +8,8 @@ class Chrysostom extends StatelessWidget {
     return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-        SectionTitle(text: "A Prayer Of St. John Chrysostom"),
-        Paragraph( """
+        ItemTitle(text: "A Prayer Of St. John Chrysostom"),
+        Paragraph( text: """
         Almighty God, you have given us grace at this time, with one accord 
         to make our common supplications to you; and you have promised through 
         your well-beloved Son that when two or three are gathered together in his 

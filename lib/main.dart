@@ -16,12 +16,15 @@ import 'package:flutter_phod/pages/occasional_prayers.dart';
 import 'package:flutter_phod/pages/canticles.dart';
 import 'package:flutter_phod/pages/about.dart';
 import 'package:flutter_phod/pages/contact.dart';
+import 'package:flutter_phod/pages/sample.dart';
 import 'package:flutter_phod/pages/blog.dart';
 import 'package:flutter_phod/pages/wrapper.dart';
 import 'package:flutter_phod/services/auth.dart';
 import 'package:flutter_phod/pages/loading.dart';
+import 'package:flutter_phod/helpers/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 
 void main() => runApp( Iphod() );
 
@@ -40,6 +43,7 @@ class Iphod extends StatelessWidget {
 
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
+
           return StreamProvider.value(
             value: AuthService().user,
             child: MaterialApp(
@@ -47,7 +51,11 @@ class Iphod extends StatelessWidget {
                 pageTransitionsTheme: PageTransitionsTheme(builders: {
                   TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
                   TargetPlatform.android: CupertinoPageTransitionsBuilder(),
-                })),
+
+                }),
+              typography: Typography.material2018(),
+              textTheme: phodTextTheme(context),
+              ),
               initialRoute: '/', //Scaffold(
               routes: {
                 '/': (context) => Wrapper(),
@@ -68,6 +76,7 @@ class Iphod extends StatelessWidget {
                 '/about': (context) => About(),
                 '/contact': (context) => Contact(),
                 '/blog': (context) => Blog(),
+                '/sample':(context) => Sample(),
               }, // routes
             ),
 

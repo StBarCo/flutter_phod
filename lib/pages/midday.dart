@@ -2,16 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_phod/helpers/psalms_pick_one.dart';
 import 'package:flutter_phod/helpers/show_one_psalms.dart';
-import 'package:flutter_phod/helpers/word_of_the_lord.dart';
+import 'package:flutter_phod/helpers/reusablePieces/word_of_the_lord.dart';
 import 'package:flutter_phod/services/database.dart';
-import 'package:flutter_phod/helpers/gloria.dart';
+import 'package:flutter_phod/helpers/reusablePieces/gloria.dart';
 import 'package:flutter_phod/helpers/iphod_scaffold.dart';
-import 'package:flutter_phod/helpers/lord_have_mercy.dart';
-import 'package:flutter_phod/helpers/lords_prayer.dart';
-import 'package:flutter_phod/helpers/paragraph.dart';
-import 'package:flutter_phod/helpers/rubric.dart';
-import 'package:flutter_phod/helpers/scripture_ref.dart';
-import 'package:flutter_phod/helpers/versical.dart';
+import 'package:flutter_phod/helpers/reusablePieces/lord_have_mercy.dart';
+import 'package:flutter_phod/helpers/reusablePieces/lords_prayer.dart';
+import 'package:flutter_phod/helpers/parts.dart';
+import 'package:flutter_phod/helpers/parts.dart';
+import 'package:flutter_phod/helpers/parts/scripture_ref.dart';
 import 'package:flutter_phod/stores/litday.dart';
 import 'package:flutter_phod/helpers/page_header.dart';
 import 'package:flutter_phod/stores/psalm_map.dart';
@@ -36,14 +35,14 @@ class _MiddayState extends State<Midday> {
         padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
         children: <Widget>[
             PageHeader(litDay: LitDay().init())
-          , Versical( speaker: 'Officiant', says: 'O God, make speed to save us;')
-          , Versical( speaker: 'People', says: 'O Lord, make haste to help us.')
-          , Versical( speaker: 'Officiant', says: 'Glory be to the Father, and to the Son, and to the Holy Spirit;')
-          , Versical( speaker: 'People', says: 'As it was in the beginning, is now, and ever shall be, world without end. Amen.')
+          , Versical( speaker: 'Officiant', text: 'O God, make speed to save us;')
+          , Versical( speaker: 'People', text: 'O Lord, make haste to help us.')
+          , Versical( speaker: 'Officiant', text: 'Glory be to the Father, and to the Son, and to the Holy Spirit;')
+          , Versical( speaker: 'People', text: 'As it was in the beginning, is now, and ever shall be, world without end. Amen.')
 
-          , Rubric('Except in Lent, add Alleluia.')
-          , Rubric('A suitable hymn may be sung.')
-          , Rubric('One or more of the following, or some other suitable Psalm, is sung or said.')
+          , Rubric( text: 'Except in Lent, add Alleluia.')
+          , Rubric( text: 'A suitable hymn may be sung.')
+          , Rubric( text: 'One or more of the following, or some other suitable Psalm, is sung or said.')
 
           , PsalmsPickOne( psalms:
             [ Ps(119, 105, 112)
@@ -51,37 +50,37 @@ class _MiddayState extends State<Midday> {
             , Ps(124, 1, 999)
             , Ps(126, 1, 999)
             ])
-          , Rubric('At the end of the Psalms the Gloria Patri (Glory be...) is sung or said')
+          , Rubric( text: 'At the end of the Psalms the Gloria Patri (Glory be...) is sung or said')
           , Gloria()
 
           , MiddayScripture()
 
-          , Rubric("A meditation, silent or spoken, may follow. The Officiant then begins the Prayers")
+          , Rubric( text: "A meditation, silent or spoken, may follow. The Officiant then begins the Prayers")
 
-          , Versical( speaker: "Officiant", says: "I will bless the Lord at all times.")
-          , Versical( speaker: "People", says: "His praise shall continually be in my mouth.")
+          , Versical( speaker: "Officiant", text: "I will bless the Lord at all times.")
+          , Versical( speaker: "People", text: "His praise shall continually be in my mouth.")
 
           , LordHaveMercy()
           , LordsPrayer()
 
-          , Versical( speaker: "Officiant", says: "O Lord, hear our prayer;")
-          , Versical( speaker: "People", says: "And let our cry come to you.")
-          , Versical( speaker: "Officiant", says: "Let us pray.")
+          , Versical( speaker: "Officiant", text: "O Lord, hear our prayer;")
+          , Versical( speaker: "People", text: "And let our cry come to you.")
+          , Versical( speaker: "Officiant", text: "Let us pray.")
 
-          , Rubric("The Officiant then says one or more of the following Collects. Other appropriate Collects may also be used.")
-          , Paragraph( """
+          , Rubric( text: "The Officiant then says one or more of the following Collects. Other appropriate Collects may also be used.")
+          , Paragraph( text: """
               Blessed Savior, at this hour you hung upon the Cross, stretching 
               out your loving arms: Grant that all the peoples of the earth may 
               look to you and be saved; for your tender mercies’ sake. Amen.
               """)
-          , Paragraph( """
+          , Paragraph( text: """
               Almighty Savior, who at mid-day called your servant Saint Paul to 
               be an apostle to the Gentiles: We pray you to illumine the world 
               with the radiance of your glory, that all nations may come and 
               worship you; for you live and reign with the Father and the Holy 
               Spirit, one God, for ever and ever. Amen.
               """)
-          , Paragraph(  """
+          , Paragraph( text:  """
               Father of all mercies, you revealed your boundless compassion to 
               your apostle Saint Peter in a three-fold vision: Forgive our 
               unbelief, we pray, and so strengthen our hearts and enkindle our 
@@ -90,18 +89,18 @@ class _MiddayState extends State<Midday> {
               who gave himself for the life of the world, your Son our Savior 
               Jesus Christ. Amen.
               """)
-          , Paragraph( """
+          , Paragraph( text: """
               Pour your grace into our hearts, O Lord, that we who have known the
               incarnation of your Son Jesus Christ, announced by an angel to the 
               Virgin Mary, may by his Cross and passion be brought to the glory 
               of his resurrection; who lives and reigns with you, in the unity 
               of the Holy Spirit, one God, now and for ever. Amen.
               """)
-          , Versical( speaker: "Officiant", says: "Let us bless the Lord.")
-          , Versical( speaker: "People", says: "Thanks be to God.")
-          , Rubric("From Easter Day through the Day of Pentecost, “Alleluia, alleluia” may be added to the preceding versicle and response.")
+          , Versical( speaker: "Officiant", text: "Let us bless the Lord.")
+          , Versical( speaker: "People", text: "Thanks be to God.")
+          , Rubric( text: "From Easter Day through the Day of Pentecost, “Alleluia, alleluia” may be added to the preceding versicle and response.")
 
-          , Rubric("The Officiant may conclude with this, or one of the other concluding sentences from Morning and Evening Prayer.")
+          , Rubric( text: "The Officiant may conclude with this, or one of the other concluding sentences from Morning and Evening Prayer.")
 
           , ScriptureRef(
               text: "The grace of our Lord Jesus Christ, and the love of God, and the fellowship of the Holy Spirit, be with us all evermore. Amen."
@@ -120,7 +119,7 @@ class _MiddayState extends State<Midday> {
                 }); }
               , child: Text('Additional Directions')
             )
-          , noAdditionalDirections ? Container() : Paragraph( """
+          , noAdditionalDirections ? Container() : Paragraph( text: """
               Other suitable selections from the Psalter include Psalms 19, 67, 
               one or more sections of Psalm 119, or a selection from Psalms 120 
               through 133. Either version of the Lord’s Prayer may be ended with, 
@@ -139,7 +138,7 @@ class MiddayScripture extends StatelessWidget {
     return Column(
         crossAxisAlignment: CrossAxisAlignment.start
       , children: <Widget>[
-            Rubric('One of the following, or some other suitable passage of Scripture, is read')
+            Rubric( text: 'One of the following, or some other suitable passage of Scripture, is read')
         , SizedBox(height: 14.0)
         , ScriptureRef(
           text: "Jesus said, “Now is the judgment of this world; now will the ruler of this world be cast out. And I, when I am lifted up from the earth, will draw all people to myself.”"

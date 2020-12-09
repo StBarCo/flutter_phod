@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phod/helpers/gloria.dart';
+import 'package:flutter_phod/helpers/reusablePieces/gloria.dart';
 import 'package:flutter_phod/helpers/iphod_scaffold.dart';
-import 'package:flutter_phod/helpers/line.dart';
-import 'package:flutter_phod/helpers/lord_have_mercy.dart';
-import 'package:flutter_phod/helpers/lords_prayer.dart';
-import 'package:flutter_phod/helpers/paragraph.dart';
+import 'package:flutter_phod/helpers/parts.dart';
+import 'package:flutter_phod/helpers/reusablePieces/lord_have_mercy.dart';
+import 'package:flutter_phod/helpers/reusablePieces/lords_prayer.dart';
+import 'package:flutter_phod/helpers/parts.dart';
 import 'package:flutter_phod/helpers/psalms_pick_one.dart';
-import 'package:flutter_phod/helpers/reference.dart';
-import 'package:flutter_phod/helpers/rubric.dart';
-import 'package:flutter_phod/helpers/scripture_ref.dart';
-import 'package:flutter_phod/helpers/section_title.dart';
-import 'package:flutter_phod/helpers/versical.dart';
+import 'package:flutter_phod/helpers/parts/reference.dart';
+import 'package:flutter_phod/helpers/parts.dart';
+import 'package:flutter_phod/helpers/parts/scripture_ref.dart';
+
 import 'package:flutter_phod/stores/litday.dart';
 import 'package:flutter_phod/helpers/page_header.dart';
 import 'package:flutter_phod/stores/psalm_map.dart';
@@ -24,6 +23,7 @@ class _ComplineState extends State<Compline> {
   @override
   Widget build(BuildContext context) {
     return IphodScaffold(
+        context: context,
         title: 'Compline',
         body: DefaultTextStyle(
             style: TextStyle(fontSize: 18.0, color: Colors.black87),
@@ -31,20 +31,20 @@ class _ComplineState extends State<Compline> {
               padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
               children: <Widget>[
                       PageHeader(litDay: LitDay().init())
-                    , Rubric("The Officiant begins")
-                    , Paragraph("""
+                    , Rubric( text: "The Officiant begins")
+                    , Paragraph( text:"""
                           The Lord Almighty grant us a peaceful night
                           and a perfect end. Amen.
                       """)
                     , Versical(
                         speaker: "Officiant",
-                        says: "Our help is in the Name of the Lord;")
+                        text: "Our help is in the Name of the Lord;")
                     , Versical(
-                        speaker: "People", says: "The maker of heaven and earth.")
-                    , Rubric("The Officiant continues")
-                    , Text("Let us humbly confess our sins to Almighty God.")
-                    , Rubric("Silence may be kept. The Officiant and People then say")
-                    , Paragraph("""
+                        speaker: "People", text: "The maker of heaven and earth.", bold: true,)
+                    , Rubric( text: "The Officiant continues")
+                    , Paragraph(text: "Let us humbly confess our sins to Almighty God.")
+                    , Rubric( text: "Silence may be kept. The Officiant and People then say")
+                    , Paragraph( text:"""
                         Almighty God and Father, we confess to you,
                         to one another, and to the whole company of heaven,
                         that we have sinned, through our own fault,
@@ -55,23 +55,23 @@ class _ComplineState extends State<Compline> {
                         and by the power of your Holy Spirit
                         raise us up to serve you in newness of life,
                         to the glory of your Name. Amen.
-                        """)
-                    , Rubric("The Officiant alone says")
-                    , Paragraph("""
+                        """, bold: true,)
+                    , Rubric( text: "The Officiant alone says")
+                    , Paragraph( text:"""
                         May Almighty God grant us forgiveness of all our sins,
                         and the grace and comfort of the Holy Spirit. Amen.
                         """)
                     , Versical(speaker: "Officiant",
-                        says: "O God, make speed to save us;")
+                        text: "O God, make speed to save us;")
                     , Versical(
-                        speaker: "People", says: "O Lord, make haste to help us.")
+                        speaker: "People", text: "O Lord, make haste to help us.", bold: true,)
                     , Versical(speaker: "Officiant",
-                        says: "Glory be to the Father, and to the Son, and to the Holy Spirit;")
+                        text: "Glory be to the Father, and to the Son, and to the Holy Spirit;")
                     , Versical(speaker: "People",
-                        says: "As it was in the beginning, is now, and ever shall be, world without end. Amen.")
-                    , Rubric("Except in Lent, add <strong>Alleluia.</strong>")
+                        text: "As it was in the beginning, is now, and ever shall be, world without end. Amen.", bold: true,)
+                    , Rubric( text: "Except in Lent, add <strong>Alleluia.</strong>")
                     ,
-                    Rubric("One or more of the following, or some other suitable Psalm, is sung or said.")
+                    Rubric( text: "One or more of the following, or some other suitable Psalm, is sung or said.")
                     , SectionTitle(text: "Psalms")
                     , PsalmsPickOne(psalms:
                         [ Ps(4, 1, 999)
@@ -80,9 +80,9 @@ class _ComplineState extends State<Compline> {
                           , Ps(134, 1, 999)
                         ])
 
-                    , Rubric("At the end of the Psalms the Gloria Patri (Glory be...) is sung or said")
+                    , Rubric( text: "At the end of the Psalms the Gloria Patri (Glory be...) is sung or said")
                     , Gloria()
-                    , Rubric("One of the following, or some other suitable passage of Scripture, is read")
+                    , Rubric( text: "One of the following, or some other suitable passage of Scripture, is read")
                     , ScriptureRef(
                         text: "You, O Lord, are in the midst of us, and we are called by your name; do not leave us."
                         , ref: "jeremiah 14:9"
@@ -113,35 +113,35 @@ class _ComplineState extends State<Compline> {
                         """
                         , ref: "1 Peter 5:8-9"
                         )
-                    , Rubric("At the end of the reading is said")
-                    , Versical(says: "The Word of the Lord.")
-                    , Versical(speaker: "People", says: "Thanks be to God.")
-                    , Rubric("A period of silence may follow. A suitable hymn may be sung.")
+                    , Rubric( text: "At the end of the reading is said")
+                    , Versical(text: "The Word of the Lord.")
+                    , Versical(speaker: "People", text: "Thanks be to God.")
+                    , Rubric( text: "A period of silence may follow. A suitable hymn may be sung.")
                     , Versical(speaker: "Officiant",
-                        says: "Into your hands, O Lord, I commend my spirit;")
+                        text: "Into your hands, O Lord, I commend my spirit;")
                     , Versical(speaker: "People",
-                        says: "For you have redeemed me, O Lord, O God of truth.")
+                        text: "For you have redeemed me, O Lord, O God of truth.")
                     , Versical(speaker: "Officiant",
-                        says: "Keep me, O Lord, as the apple of your eye;")
+                        text: "Keep me, O Lord, as the apple of your eye;")
                     , Versical(
                         speaker: "People",
-                        says: "Hide me under the shadow of your wings.")
+                        text: "Hide me under the shadow of your wings.")
                     , LordHaveMercy()
-                    , Rubric("Officiant and People")
+                    , Rubric( text: "Officiant and People")
                     , LordsPrayer()
                     , Versical(
-                        speaker: "Officiant", says: "O Lord, hear our prayer;")
+                        speaker: "Officiant", text: "O Lord, hear our prayer;")
                     , Versical(
-                        speaker: "People", says: "And let our cry come to you.")
-                    , Versical(speaker: "Officiant", says: "Let us pray.")
-                    , Rubric("The Officiant then says one or more of the following Collects. Other appropriate Collects may also be used.")
-                    , Paragraph("""
+                        speaker: "People", text: "And let our cry come to you.")
+                    , Versical(speaker: "Officiant", text: "Let us pray.")
+                    , Rubric( text: "The Officiant then says one or more of the following Collects. Other appropriate Collects may also be used.")
+                    , Paragraph( text:"""
                         Visit this place, O Lord, and drive far from it all snares of the
                         enemy; let your holy angels dwell with us to preserve us in
                         peace; and let your blessing be upon us always; through Jesus
                         Christ our Lord. Amen.
                         """)
-                    , Paragraph("""
+                    , Paragraph( text:"""
                         Lighten our darkness, we beseech you, O Lord; and by your
                         great mercy defend us from all perils and dangers of this night;
                         for the love of your only Son, our Savior Jesus Christ. Amen.
@@ -150,7 +150,7 @@ class _ComplineState extends State<Compline> {
                         chances of this life may rest in your eternal changelessness;
                         through Jesus Christ our Lord. Amen.
                         """)
-                    , Paragraph("""
+                    , Paragraph( text:"""
                         Look down, O Lord, from your heavenly throne, illumine this
                         night with your celestial brightness, and from the children of
                         light banish the deeds of darkness; through Jesus Christ our
@@ -158,7 +158,7 @@ class _ComplineState extends State<Compline> {
                         """)
 
                     , SectionTitle(text: "a collect for saturdays")
-                    , Paragraph("""
+                    , Paragraph( text:"""
                         We give you thanks, O God, for revealing your Son Jesus
                         Christ to us by the light of his resurrection: Grant that as we
                         sing your glory at the close of this day, our joy may abound in
@@ -167,75 +167,75 @@ class _ComplineState extends State<Compline> {
                         """)
 
 
-                    , Rubric("One of the following prayers may be added")
-                    , Paragraph("""
+                    , Rubric( text: "One of the following prayers may be added")
+                    , Paragraph( text:"""
                       Keep watch, dear Lord, with those who work, or watch, or weep
                       this night, and give your angels charge over those who sleep.
                       Tend the sick, Lord Christ; give rest to the weary, bless the
                       dying, soothe the suffering, pity the afflicted, shield the joyous;
                       and all for your love’s sake. Amen.
                       """)
-                    , Rubric("or this")
-                    , Paragraph("""
+                    , Rubric( text: "or this")
+                    , Paragraph( text:"""
                       O God, your unfailing providence sustains the world we live in
                       and the life we live: Watch over those, both night and day, who
                       work while others sleep, and grant that we may never forget that
                       our common life depends upon each other’s toil; through Jesus
                       Christ our Lord. <strong>Amen.</strong>
                       """)
-                    , Rubric("Silence may be kept, and other intercessions and thanksgivings may be offered.")
-                    , Rubric("The Officiant and People say or sing the Song of Simeon with this Antiphon")
-                    , Paragraph("""
+                    , Rubric( text: "Silence may be kept, and other intercessions and thanksgivings may be offered.")
+                    , Rubric( text: "The Officiant and People say or sing the Song of Simeon with this Antiphon")
+                    , Paragraph( text:"""
                       Guide us waking, O Lord, and guard us sleeping; that awake
                       we may watch with Christ, and asleep we may rest in peace.
                       """)
-                    , Rubric("In Easter Season, add <em>Alleluia, alleluia, alleluia.</em>")
+                    , Rubric( text: "In Easter Season, add <em>Alleluia, alleluia, alleluia.</em>")
                     , SectionTitle(text: "nunc dimittis")
                     , SectionTitle(italic: true, text: "The Song of Simeon")
                     , Line(text: "Lord, now let your servant depart in peace, *")
-                    , Line(indent: true, text: "according to your word.")
+                    , Line(indent: 1, text: "according to your word.")
                     , Line(text: "For my eyes have seen your salvation, *")
-                    , Line(indent: true,
+                    , Line(indent: 1,
                         text: "which you have prepared before the face of all people;")
                     , Line(text: "To be a light to lighten the Gentiles, *")
-                    , Line(indent: true,
+                    , Line(indent: 1,
                         text: "and to be the glory of your people Israel.")
                     , Line(
                         text: "Glory be to the Father, and to the Son, and to the Holy Spirit; *")
-                    , Line(indent: true,
+                    , Line(indent: 1,
                         text: "as it was in the beginning, is now, and ever shall be,")
-                    , Line(indent: true, text: "world without end. Amen.")
+                    , Line(indent: 1, text: "world without end. Amen.")
                     , Reference("Luke 2:29-32")
-                    , Paragraph("""
+                    , Paragraph( text:"""
                       Guide us waking, O Lord, and guard us sleeping; that awake
                       we may watch with Christ, and asleep we may rest in peace.
                       """)
-                    , Rubric("In Easter Season, add <em></Rubric>Alleluia, alleluia, alleluia.</em></Rubric>")
-                    , Versical(speaker: "Officiant", says: "Let us bless the Lord.")
-                    , Versical(speaker: "People", says: "Thanks be to God.")
-                    , Rubric("The Officiant concludes with the following")
-                    , Paragraph("""
+                    , Rubric( text: "In Easter Season, add <em></Rubric>Alleluia, alleluia, alleluia.</em></Rubric>")
+                    , Versical(speaker: "Officiant", text: "Let us bless the Lord.")
+                    , Versical(speaker: "People", text: "Thanks be to God.")
+                    , Rubric( text: "The Officiant concludes with the following")
+                    , Paragraph( text:"""
                       The almighty and merciful Lord, Father, Son, and Holy Spirit,
                       bless us and keep us, this night and evermore. Amen.
                       """)
                     , SectionTitle(text: "Additional Directions")
-                    , Paragraph("""
+                    , Paragraph( text:"""
                       A Bishop or Priest, if present, may pronounce absolution after the
                       confession.
                       """)
-                    , Paragraph("""
+                    , Paragraph( text:"""
                       For those saying Compline every day, particularly in families or other
                       communities, additional short Scriptural readings may be desired. Some
                       appropriate readings include:
                       """)
-                    , Line(indent: true, text: "isaiah 26:3-4")
-                    , Line(indent: true, text: "isaiah 30:15")
-                    , Line(indent: true, text: "matthew 6:31-34")
-                    , Line(indent: true, text: "2 corinthians 4:6")
-                    , Line(indent: true, text: "1 thessalonians 5:9-10")
-                    , Line(indent: true, text: "1 thessalonians 5:23")
-                    , Line(indent: true, text: "ephesians 4:26-27")
-                    , Paragraph("""
+                    , Line(indent: 1, text: "isaiah 26:3-4")
+                    , Line(indent: 1, text: "isaiah 30:15")
+                    , Line(indent: 1, text: "matthew 6:31-34")
+                    , Line(indent: 1, text: "2 corinthians 4:6")
+                    , Line(indent: 1, text: "1 thessalonians 5:9-10")
+                    , Line(indent: 1, text: "1 thessalonians 5:23")
+                    , Line(indent: 1, text: "ephesians 4:26-27")
+                    , Paragraph( text:"""
                       Either version of the Lord’s Prayer may be ended with, “deliver us from
                       evil. Amen.” omitting the concluding doxology.
                       """)

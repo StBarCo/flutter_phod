@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../parts.dart';
 
 class Reference extends StatelessWidget {
   Reference(this.text);

@@ -6,10 +6,11 @@ Scaffold IphodScaffold(
     { String title
       , Widget body
       , Color backgroundColor
+      , BuildContext context
     }) {
   return Scaffold(
-        appBar: IphodAppBar(title: title)
-      , backgroundColor: backgroundColor
+        appBar: IphodAppBar(title: title, context: context)
+      // , backgroundColor: backgroundColor
       , drawer: PageDrawer()
       , body: body
   );

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phod/helpers/iphod_scaffold.dart';
-import 'package:flutter_phod/helpers/paragraph.dart';
+import 'package:flutter_phod/helpers/parts.dart';
 import 'package:flutter_phod/helpers/pop_up.dart';
 import 'package:flutter_phod/services/occasional_prayers_db.dart';
 import 'package:flutter_phod/stores/litday.dart';
@@ -111,9 +111,9 @@ class PrayerDetails extends StatelessWidget {
       ? Container()
       : Column
       ( children: <Widget>
-        [ Paragraph(prayer.title)
-        , Paragraph(prayer.source)
-        , Paragraph(prayer.prayer)
+        [ Paragraph( text:prayer.title)
+        , Paragraph( text:prayer.source)
+        , Paragraph( text:prayer.prayer)
         ]
     );
   }

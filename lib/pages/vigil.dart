@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phod/helpers/iphod_scaffold.dart';
-import 'package:flutter_phod/helpers/line.dart';
-import 'package:flutter_phod/helpers/lords_prayer.dart';
-import 'package:flutter_phod/helpers/paragraph.dart';
+import 'package:flutter_phod/helpers/parts.dart';
+import 'package:flutter_phod/helpers/reusablePieces/lords_prayer.dart';
+import 'package:flutter_phod/helpers/parts.dart';
 import 'package:flutter_phod/helpers/psalms_pick_one.dart';
-import 'package:flutter_phod/helpers/rubric.dart';
-import 'package:flutter_phod/helpers/scripture_ref.dart';
-import 'package:flutter_phod/helpers/section_title.dart';
-import 'package:flutter_phod/helpers/versical.dart';
+import 'package:flutter_phod/helpers/parts.dart';
+import 'package:flutter_phod/helpers/parts/scripture_ref.dart';
+
 import 'package:flutter_phod/stores/litday.dart';
 import 'package:flutter_phod/helpers/page_header.dart';
 import 'package:flutter_phod/helpers/page_drawer.dart';
@@ -32,10 +31,10 @@ class _PrayerForVigilState extends State<PrayerForVigil> {
       , padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0)
       , children: <Widget>[
           PageHeader(litDay: LitDay().init())
-        , Rubric("It is appropriate that family and friends come together prior to a funeral. This rite may be used on such an occasion, whether at the church, a funeral home, or elsewhere.")
-        , Rubric("The Minister says")
+        , Rubric( text: "It is appropriate that family and friends come together prior to a funeral. This rite may be used on such an occasion, whether at the church, a funeral home, or elsewhere.")
+        , Rubric( text: "The Minister says")
 
-        , Paragraph( """
+        , Paragraph( text: """
             Dear Friends: It was our Lord Jesus himself who said, “Come to
             me, all who labor and are heavy laden, and I will give you rest.”
             Let us pray, then, for our brother N., that he may rest from his
@@ -43,13 +42,13 @@ class _PrayerForVigilState extends State<PrayerForVigil> {
             """)
 
         , SectionTitle(text: "Psalms")
-        , Rubric("A psalm may be prayed. Psalms 23 and 121 are particularly appropriate.")
+        , Rubric( text: "A psalm may be prayed. Psalms 23 and 121 are particularly appropriate.")
         , PsalmsPickOne( psalms:
             [ Ps(23, 1, 999)
             , Ps(121, 1, 999)
             ])
 
-        , Rubric("One or more of the following Lessons is read.")
+        , Rubric( text: "One or more of the following Lessons is read.")
 
         , ScriptureRef( text: """
             But we do not want you to be uninformed, brothers and sisters,
@@ -69,13 +68,13 @@ class _PrayerForVigilState extends State<PrayerForVigil> {
              to myself, that where I am you may be also.
              """, ref: "john 14:2-3")
 
-         , Rubric("The following and other additional prayers may be said. The Litany at the Time of Death (pages 237-239) may also be used.")
+         , Rubric( text: "The following and other additional prayers may be said. The Litany at the Time of Death (pages 237-239) may also be used.")
          , RaisedButton(
                child: Text('Litany at the Time of Death')
              , onPressed: () { setState(() => todLitany = !todLitany); }
            )
          , todLitany ? _LitanyAtDeath() : Container()
-         , Paragraph( """
+         , Paragraph( text: """
               O God, who by the glorious resurrection of your Son Jesus
               Christ destroyed death and brought life and immortality to
               light: Grant that your servant N., being raised with Christ, may
@@ -83,7 +82,7 @@ class _PrayerForVigilState extends State<PrayerForVigil> {
               glory; who with you and the Holy Spirit lives and reigns, one
               God, for ever and ever. Amen.
               """)
-          , Paragraph( """
+          , Paragraph( text: """
                 Most merciful God, whose wisdom is beyond our
                 understanding: deal graciously with those who mourn
                 [especially _________]. Surround them with your love, that they
@@ -91,21 +90,21 @@ class _PrayerForVigilState extends State<PrayerForVigil> {
                 your goodness, and strength to meet the days to come; through
                 Jesus Christ our Lord. Amen.
                 """)
-          , Rubric("The Minister says")
-          , Versical(says: "And now as our Savior Christ has taught us, we are bold to pray")
-          , Rubric("Minister and People say together")
+          , Rubric( text: "The Minister says")
+          , Versical(text: "And now as our Savior Christ has taught us, we are bold to pray")
+          , Rubric( text: "Minister and People say together")
           , LordsPrayer()
-          , Rubric("The Minister says")
+          , Rubric( text: "The Minister says")
           , ScriptureRef( text: """
               May the God of hope fill us with all joy and peace in believing
               through the power of the Holy Spirit. Amen.
               """, ref: "romans 15:13")
-          , Rubric("The Minister may say")
-          , Paragraph( """
+          , Rubric( text: "The Minister may say")
+          , Paragraph( text: """
               May his soul, and the souls of all the faithful departed,
               through the mercy of God, rest in peace.
               """)
-          , Versical( speaker: "People", says: "And may light perpetual shine upon them. Amen.")
+          , Versical( speaker: "People", text: "And may light perpetual shine upon them. Amen.")
 
           ],
         ),
@@ -121,27 +120,27 @@ class _LitanyAtDeath extends StatelessWidget {
     return Column(
       children: [
           Line(text: "O God the Father,")
-        , Line(text: "Have mercy on your servant.", indent: true, bold: true)
+        , Line(text: "Have mercy on your servant.", indent: 1, bold: true)
         , Line(text: "O God the Son,")
-        , Line(text: "Have mercy on your servant.", indent: true, bold: true)
+        , Line(text: "Have mercy on your servant.", indent: 1, bold: true)
         , Line(text: "O God the Holy Spirit,")
-        , Line(text: "Have mercy on your servant.", indent: true, bold: true)
+        , Line(text: "Have mercy on your servant.", indent: 1, bold: true)
         , Line(text: "O Holy Trinity, one God,")
-        , Line(text: "Have mercy on your servant.", indent: true, bold: true)
+        , Line(text: "Have mercy on your servant.", indent: 1, bold: true)
         , Line(text: "Lord Jesus Christ, deliver your servant from all evil, sin, and tribulation;")
-        , Line(text: "Good Lord, deliver /him/.", indent: true, bold: true)
+        , Line(text: "Good Lord, deliver /him/.", indent: 1, bold: true)
         , Line(text: "By your holy Incarnation, by your Cross and Passion, by your precious Death and Burial,")
-        , Line(text: "Good Lord, deliver /him/.", indent: true, bold: true)
+        , Line(text: "Good Lord, deliver /him/.", indent: 1, bold: true)
         , Line(text: "By your glorious Resurrection and Ascension, and by the Coming of the Holy Spirit,")
-        , Line(text: "Good Lord, deliver /him/.", indent: true, bold: true)
+        , Line(text: "Good Lord, deliver /him/.", indent: 1, bold: true)
         , Line(text: "We sinners beseech you to hear us, Lord Christ: That it may please you to deliver the soul of your servant from the power of evil, and from eternal death,")
-        , Line(text: "We beseech you to hear us, good Lord.", indent: true, bold: true)
+        , Line(text: "We beseech you to hear us, good Lord.", indent: 1, bold: true)
         , Line(text: "That it may please you mercifully to pardon all his sins,")
-        , Line(text: "We beseech you to hear us, good Lord.", indent: true, bold: true)
+        , Line(text: "We beseech you to hear us, good Lord.", indent: 1, bold: true)
         , Line(text: "That it may please you to give /him/ joy and gladness in your kingdom, with your saints in light,")
-        , Line(text: "We beseech you to hear us, good Lord.", indent: true, bold: true)
+        , Line(text: "We beseech you to hear us, good Lord.", indent: 1, bold: true)
         , Line(text: "That it may please you to raise /him/ up at the last day,")
-        , Line(text: "We beseech you to hear us, good Lord.", indent: true, bold: true)
+        , Line(text: "We beseech you to hear us, good Lord.", indent: 1, bold: true)
 
       ],
     );

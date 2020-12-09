@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phod/helpers/rubric.dart';
+import 'package:flutter_phod/helpers/parts.dart';
 
 class Antiphon extends StatelessWidget {
-  String season;
+  final String season;
   Antiphon({Key key, this.season}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class Antiphon extends StatelessWidget {
             , children: <Widget>[
                   Text(a['say'])
                 , ( a['alleluia'] == true ) ? Text("O come, let us adore him. Alleluia"):Text("O come, let us adore him.")
-                , ( a['orThis'] == true ) ? Rubric('or this') : Container()
+                , ( a['orThis'] == true ) ? Rubric( text: 'or this') : Container()
             ]
           );
         }).toList()

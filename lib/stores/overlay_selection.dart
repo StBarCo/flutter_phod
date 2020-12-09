@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phod/helpers/lesson.dart';
-import 'package:flutter_phod/helpers/paragraph.dart';
+import 'package:flutter_phod/helpers/parts.dart';
 
 class OLItem {
   String key;
@@ -126,7 +126,7 @@ class ShowParagraphs extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView
       (children: content.map<Widget>(
-            (t) => Paragraph(t, style: TextStyle(fontSize: 18.0))).toList()
+            (t) => Paragraph( text:t, size: 18.0)).toList()
     );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phod/helpers/rubric.dart';
+import 'package:flutter_phod/helpers/parts.dart';
 import 'package:flutter_phod/stores/litday.dart';
 import 'package:flutter_phod/services/canticles_db.dart';
 
@@ -78,7 +78,7 @@ class ShowCanticle extends StatelessWidget {
               ),
             ]
           ),
-          Rubric(canticle.notes),
+          Rubric( text: canticle.notes),
           Text(
             canticle.text,
             style: TextStyle(

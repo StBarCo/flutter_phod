@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phod/helpers/line.dart';
+import 'package:flutter_phod/helpers/parts.dart';
 
 class Litany extends StatelessWidget {
   Litany(this.call, this.response);
@@ -10,7 +10,7 @@ class Litany extends StatelessWidget {
     return Column(
       children: <Widget>[
         Line(text: call),
-        Line(text: response, indent: true, bold: true)
+        Line(text: response, indent: 1, bold: true)
       ]
     );
   }

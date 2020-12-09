@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phod/helpers/rubric.dart';
-import 'package:flutter_phod/helpers/section_title.dart';
-import 'package:flutter_phod/helpers/versical.dart';
+import 'package:flutter_phod/helpers/parts.dart';
 import 'package:flutter_phod/stores/litday.dart';
 import 'package:flutter_phod/services/canticles_db.dart';
 
-import 'antiphon.dart';
+import '../antiphon.dart';
 
 class Invitatory extends StatefulWidget {
-  LitDay litDay;
+  final LitDay litDay;
   Invitatory({Key key, this.litDay}) : super(key: key);
 
   @override
@@ -36,16 +34,16 @@ class _InvitatoryState extends State<Invitatory> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
           SectionTitle(text: "Invitatory")
-        , Rubric("All stand.")
-        , Versical( speaker: "Officiant", says: "O Lord, open our lips;")
-        , Versical( speaker: "People", says: "And our mouth shall proclaim your praise.")
-        , Versical( speaker: "Officiant", says: "O God, make speed to save us;")
-        , Versical( speaker: "People", says: "O Lord, make haste to help us.")
-        , Versical( speaker: "Officiant", says: "Glory be to the Father, and to the Son, and to the Holy Spirit;")
-        , Versical( speaker: "People", says: "As it was in the beginning, is now, and ever shall be, world without end. Amen.")
-        , Versical( speaker: "Officiant", says: "Praise the Lord.")
-        , Versical( speaker: "People", says: "The Lord’s Name be praised.")
-        , Rubric("Then follows the Venite. Alternatively, the Jubilate may be used. One of these antiphons, or one from the seasonal antiphons provided at the end of the Office (pages 29-30), may be sung or said before and after the Invitatory Psalm.")
+        , Rubric( text: "All stand.")
+        , Versical( speaker: "Officiant", text: "O Lord, open our lips;")
+        , Versical( speaker: "People", text: "And our mouth shall proclaim your praise.")
+        , Versical( speaker: "Officiant", text: "O God, make speed to save us;")
+        , Versical( speaker: "People", text: "O Lord, make haste to help us.")
+        , Versical( speaker: "Officiant", text: "Glory be to the Father, and to the Son, and to the Holy Spirit;")
+        , Versical( speaker: "People", text: "As it was in the beginning, is now, and ever shall be, world without end. Amen.")
+        , Versical( speaker: "Officiant", text: "Praise the Lord.")
+        , Versical( speaker: "People", text: "The Lord’s Name be praised.")
+        , Rubric( text: "Then follows the Venite. Alternatively, the Jubilate may be used. One of these antiphons, or one from the seasonal antiphons provided at the end of the Office (pages 29-30), may be sung or said before and after the Invitatory Psalm.")
         , Antiphon(season: widget.litDay.season.id)
         , ButtonBar(
               mainAxisSize: MainAxisSize.min

@@ -27,6 +27,7 @@ class PageDrawer extends StatelessWidget {
     Nav( label: 'About', route:  '/about' ),
     Nav( label: 'Blog', route:  '/blog' ),
     Nav( label: 'Contact', route: '/contact'),
+    Nav( label: 'SamplePage', route: '/sample'),
   ];
   @override
   Widget build(BuildContext context) {

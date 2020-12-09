@@ -8,17 +8,20 @@ class PageHeader extends StatelessWidget {
   PageHeader({Key key, this.litDay}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Text(
-            DateFormat.MMMMEEEEd().format(litDay.now),
-          style: TextStyle(
-            fontSize: 20.0,
-            letterSpacing: 2
-          )
-        ),
-        SeasonTitle(litDay.season, litDay.litYear)
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 15),
+      child: Column(
+        children: <Widget>[
+          Text(
+              DateFormat.MMMMEEEEd().format(litDay.now),
+            style: TextStyle(
+              fontSize: 20.0,
+              letterSpacing: 2
+            )
+          ),
+          SeasonTitle(litDay.season, litDay.litYear)
+        ],
+      ),
     );
   }
 }

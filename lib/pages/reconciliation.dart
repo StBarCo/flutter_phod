@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phod/helpers/iphod_scaffold.dart';
-import 'package:flutter_phod/helpers/paragraph.dart';
-import 'package:flutter_phod/helpers/rubric.dart';
-import 'package:flutter_phod/helpers/versical.dart';
+import 'package:flutter_phod/helpers/parts.dart';
+import 'package:flutter_phod/helpers/parts.dart';
 import 'package:flutter_phod/stores/litday.dart';
 import 'package:flutter_phod/helpers/page_header.dart';
 
@@ -19,16 +18,16 @@ class Reconciliation extends StatelessWidget {
       , padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0)
       , children: <Widget>
         [ PageHeader(litDay: LitDay().init())
-        , Rubric("The Penitent begins")
-        , Paragraph("Bless me, for I have sinned.")
-        , Rubric("Priest says")
-        , Paragraph( """
+        , Rubric( text: "The Penitent begins")
+        , Paragraph( text:"Bless me, for I have sinned.")
+        , Rubric( text: "Priest says")
+        , Paragraph( text: """
             The Lord be in your heart and upon your lips that you may truly and 
             humbly confess your sins: In the Name of the Father, and of the Son,
             and of the Holy Spirit. *Amen*.
             """)
-        , Rubric("Penitent")
-        , Paragraph( """
+        , Rubric( text: "Penitent")
+        , Paragraph( text: """
             I confess to Almighty God, to his Church, and to you, that I have 
             sinned by my own fault in thought, word, and deed, in things done 
             and left undone; especially __________. For these and all other sins
@@ -37,28 +36,28 @@ class Reconciliation extends StatelessWidget {
             forgiveness of God and his Church, and ask you for counsel, 
             direction, and absolution.
             """)
-        , Rubric("Here the Priest may offer counsel, direction, and comfort.")
-        , Rubric("The Priest then declares")
-        , Paragraph( """
+        , Rubric( text: "Here the Priest may offer counsel, direction, and comfort.")
+        , Rubric( text: "The Priest then declares")
+        , Paragraph( text: """
             Our Lord Jesus Christ, who has given power to his Church to absolve
             all sinners who truly repent and believe in him, of his great mercy
             forgive you all your offenses; and by his authority committed to me,
             I absolve you from all your sins: In the Name of the Father, and of
             the Son, and of the Holy Spirit. *Amen*.
             """)
-        , Rubric("or")
-        , Paragraph( """
+        , Rubric( text: "or")
+        , Paragraph( text: """
             Almighty God, our heavenly Father, who in his great mercy has
             promised forgiveness of sins to all those who sincerely repent and
             with true faith turn to him, have mercy upon you, pardon and deliver 
             you from all your sins, confirm and strengthen you in all goodness, 
             and bring you to everlasting life; through Jesus Christ our Lord. *Amen*.
             """)
-        , Versical(says: "The Lord has put away all your sins.")
-        , Versical(speaker: "Penitent", says: "Thanks be to God.")
-        , Rubric("The following prayer may also be said")
-        , Paragraph("Let us pray.")
-        , Paragraph( """
+        , Versical(text: "The Lord has put away all your sins.")
+        , Versical(speaker: "Penitent", text: "Thanks be to God.")
+        , Rubric( text: "The following prayer may also be said")
+        , Paragraph( text:"Let us pray.")
+        , Paragraph( text: """
             O most loving Father, by your mercy you put away the sins of those
             who truly repent, and remember their sins no more. Restore and renew
             in your servant whatever has been corrupted by the fraud and malice
@@ -66,8 +65,8 @@ class Reconciliation extends StatelessWidget {
             protect him within the fellowship of the Church; hear his prayers 
             and relieve his pain; through Jesus Christ our Lord. *Amen*.
             """)
-        , Rubric("The Priest concludes")
-        , Paragraph("Go (or abide) in peace, and pray for me, a sinner.")
+        , Rubric( text: "The Priest concludes")
+        , Paragraph( text:"Go (or abide) in peace, and pray for me, a sinner.")
         ],
       ),
       )

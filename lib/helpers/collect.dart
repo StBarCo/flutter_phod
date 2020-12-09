@@ -3,8 +3,8 @@ import 'package:flutter_phod/stores/litday.dart';
 import 'package:flutter_phod/services/collect_db.dart';
 
 class Collect extends StatefulWidget {
-  String ofType;
-  LitDay litDay;
+  final String ofType;
+  final LitDay litDay;
   Collect({Key key, this.litDay, this.ofType}) : super(key: key);
   @override
   _CollectState createState() => _CollectState();
@@ -44,7 +44,7 @@ class _CollectState extends State<Collect> {
 }
 
 class ShowCollect extends StatelessWidget {
-  var collect;
+  final  collect;
   ShowCollect({Key key, this.collect}) : super(key: key);
   @override
   Widget build(BuildContext context) {

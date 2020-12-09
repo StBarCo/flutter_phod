@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../parts.dart';
 
 class Gloria extends StatelessWidget {
   @override
@@ -6,9 +7,9 @@ class Gloria extends StatelessWidget {
     return Column(
         crossAxisAlignment: CrossAxisAlignment.start
       , children: <Widget>[
-            Text("Glory be to the Father, and to the Son, and to the Holy Spirit;")
-          , Text("as it was in the beginning, is now, and ever shall be,")
-          , Text("world without end. Amen.")
+            Line(text: "Glory be to the Father, and to the Son, and to the Holy Spirit;")
+          , Line(text: "as it was in the beginning, is now, and ever shall be,")
+          , Line(text: "world without end. Amen.")
         ]
     );
   }
