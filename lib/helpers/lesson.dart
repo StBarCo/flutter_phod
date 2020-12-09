@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/style.dart';
 import 'package:flutter_phod/services/scripture_db.dart';
@@ -68,7 +71,7 @@ class _ShowScriptureState extends State<ShowScripture> {
 
 
 class ShowLesson extends StatelessWidget {
-  var lesson;
+  final lesson;
   ShowLesson({Key key, this.lesson}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -76,11 +79,13 @@ class ShowLesson extends StatelessWidget {
     return (lesson == null)
         ? Container()
         : Html(
+
           data: lesson.passage,
           style: {
-            "p": Style(
-              fontSize: FontSize(18.0)
-            )
+            "p": Style.fromTextStyle(Theme.of(context).textTheme.bodyText2),
+            "h2":Style.fromTextStyle(Theme.of(context).textTheme.headline4).copyWith(color: Theme.of(context).primaryColorDark),
+            "h3":Style.fromTextStyle(Theme.of(context).textTheme.subtitle1).copyWith(fontStyle: FontStyle.italic, color: Colors.black54),
+            ".verse-num, .chapter-num": Style.fromTextStyle(Theme.of(context).textTheme.caption),
           }
         );
   }

@@ -12,6 +12,7 @@ class _BlogState extends State<Blog> {
   @override
   Widget build(BuildContext context) {
     return IphodScaffold(
+        context: context,
       title: 'Blog',
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

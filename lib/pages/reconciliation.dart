@@ -10,6 +10,7 @@ class Reconciliation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IphodScaffold(
+        context: context,
         title: 'Reconciliation',
       body: DefaultTextStyle(
         style: TextStyle(fontSize: 18.0, color: Colors.black87),

@@ -18,6 +18,7 @@ class _CanticlesState extends State<Canticles> {
     return StreamProvider<List<Canticle>>.value(
         value: CanticleDB().canticles
       , child: IphodScaffold(
+        context: context,
         title: 'Canticles',
         body: DefaultTextStyle(
             style: TextStyle(fontSize: 18.0, color: Colors.black87)

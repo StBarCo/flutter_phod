@@ -1,10 +1,7 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_phod/helpers/compress_white_space.dart';
-import 'package:flutter_phod/helpers/parts/reference.dart';
-import '../parts.dart';
+part of '../parts.dart';
 
 class ScriptureRef extends Line {
-  String ref;
+  final String ref;
 
   ScriptureRef(
       {Key key,

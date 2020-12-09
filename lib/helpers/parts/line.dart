@@ -24,8 +24,6 @@ class Line extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final FontStyle it = italic ? FontStyle.italic : FontStyle.normal;
-
     return Container(
         alignment: align(),
         margin: EdgeInsets.only(left: inset(), bottom: 5),

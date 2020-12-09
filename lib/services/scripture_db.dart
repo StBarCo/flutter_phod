@@ -33,7 +33,7 @@ class ScriptureDB {
       Map body = jsonDecode(resp.body);
       return Lesson(passage: body['passages'][0], style: 'req');
     }
-    else { throw('Cannot get lesson'); };
+    else { throw('Cannot get lesson'); }
   }
 
   Future getDailyESV( LitDay litDay, int lesson) async {

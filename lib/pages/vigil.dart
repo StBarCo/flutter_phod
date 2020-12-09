@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phod/helpers/iphod_scaffold.dart';
 import 'package:flutter_phod/helpers/parts.dart';
 import 'package:flutter_phod/helpers/reusablePieces/lords_prayer.dart';
-import 'package:flutter_phod/helpers/parts.dart';
 import 'package:flutter_phod/helpers/psalms_pick_one.dart';
-import 'package:flutter_phod/helpers/parts.dart';
-import 'package:flutter_phod/helpers/parts/scripture_ref.dart';
 
 import 'package:flutter_phod/stores/litday.dart';
 import 'package:flutter_phod/helpers/page_header.dart';
@@ -23,6 +20,7 @@ class _PrayerForVigilState extends State<PrayerForVigil> {
   @override
   Widget build(BuildContext context) {
     return IphodScaffold(
+        context: context,
         title: 'Prayers for a Vigil',
       body: DefaultTextStyle(
         style: TextStyle(fontSize: 18.0, color: Colors.black87),

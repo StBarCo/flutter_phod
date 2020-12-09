@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phod/helpers/parts.dart';
 
 class LordHaveMercy extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 15),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          SizedBox(height: 14.0)
-        , Text("Lord, have mercy [upon us].")
-        , Text("Christ, have mercy [upon us].")
-        , Text("Lord, have mercy [upon us].")
-          , SizedBox(height: 14.0)
-        ],
-      ),
+    return PhrasedParagraph(
+      [
+       Line(text: "Lord, have mercy [upon us].")
+      , Line(text:"Christ, have mercy [upon us].", bold: true, indent: 1,)
+        , Line(text:"Lord, have mercy [upon us].")
+      ]
+
     );
   }
 }

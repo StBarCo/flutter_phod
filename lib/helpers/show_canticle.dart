@@ -57,34 +57,10 @@ class ShowCanticle extends StatelessWidget {
       : Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              SizedBox(height: 20.0),
-              Text(
-                canticle.number,
-                style: TextStyle(
-                  fontSize: 20.0,
-                  letterSpacing: 2.0
-                )
-              ),
-              Text(
-                canticle.name,
-                style: TextStyle(
-                  fontSize: 20.0,
-                  letterSpacing: 2.0,
-                  fontStyle: FontStyle.italic
-                )
-              ),
-            ]
-          ),
+          SectionTitle(text: "Canticle ${canticle.number}",),
+          ItemTitle(text: canticle.name,),
           Rubric( text: canticle.notes),
-          Text(
-            canticle.text,
-            style: TextStyle(
-              fontSize: 16.0,
-              )
-          ),
+          PhrasedParagraph([Text(canticle.text)]),
         ]
     );
   }

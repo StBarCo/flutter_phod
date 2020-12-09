@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phod/stores/litday.dart';
 import 'package:flutter_phod/helpers/parts.dart';
-import 'package:flutter_phod/helpers/parts/scripture_ref.dart';
 // import 'dart:developer' as dev;
 
 class OpeningSentences extends StatelessWidget {

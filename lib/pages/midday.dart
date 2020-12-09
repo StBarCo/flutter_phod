@@ -9,8 +9,6 @@ import 'package:flutter_phod/helpers/iphod_scaffold.dart';
 import 'package:flutter_phod/helpers/reusablePieces/lord_have_mercy.dart';
 import 'package:flutter_phod/helpers/reusablePieces/lords_prayer.dart';
 import 'package:flutter_phod/helpers/parts.dart';
-import 'package:flutter_phod/helpers/parts.dart';
-import 'package:flutter_phod/helpers/parts/scripture_ref.dart';
 import 'package:flutter_phod/stores/litday.dart';
 import 'package:flutter_phod/helpers/page_header.dart';
 import 'package:flutter_phod/stores/psalm_map.dart';
@@ -27,6 +25,7 @@ class _MiddayState extends State<Midday> {
   Widget build(BuildContext context) {
     print("NO ADD DIRS: $noAdditionalDirections");
     return IphodScaffold(
+        context: context,
         title: 'Midday Prayer',
       body: DefaultTextStyle(
         style: TextStyle(fontSize: 18.0, color: Colors.black87),

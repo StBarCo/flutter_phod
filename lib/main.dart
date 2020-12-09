@@ -53,6 +53,8 @@ class Iphod extends StatelessWidget {
                   TargetPlatform.android: CupertinoPageTransitionsBuilder(),
 
                 }),
+              primarySwatch: Colors.blue,
+              primaryColorDark: Colors.blue[800],
               typography: Typography.material2018(),
               textTheme: phodTextTheme(context),
               ),

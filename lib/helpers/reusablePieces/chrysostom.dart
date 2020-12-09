@@ -8,7 +8,7 @@ class Chrysostom extends StatelessWidget {
     return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-        ItemTitle(text: "A Prayer Of St. John Chrysostom"),
+        SectionTitle(text: "A Prayer Of St. John Chrysostom"),
         Paragraph( text: """
         Almighty God, you have given us grace at this time, with one accord 
         to make our common supplications to you; and you have promised through 

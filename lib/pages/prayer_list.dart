@@ -12,6 +12,7 @@ class _PrayerListState extends State<PrayerList> {
   @override
   Widget build(BuildContext context) {
     return IphodScaffold(
+      context: context,
         title: 'Prayer List',
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

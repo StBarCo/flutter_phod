@@ -6,7 +6,7 @@ Scaffold IphodScaffold(
     { String title
       , Widget body
       , Color backgroundColor
-      , BuildContext context
+      , @required BuildContext context
     }) {
   return Scaffold(
         appBar: IphodAppBar(title: title, context: context)

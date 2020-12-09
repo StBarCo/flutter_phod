@@ -4,12 +4,7 @@ import 'package:flutter_phod/helpers/iphod_scaffold.dart';
 import 'package:flutter_phod/helpers/parts.dart';
 import 'package:flutter_phod/helpers/reusablePieces/lord_have_mercy.dart';
 import 'package:flutter_phod/helpers/reusablePieces/lords_prayer.dart';
-import 'package:flutter_phod/helpers/parts.dart';
 import 'package:flutter_phod/helpers/psalms_pick_one.dart';
-import 'package:flutter_phod/helpers/parts/reference.dart';
-import 'package:flutter_phod/helpers/parts.dart';
-import 'package:flutter_phod/helpers/parts/scripture_ref.dart';
-
 import 'package:flutter_phod/stores/litday.dart';
 import 'package:flutter_phod/helpers/page_header.dart';
 import 'package:flutter_phod/stores/psalm_map.dart';
@@ -190,8 +185,8 @@ class _ComplineState extends State<Compline> {
                       we may watch with Christ, and asleep we may rest in peace.
                       """)
                     , Rubric( text: "In Easter Season, add <em>Alleluia, alleluia, alleluia.</em>")
-                    , SectionTitle(text: "nunc dimittis")
-                    , SectionTitle(italic: true, text: "The Song of Simeon")
+                    , SectionTitle(text: "Nunc Dimittis")
+                    , ItemTitle(text: "The Song of Simeon")
                     , Line(text: "Lord, now let your servant depart in peace, *")
                     , Line(indent: 1, text: "according to your word.")
                     , Line(text: "For my eyes have seen your salvation, *")
@@ -205,7 +200,7 @@ class _ComplineState extends State<Compline> {
                     , Line(indent: 1,
                         text: "as it was in the beginning, is now, and ever shall be,")
                     , Line(indent: 1, text: "world without end. Amen.")
-                    , Reference("Luke 2:29-32")
+                    , Reference(text: "Luke 2:29-32")
                     , Paragraph( text:"""
                       Guide us waking, O Lord, and guard us sleeping; that awake
                       we may watch with Christ, and asleep we may rest in peace.

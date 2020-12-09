@@ -4,8 +4,7 @@ import '../parts.dart';
 class LambOfGod extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>
+    return PhrasedParagraph(
         [ Line(text: "Lamb of God, you take away the sin of the world;")
         , Line(text: "have mercy on us.", indent: 1, bold: true)
         , Line(text: "Lamb of God, you take away the sin of the world;")

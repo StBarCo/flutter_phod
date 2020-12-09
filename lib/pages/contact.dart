@@ -7,6 +7,7 @@ class Contact extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IphodScaffold(
+        context: context,
         title: 'Contact',
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

@@ -5,7 +5,6 @@ import 'package:flutter_phod/helpers/psalms_pick_one.dart';
 import 'package:flutter_phod/helpers/reusablePieces/gloria.dart';
 import 'package:flutter_phod/helpers/reusablePieces/lord_have_mercy.dart';
 import 'package:flutter_phod/helpers/reusablePieces/lords_prayer.dart';
-import 'package:flutter_phod/helpers/parts/scripture_ref.dart';
 import 'package:flutter_phod/stores/psalm_map.dart';
 
 class Sample extends StatelessWidget {
@@ -115,14 +114,14 @@ class Sample extends StatelessWidget {
           margin: EdgeInsets.symmetric(vertical: 20),
           child: Text(
             "Headline1",
-            style: Theme.of(context).textTheme.headline1,
+            style: Theme.of(context).textTheme.headline2.apply(color: Colors.blue[800]),
           ),
         ),
         Container(
           margin: EdgeInsets.symmetric(vertical: 20),
           child: Text(
             "Headline2",
-            style: Theme.of(context).textTheme.headline2,
+            style: Theme.of(context).textTheme.headline2.apply(color: Theme.of(context).primaryColorDark),
           ),
         ),
         Container(

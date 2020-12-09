@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phod/helpers/parts.dart';
 import 'package:flutter_phod/stores/litday.dart';
 import 'package:flutter_phod/services/collect_db.dart';
 
@@ -51,13 +52,9 @@ class ShowCollect extends StatelessWidget {
     return (collect == null ) ? Container() : Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-            "${collect.get('title')}"
-          , style: TextStyle( fontSize: 18.0 )
-        ),
-        Text(
-            "${collect.get('text')}"
-          , style: TextStyle( fontSize: 14.0 )
+        ItemTitle(text: "${collect.get('title')}"),
+        Paragraph(text:
+            "${collect.get('text')[0]}"
         )
       ]
     );

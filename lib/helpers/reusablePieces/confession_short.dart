@@ -4,8 +4,7 @@ import 'package:flutter_phod/helpers/parts.dart';
 class ConfessionShort extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>
+    return PhrasedParagraph(
         [ Line( text: "Most merciful God,")
         , Line( text: "we confess that we have sinned against you", indent: 1)
         , Line( text: "in thought, word and deed,", indent: 1)

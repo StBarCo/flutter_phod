@@ -5,9 +5,7 @@ import 'package:flutter_phod/helpers/iphod_scaffold.dart';
 import 'package:flutter_phod/helpers/parts.dart';
 import 'package:flutter_phod/helpers/reusablePieces/lords_prayer.dart';
 import 'package:flutter_phod/helpers/parts.dart';
-import 'package:flutter_phod/helpers/parts/reference.dart';
 import 'package:flutter_phod/helpers/parts.dart';
-import 'package:flutter_phod/helpers/parts/scripture_ref.dart';
 
 import 'package:flutter_phod/stores/litday.dart';
 import 'package:flutter_phod/helpers/page_header.dart';
@@ -26,6 +24,7 @@ class _FamilyPrayersState extends State<FamilyPrayers> {
   @override
   Widget build(BuildContext context) {
     return IphodScaffold(
+        context: context,
       title: 'Family Prayers',
       body: DefaultTextStyle(
           style: TextStyle(fontSize: 18.0, color: Colors.black87),
@@ -72,7 +71,7 @@ class _Morning extends StatelessWidget {
         , Rubric( text:  "The following or some other verse of Scripture is said")
         , Line( text: "O Lord, open my lips,")
         , Line( indent: 1,  text: "and my mouth shall show forth your praise.")
-        , Reference("Psalm 51:15")
+        , Reference(text: "Psalm 51:15")
 
         , SectionTitle( text: "Psalm 51:10-12")
         , Line( text: "10 Create in me a clean heart, O God, *")
@@ -193,7 +192,7 @@ class _Evening extends StatelessWidget {
         , Line( indent: 1,  text: "of your wings.")
         , Line( indent: 1,  text: "For with you is the well of life,")
         , Line( indent: 1,  text: "and in your light shall we see light.")
-        , Reference("Psalm 36:7, 9")
+        , Reference(text: "Psalm 36:7, 9")
 
         , SectionTitle( text: "Phos Hilaron O Gladsome Light")
         , SectionTitle( text: "O gladsome light,")
@@ -303,7 +302,7 @@ class __NightState extends State<_Night> {
           , Line( text: "To be a light to lighten the Gentiles, *")
           , Line( indent: 1,  text: "and to be the glory of your people Israel.")
           , Gloria()
-          , Reference("Luke 2:29-32")
+          , Reference(text:"Luke 2:29-32")
           , SectionTitle( text: "Concluding Sentence")
           , Paragraph( text: """
               The almighty and merciful Lord, Father, Son, and Holy Spirit,

@@ -4,9 +4,7 @@ import 'package:flutter_phod/helpers/parts.dart';
 class GeneralThanksgiving extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
+    return PhrasedParagraph([
         Line( text: "Almighty God, Father of all mercies,")
       , Line( indent: 1, text: "we your unworthy servants give you humble thanks")
       , Line( indent: 1, text: "for all your goodness and loving-kindness")

@@ -7,6 +7,7 @@ class PhrasedParagraph extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Container(
+      alignment: Alignment.bottomLeft,
         margin: EdgeInsets.only(top: 5.0, bottom: 15),
         child: Column(children: content,));
   }

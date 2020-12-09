@@ -7,13 +7,13 @@ class ItemTitle extends Line {
   ItemTitle(
       {Key key,
         this.ref = '',
-        this.leadingSpace = 40,
+        this.leadingSpace = 15,
         String text = '',
         int indent = 0,
         bool bold = false,
         bool center = false,
         bool italic = false,
-        double size = 20})
+        double size })
       : super(
       key: key,
       text: text,
@@ -27,8 +27,8 @@ class ItemTitle extends Line {
   Widget build(BuildContext context) {
     return Container(
         alignment: align(),
-        margin: EdgeInsets.only(top: leadingSpace, bottom: 12 , left: inset()),
-        child: Text(CompressWhiteSpace(text), style: lineStyle().copyWith(color: Colors.blue[800]))
+        margin: EdgeInsets.only(top: leadingSpace, bottom: 5 , left: inset()),
+        child: Text(CompressWhiteSpace(text).titleCase, style: Theme.of(context).textTheme.headline5.merge(lineStyle().copyWith(color: Theme.of(context).primaryColorDark, )))
     );
     /*
         RichText(

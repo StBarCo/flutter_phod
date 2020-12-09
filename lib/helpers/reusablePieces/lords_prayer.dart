@@ -33,9 +33,7 @@ class _LordsPrayerState extends State<LordsPrayer> {
 class ShowModern extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
+    return PhrasedParagraph([
         Line( text: "Our Father in heaven"),
         Line( indent: 1, text: "hallowed be your Name,"),
         Line( indent: 1, text: "your kingdom come,"),
@@ -59,9 +57,7 @@ class ShowModern extends StatelessWidget {
 class ShowTraditional extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
+    return PhrasedParagraph([
         Line( text: "Our Father, who art in heaven"),
         Line( indent: 1, text: "hallowed be thy Name,"),
         Line( indent: 1, text: "thy kingdom come,"),

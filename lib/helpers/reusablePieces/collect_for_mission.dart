@@ -47,7 +47,7 @@ class MpCollectForMission extends StatelessWidget {
   MpCollectForMission({Key key, this.collect}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Text(collects[collect]);
+    return Paragraph(text: collects[collect]);
   }
 }
 
@@ -61,7 +61,7 @@ class EpCollectForMission extends StatelessWidget {
   EpCollectForMission({Key key, this.collect}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Text(collects[collect]);
+    return Paragraph(text: collects[collect]);
   }
 }
 

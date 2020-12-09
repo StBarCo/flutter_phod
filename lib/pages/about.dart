@@ -8,6 +8,7 @@ class About extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IphodScaffold(
+        context: context,
       title: 'About',
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

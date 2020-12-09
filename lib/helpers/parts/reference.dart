@@ -1,17 +1,43 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import '../parts.dart';
+part of '../parts.dart';
 
-class Reference extends StatelessWidget {
-  Reference(this.text);
-  final String text;
+class Reference extends Line {
+  Reference(
+      {Key key,
+        String text = '',
+        int indent = 0,
+        bool bold = false,
+        bool center = false,
+        bool italic = false,
+        double size })
+      : super(
+      key: key,
+      text: text,
+      indent: indent,
+      bold: bold,
+      center: center,
+      italic: italic,
+      size: size);
+
+  @override
   Widget build(BuildContext context) {
-    return Text(
-      text,
-      style: TextStyle(
-          fontSize: 12.0
-        , fontStyle: FontStyle.italic
-      )
+    return Container(
+      // padding: EdgeInsets.all(0),
+        margin: EdgeInsets.only(top: 0.0, bottom: 5, left: inset()),
+        child: Text(
+            CompressWhiteSpace(text),
+            textAlign: TextAlign.right,
+            style: Theme
+                .of(context)
+                .textTheme
+                .caption
+                .merge(lineStyle())
+                .merge(TextStyle(
+              // fontSize: 14.0,
+              // color: Colors.red[800].withAlpha(130),
+              fontStyle: FontStyle.italic,
+            )
+            ))
     );
   }
+
 }

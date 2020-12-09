@@ -7,8 +7,7 @@ class Litany extends StatelessWidget {
   final String response;
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
+    return PhrasedParagraph([
         Line(text: call),
         Line(text: response, indent: 1, bold: true)
       ]

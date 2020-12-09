@@ -2,8 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phod/helpers/reusablePieces/invitatory.dart';
 import 'package:flutter_phod/helpers/iphod_scaffold.dart';
-import 'package:flutter_phod/helpers/parts/scripture_ref.dart';
-
 import 'package:flutter_phod/stores/litday.dart';
 import 'package:flutter_phod/helpers/page_header.dart';
 import 'package:flutter_phod/helpers/parts.dart';
@@ -37,9 +35,7 @@ class _MorningPrayerState extends State<MorningPrayer> {
     return IphodScaffold(
         context: context,
         title: 'Morning Prayer',
-        body: DefaultTextStyle(
-          style: TextStyle(fontSize: 18.0, color: Colors.black87),
-          child: ListView(
+        body: ListView(
           // crossAxisAlignment: CrossAxisAlignment.stretch,
             padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
             children: [
@@ -58,7 +54,7 @@ class _MorningPrayerState extends State<MorningPrayer> {
               , ApostlesCreed()
               , SectionTitle(text: 'The Prayers')
               , Versical( speaker: 'Officiant', text: 'The Lord be with you.')
-              , Versical( speaker: "People", text: "And with your spirit.")
+              , Versical( speaker: "People", text: "And with your spirit.", bold: true,)
               , Versical( speaker: "Officiant", text: "Let us pray.")
               , Rubric( text:  "The People kneel or stand.")
               , LordHaveMercy()
@@ -110,7 +106,6 @@ class _MorningPrayerState extends State<MorningPrayer> {
                   ref: "Ephesians 3:20-21t"
               )
             ],
-        )
         )
     );
   }

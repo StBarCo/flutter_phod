@@ -2,22 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phod/stores/season.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_phod/stores/litday.dart';
+import 'package:flutter_phod/helpers/parts.dart';
 
 class PageHeader extends StatelessWidget {
   LitDay litDay;
   PageHeader({Key key, this.litDay}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15),
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 15),
       child: Column(
         children: <Widget>[
-          Text(
-              DateFormat.MMMMEEEEd().format(litDay.now),
-            style: TextStyle(
-              fontSize: 20.0,
-              letterSpacing: 2
-            )
+          SectionTitle(
+              text: DateFormat.MMMMEEEEd().format(litDay.now),
+            center: true,
+            leadingSpace: 15,
+            // style: TextStyle(
+            //   fontSize: 20.0,
+            //   letterSpacing: 2
+            // )
           ),
           SeasonTitle(litDay.season, litDay.litYear)
         ],
@@ -40,18 +43,15 @@ class ProperTitle extends StatelessWidget {
   final int week;
   final String litYear;
   Widget build(BuildContext context) {
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.center
-      , children: <Widget>[
-            Text(
-                "Season following Pentecost"
-                , style: TextStyle(
-                    fontSize: 20.0,
-                    letterSpacing: 2
-                  )
-            )
-          , Text("Proper $week$litYear")
-    ]
+    return Expanded(
+      child: Column(
+        
+          mainAxisAlignment: MainAxisAlignment.center,
+         children: <Widget>[
+              ItemTitle( text: "Season following Pentecost", center: true,)
+            , ItemTitle(text:"Proper $week$litYear", center: true, leadingSpace: 0,)
+      ]
+      ),
     );
   }
 }
@@ -66,18 +66,7 @@ class OtherTitle extends StatelessWidget {
     else if (season.week == 0) { week = litYear; }
     else if (season.week > 0) { week = "${season.week}$litYear";}
     String title = "${season.title}  $week";
-    return Column(
-        crossAxisAlignment: CrossAxisAlignment.center
-        , children: <Widget>[
-      Text(
-          title
-          , style: TextStyle(
-          fontSize: 20.0,
-          letterSpacing: 2
-      )
-      )
-    ]
-    );
+    return ItemTitle( text: title, center: true, leadingSpace: 0,);
   }
 }
 

@@ -15,6 +15,7 @@ class _ToTheSickState extends State<ToTheSick> {
   @override
   Widget build(BuildContext context) {
     return IphodScaffold(
+        context: context,
         title: 'Ministry to the Sick',
       body: DefaultTextStyle(
           style: TextStyle(fontSize: 18.0, color: Colors.black87)

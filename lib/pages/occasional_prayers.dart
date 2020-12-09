@@ -19,6 +19,7 @@ class _OccasionalPrayersState extends State<OccasionalPrayers> {
     return StreamProvider<List<OccasionalPrayer>>.value(
           value: OccasionalPrayerDB().occasionalPrayerList
         , child: IphodScaffold(
+      context: context,
             title: 'Occasional Prayers',
             body: DefaultTextStyle(
                 style: TextStyle(fontSize: 18.0, color: Colors.black87)

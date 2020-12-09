@@ -25,6 +25,7 @@ class _CalendarState extends State<Calendar> {
 //  }
   Widget build(BuildContext context) {
     return IphodScaffold(
+        context: context,
       title: 'Calendar',
       body: DefaultTextStyle(
         style: TextStyle(fontSize: 18.0, color: Colors.black87),
@@ -188,7 +189,7 @@ class ShowRefs extends StatelessWidget {
         break;
       default:
         return Container();
-    };
+    }
   }
 }
 

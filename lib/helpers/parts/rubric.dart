@@ -21,7 +21,7 @@ class Rubric extends Line {
   @override
   Widget build(BuildContext context) {
     return Container(
-      // padding: EdgeInsets.all(0),
+        alignment: align(),
         margin: EdgeInsets.only(top: 10.0, bottom: 00, left: inset()),
         child: Text(
             CompressWhiteSpace(text),
