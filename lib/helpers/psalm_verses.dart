@@ -13,7 +13,7 @@ class PsalmVerses extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PhrasedParagraph(vss.map<Widget>((v) {
+    return PhrasedParagraph(content: vss.map<Widget>((v) {
       return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -50,7 +50,7 @@ class FirstLine extends StatelessWidget {
           Flexible(
               child: Container(
                   // alignment: Alignment.topLeft,
-                  child: Text(text)))
+                  child: Line(text: text)))
         ]
         );
   }
@@ -63,20 +63,10 @@ class SecondLine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-      Container(
-          width: 40.0
-          // , alignment: Alignment.topLeft
-          ,
-          child: Container()),
-      Flexible(
-          child: Container(
-              // alignment: Alignment.topLeft
-              child: Column(
-                  children: <Widget>[Text(text), SizedBox(height: 8.0)])))
-    ]
-        //)Text("$speaker : $says"); //should be richtext
-        );
+    return Container(
+      margin: EdgeInsets.only(left: 40, bottom:5),
+      child:Line(text: text),
+    );
   }
 }
 

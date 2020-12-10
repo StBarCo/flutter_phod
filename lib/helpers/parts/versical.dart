@@ -11,7 +11,10 @@ class Versical extends Line {
         bool bold = false,
         bool center = false,
         bool italic = false,
-        double size })
+        double size,
+        double leadingSpace = 0,
+        double trailingSpace =5,
+      })
       : super(
       key: key,
       text: text,
@@ -19,7 +22,10 @@ class Versical extends Line {
       bold: bold,
       center: center,
       italic: italic,
-      size: size);
+      size: size,
+    leadingSpace: leadingSpace,
+    trailingSpace: trailingSpace,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +33,7 @@ class Versical extends Line {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Container(
-            margin: EdgeInsets.only(right: inset(), bottom: 5),
+            margin: EdgeInsets.only(left: inset(), top: leadingSpace, bottom: trailingSpace),
             width: 80.0,
             alignment: Alignment.bottomLeft,
             child: Text(

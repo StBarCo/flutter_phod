@@ -10,11 +10,11 @@ class Antiphon extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: antiphons[season].map<Widget>( (a) {
-          return PhrasedParagraph([
+          return PhrasedParagraph(content: [
                   Line(text: a['say'])
                 , ( a['alleluia'] == true ) ? Line(text:"O come, let us adore him. Alleluia", bold: true,):Line(text:"O come, let us adore him.", bold: true,)
                 , ( a['orThis'] == true ) ? Rubric( text: 'or this') : Container()
-            ]
+            ], leadingSpace: 15,
           );
         }).toList()
       );

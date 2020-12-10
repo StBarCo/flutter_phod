@@ -60,7 +60,7 @@ class ShowCanticle extends StatelessWidget {
           SectionTitle(text: "Canticle ${canticle.number}",),
           ItemTitle(text: canticle.name,),
           Rubric( text: canticle.notes),
-          PhrasedParagraph([Text(canticle.text)]),
+          PhrasedParagraph(content: [Text(canticle.text)]),
         ]
     );
   }

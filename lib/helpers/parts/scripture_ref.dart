@@ -11,7 +11,10 @@ class ScriptureRef extends Line {
         bool bold = false,
         bool center = false,
         bool italic = false,
-        double size })
+        double size,
+        double leadingSpace = 0,
+        double trailingSpace =15,
+      })
       : super(
       key: key,
       text: text,
@@ -19,7 +22,10 @@ class ScriptureRef extends Line {
       bold: bold,
       center: center,
       italic: italic,
-      size: size);
+      size: size,
+    leadingSpace: leadingSpace,
+    trailingSpace: trailingSpace,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +35,9 @@ class ScriptureRef extends Line {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>
           [ Text(CompressWhiteSpace(text),
-                  style: lineStyle().copyWith(color: Colors.black87),
+                  style: Theme.of(context).textTheme.bodyText2.merge(lineStyle().copyWith(color: Colors.black87)),
             )
-          , Text("$ref",
+          , Text("$ref".titleCase,
             style: Theme.of(context).textTheme.caption.merge(lineStyle()).apply(
             fontStyle: FontStyle.italic,
             ),

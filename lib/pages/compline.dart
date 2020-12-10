@@ -20,10 +20,8 @@ class _ComplineState extends State<Compline> {
     return IphodScaffold(
         context: context,
         title: 'Compline',
-        body: DefaultTextStyle(
-            style: TextStyle(fontSize: 18.0, color: Colors.black87),
-            child: ListView(
-              padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
+        body: ListView(
+              padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
               children: <Widget>[
                       PageHeader(litDay: LitDay().init())
                     , Rubric( text: "The Officiant begins")
@@ -122,7 +120,6 @@ class _ComplineState extends State<Compline> {
                         speaker: "People",
                         text: "Hide me under the shadow of your wings.")
                     , LordHaveMercy()
-                    , Rubric( text: "Officiant and People")
                     , LordsPrayer()
                     , Versical(
                         speaker: "Officiant", text: "O Lord, hear our prayer;")
@@ -236,7 +233,7 @@ class _ComplineState extends State<Compline> {
                       """)
                   ]
               ),
-            )
+
         );
   }
 }

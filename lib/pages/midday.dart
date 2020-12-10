@@ -27,17 +27,15 @@ class _MiddayState extends State<Midday> {
     return IphodScaffold(
         context: context,
         title: 'Midday Prayer',
-      body: DefaultTextStyle(
-        style: TextStyle(fontSize: 18.0, color: Colors.black87),
-        child: ListView(
+      body: ListView(
         controller: _scrollController,
-        padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
+        padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
         children: <Widget>[
             PageHeader(litDay: LitDay().init())
           , Versical( speaker: 'Officiant', text: 'O God, make speed to save us;')
-          , Versical( speaker: 'People', text: 'O Lord, make haste to help us.')
+          , Versical( speaker: 'People', text: 'O Lord, make haste to help us.', bold: true,)
           , Versical( speaker: 'Officiant', text: 'Glory be to the Father, and to the Son, and to the Holy Spirit;')
-          , Versical( speaker: 'People', text: 'As it was in the beginning, is now, and ever shall be, world without end. Amen.')
+          , Versical( speaker: 'People', text: 'As it was in the beginning, is now, and ever shall be, world without end. Amen.', bold: true,)
 
           , Rubric( text: 'Except in Lent, add Alleluia.')
           , Rubric( text: 'A suitable hymn may be sung.')
@@ -57,13 +55,13 @@ class _MiddayState extends State<Midday> {
           , Rubric( text: "A meditation, silent or spoken, may follow. The Officiant then begins the Prayers")
 
           , Versical( speaker: "Officiant", text: "I will bless the Lord at all times.")
-          , Versical( speaker: "People", text: "His praise shall continually be in my mouth.")
+          , Versical( speaker: "People", text: "His praise shall continually be in my mouth.", bold: true,)
 
           , LordHaveMercy()
           , LordsPrayer()
 
           , Versical( speaker: "Officiant", text: "O Lord, hear our prayer;")
-          , Versical( speaker: "People", text: "And let our cry come to you.")
+          , Versical( speaker: "People", text: "And let our cry come to you.", bold: true,)
           , Versical( speaker: "Officiant", text: "Let us pray.")
 
           , Rubric( text: "The Officiant then says one or more of the following Collects. Other appropriate Collects may also be used.")
@@ -96,7 +94,7 @@ class _MiddayState extends State<Midday> {
               of the Holy Spirit, one God, now and for ever. Amen.
               """)
           , Versical( speaker: "Officiant", text: "Let us bless the Lord.")
-          , Versical( speaker: "People", text: "Thanks be to God.")
+          , Versical( speaker: "People", text: "Thanks be to God.", bold: true)
           , Rubric( text: "From Easter Day through the Day of Pentecost, “Alleluia, alleluia” may be added to the preceding versicle and response.")
 
           , Rubric( text: "The Officiant may conclude with this, or one of the other concluding sentences from Morning and Evening Prayer.")
@@ -126,7 +124,7 @@ class _MiddayState extends State<Midday> {
               """)
         ],
       )
-      )
+
     );
   }
 }

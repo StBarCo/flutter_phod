@@ -6,7 +6,7 @@ import '../parts.dart';
 class PostCommunionPrayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return PhrasedParagraph(
+    return PhrasedParagraph( content:
         [ Rubric( text: "After Communion, the Minister says")
         , Line(text: "Almighty and everliving God,")
         , Line(text: "we thank you for feeding us, in these holy mysteries,", indent: 1, bold: true)

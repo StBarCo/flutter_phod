@@ -7,7 +7,7 @@ class Litany extends StatelessWidget {
   final String response;
   @override
   Widget build(BuildContext context) {
-    return PhrasedParagraph([
+    return PhrasedParagraph(content: [
         Line(text: call),
         Line(text: response, indent: 1, bold: true)
       ]

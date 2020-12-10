@@ -18,7 +18,6 @@ class _CanticlesState extends State<Canticles> {
     return StreamProvider<List<Canticle>>.value(
         value: CanticleDB().canticles
       , child: IphodScaffold(
-        context: context,
         title: 'Canticles',
         body: DefaultTextStyle(
             style: TextStyle(fontSize: 18.0, color: Colors.black87)
@@ -34,6 +33,85 @@ class _CanticlesState extends State<Canticles> {
       ),
     );
   }
+
+  /*
+  Widget build(BuildContext context) {
+    return StreamProvider<List<Canticle>>.value(
+        value: CanticleDB().canticles
+      , child: IphodScaffold(
+        context: context,
+        title: 'Canticles',
+        body: ListView(
+                padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0)
+              , children: <Widget>[
+                  PageHeader(litDay: LitDay().init())
+                , Container(
+              alignment: Alignment.centerLeft,
+              child: DropdownButton(
+                  value: thisCanticleIndex,
+                  hint: Text('Select a Canticle.'),
+                  underline: Container(
+                    height: 2,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                  style: Theme.of(context)
+                      .textTheme
+                      .headline4
+                      .copyWith(color: Theme.of(context).primaryColorDark),
+                  onChanged: (index) {
+                    setState(() {
+                      thisCanticleIndex = index;
+                      // thisCanticle = canticles[thisCanticleIndex];
+                    });
+                  },
+                  items: [],
+                  // items: canticles.asMap().entries.map<DropdownMenuItem>((entry) {
+                  //   int index = entry.key;
+                  //   Canticle c = entry.value;
+                  //
+                  //   return DropdownMenuItem(
+                  //       value: index,
+                  //       child: Column(
+                  //         crossAxisAlignment: CrossAxisAlignment.start,
+                  //         children: [
+                  //           SectionTitle(
+                  //             text: c.title,
+                  //             leadingSpace: 0,
+                  //             trailingSpace: 0,
+                  //           ),
+                  //           ItemTitle(
+                  //             text: c.name,
+                  //             leadingSpace: 0,
+                  //             trailingSpace: 0,
+                  //           ),
+                  //           Reference(
+                  //             text: c.notes,
+                  //             leadingSpace: 0,
+                  //             trailingSpace: 0,
+                  //           ),
+                  //         ],
+                  //       ));
+                  // }).toList(),
+              )
+          ),
+          thisCanticle == null ? ShowCanticle(canticle: thisCanticle) : Container(),
+
+          // FutureBuilder(
+          //     future: futurePsalm
+          //     , builder: (context, snapshot) {
+          //   return (snapshot.connectionState == ConnectionState.done)
+          //       ? ShowOnePsalm(psalm: snapshot.data, showTitle: false,)
+          //       : Container();
+          // }
+          // )
+
+            ],
+          ),
+        )
+
+    );
+  }
+   */
 }
 
 class CanticleList extends StatefulWidget {

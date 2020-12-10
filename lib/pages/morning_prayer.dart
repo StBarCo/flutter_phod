@@ -37,7 +37,7 @@ class _MorningPrayerState extends State<MorningPrayer> {
         title: 'Morning Prayer',
         body: ListView(
           // crossAxisAlignment: CrossAxisAlignment.stretch,
-            padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
+            padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 20.0),
             children: [
               PageHeader(litDay: litDay)
               , Rubric( text: "The Officiant may begin Morning Prayer by reading an opening sentence of Scripture. One of the following, or a sentence from among those provided at the end of the Office (pages 27-29), is customary.")
@@ -90,7 +90,7 @@ class _MorningPrayerState extends State<MorningPrayer> {
               , GeneralThanksgiving()
               , Chrysostom()
               , Versical( speaker: "Officiant", text: "Let us bless the Lord.")
-              , Versical( speaker: "People", text: "Thanks be to God.")
+              , Versical( speaker: "People", text: "Thanks be to God.", bold: true)
               , Rubric( text: "From Easter Day through the Day of Pentecost, “Alleluia, alleluia” may be added to the preceding versicle and response.")
               , Rubric( text: "The Officiant says one of these concluding sentences (and the People may be invited to join)")
               , ScriptureRef(

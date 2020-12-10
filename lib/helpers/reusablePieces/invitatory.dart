@@ -7,6 +7,7 @@ import '../antiphon.dart';
 
 class Invitatory extends StatefulWidget {
   final LitDay litDay;
+
   Invitatory({Key key, this.litDay}) : super(key: key);
 
   @override
@@ -27,94 +28,163 @@ class _InvitatoryState extends State<Invitatory> {
     setState(() {
       invitatoryName ??= _getCollect(widget.litDay);
     });
-    return await CanticleDB().getCanticleByName( invitatoryName );
+    return await CanticleDB().getCanticleByName(invitatoryName);
   }
+
   Widget build(BuildContext context) {
-    return PhrasedParagraph([
-          SectionTitle(text: "Invitatory")
-        , Rubric( text: "All stand.")
-        , Versical( speaker: "Officiant", text: "O Lord, open our lips;")
-        , Versical( speaker: "People", text: "And our mouth shall proclaim your praise.", bold: true)
-        , Versical( speaker: "Officiant", text: "O God, make speed to save us;")
-        , Versical( speaker: "People", text: "O Lord, make haste to help us.", bold: true)
-        , Versical( speaker: "Officiant", text: "Glory be to the Father, and to the Son, and to the Holy Spirit;")
-        , Versical( speaker: "People", text: "As it was in the beginning, is now, and ever shall be, world without end. Amen.", bold: true)
-        , Versical( speaker: "Officiant", text: "Praise the Lord.")
-        , Versical( speaker: "People", text: "The Lord’s Name be praised.", bold: true)
-        , Rubric( text: "Then follows the Venite. Alternatively, the Jubilate may be used. One of these antiphons, or one from the seasonal antiphons provided at the end of the Office (pages 29-30), may be sung or said before and after the Invitatory Psalm.")
-        , Antiphon(season: widget.litDay.season.id)
-        , Container(
+    return PhrasedParagraph(content: [
+      SectionTitle(text: "Invitatory"),
+      Rubric(text: "All stand."),
+      Versical(speaker: "Officiant", text: "O Lord, open our lips;"),
+      Versical(
+          speaker: "People",
+          text: "And our mouth shall proclaim your praise.",
+          bold: true),
+      Versical(speaker: "Officiant", text: "O God, make speed to save us;"),
+      Versical(
+          speaker: "People",
+          text: "O Lord, make haste to help us.",
+          bold: true),
+      Versical(
+          speaker: "Officiant",
+          text:
+              "Glory be to the Father, and to the Son, and to the Holy Spirit;"),
+      Versical(
+          speaker: "People",
+          text:
+              "As it was in the beginning, is now, and ever shall be, world without end. Amen.",
+          bold: true),
+      Versical(speaker: "Officiant", text: "Praise the Lord."),
+      Versical(
+          speaker: "People", text: "The Lord’s Name be praised.", bold: true),
+      Rubric(
+          text:
+              "Then follows the Venite. Alternatively, the Jubilate may be used. One of these antiphons, or one from the seasonal antiphons provided at the end of the Office (pages 29-30), may be sung or said before and after the Invitatory Psalm."),
+      Antiphon(season: widget.litDay.season.id),
+      Container(
         alignment: Alignment.centerLeft,
-          child: DropdownButton(
-          value: invitatoryName ,
+        child: DropdownButton(
+            itemHeight: 72,
+            value: invitatoryName,
             underline: Container(
               height: 2,
               color: Theme.of(context).primaryColor,
             ),
-            style: Theme.of(context).textTheme.headline4.copyWith(color: Theme.of(context).primaryColorDark),
-
+            style: Theme.of(context)
+                .textTheme
+                .headline4
+                .copyWith(color: Theme.of(context).primaryColorDark),
             onChanged: (newValue) {
-            setState( () {
-              invitatoryName = newValue;
-              futureInvitatory = CanticleDB().getCanticleByName(newValue);
-             });
+              setState(() {
+                invitatoryName = newValue;
+                futureInvitatory = CanticleDB().getCanticleByName(newValue);
+              });
             },
-          items: [
-            DropdownMenuItem(
-                  value: 'venite'
-                  , child: Text('Venite')
-              )
-              , DropdownMenuItem(
-                   value: 'venite_long'
-                  , child: Text('Venite(L)')
-              )
-              , DropdownMenuItem(
-              value: 'jubilate'
-
-                  , child: Text('Jubilate')
-              )
-              , DropdownMenuItem(
-              value: 'pascha_nostrum'
-                  , child: Text('Pascha Nostrum')
-              )
-            ]
+            items: [
+              DropdownMenuItem(
+                  value: 'venite',
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SectionTitle(
+                        text: 'Venite',
+                        leadingSpace: 0,
+                        trailingSpace: 0,
+                      ),
+                      ItemTitle(
+                        text: 'O Come',
+                        leadingSpace: 0,
+                        trailingSpace: 0,
+                      ),
+                    ],
+                  )),
+              DropdownMenuItem(
+                  value: 'venite_long',
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SectionTitle(
+                        text: 'Venite Long',
+                        leadingSpace: 0,
+                        trailingSpace: 0,
+                      ),
+                      ItemTitle(
+                        text: 'O Come',
+                        leadingSpace: 0,
+                        trailingSpace: 0,
+                      ),
+                    ],
+                  )),
+              DropdownMenuItem(
+                  value: 'jubilate',
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SectionTitle(
+                        text: 'Jubilate',
+                        leadingSpace: 0,
+                        trailingSpace: 0,
+                      ),
+                      ItemTitle(
+                        text: 'Be Joyful',
+                        leadingSpace: 0,
+                        trailingSpace: 0,
+                      ),
+                    ],
+                  )),
+              DropdownMenuItem(
+                  value: 'pascha_nostrum',
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SectionTitle(
+                        text: 'Pascha Nostrum',
+                        leadingSpace: 0,
+                        trailingSpace: 0,
+                      ),
+                      ItemTitle(
+                        text: 'Christ our Passover',
+                        leadingSpace: 0,
+                        trailingSpace: 0,
+                      ),
+                    ],
+                  ))
+            ]),
       ),
-        )
-        , FutureBuilder(
-              future: futureInvitatory
-            , builder: (context, snapshot) {
-                switch( snapshot.connectionState) {
-                  case ConnectionState.done:
-                    return ShowInvitatory(inv: snapshot.data); // snapshot data
+      FutureBuilder(
+          future: futureInvitatory,
+          builder: (context, snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.done:
+                return ShowInvitatory(inv: snapshot.data); // snapshot data
 
-                  default:
-                  return Container();
-                }
+              default:
+                return Container();
             }
-        )
-        // <Antiphon />
-        ]
-    );
+          })
+      // <Antiphon />
+    ]);
   }
 }
 
 class ShowInvitatory extends StatelessWidget {
   var inv;
+
   ShowInvitatory({Key key, this.inv}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return (inv == null)
-      ? Text("Invitatory not available")
-      : Column(
-          crossAxisAlignment: CrossAxisAlignment.start
-        , children: <Widget>[
-              // SectionTitle(text: inv.name)
-             ItemTitle(text: inv.title, leadingSpace: 0,)
-            , PhrasedParagraph([Text(inv.text)])
-    ]);
+        ? Text("Invitatory not available")
+        : Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+                // SectionTitle(text: inv.name)
+                // ItemTitle(text: inv.title, leadingSpace: 0,),
+                PhrasedParagraph(content: [Text(inv.text)])
+              ]);
   }
 }
-
 
 String _getCollect(LitDay litDay) {
   String invitatory;

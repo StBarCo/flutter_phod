@@ -11,7 +11,7 @@ class ApostlesCreed extends StatelessWidget {
       children: <Widget>[
         SectionTitle(text: "Apostles’ Creed"),
         Rubric(text: "Officiant and People together, all standing"),
-        PhrasedParagraph([
+        PhrasedParagraph(content: [
           Line(text: "I believe in God, the Father almighty,", bold: true,),
           Line(indent: 1, text: "creator of heaven and earth.", bold: true,),
           Line(text: "I believe in Jesus Christ, his only Son, our Lord.", bold: true,),

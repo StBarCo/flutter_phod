@@ -8,7 +8,10 @@ class Reference extends Line {
         bool bold = false,
         bool center = false,
         bool italic = false,
-        double size })
+        double size,
+        double leadingSpace = 0,
+        double trailingSpace =5,
+      })
       : super(
       key: key,
       text: text,
@@ -16,13 +19,16 @@ class Reference extends Line {
       bold: bold,
       center: center,
       italic: italic,
-      size: size);
+      size: size,
+    leadingSpace: leadingSpace,
+    trailingSpace: trailingSpace,
+  );
 
   @override
   Widget build(BuildContext context) {
     return Container(
       // padding: EdgeInsets.all(0),
-        margin: EdgeInsets.only(top: 0.0, bottom: 5, left: inset()),
+        margin: EdgeInsets.only(left: inset(), top: leadingSpace, bottom: trailingSpace),
         child: Text(
             CompressWhiteSpace(text),
             textAlign: TextAlign.right,

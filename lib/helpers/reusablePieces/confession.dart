@@ -16,7 +16,7 @@ class Confession extends StatelessWidget {
           , Rubric( text: 'or this')
           , Paragraph(text: 'Let us humbly confess our sins to Almighty God.')
           , Rubric(text: "Silence is kept. All kneeling, the Officiant and People say",)
-          , PhrasedParagraph([
+          , PhrasedParagraph(content: [
               Line(text: "Almighty and most merciful Father,", bold: true,)
             , Line(text: "we have erred and strayed from your ways like lost sheep.", indent: 1, bold: true,)
             , Line(text: "We have followed too much the devices and desires of our own hearts.", bold: true,)

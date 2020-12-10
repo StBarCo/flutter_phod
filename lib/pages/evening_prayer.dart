@@ -52,7 +52,7 @@ class _EveningPrayerState extends State<EveningPrayer> {
             , ApostlesCreed()
             , SectionTitle(text: 'The Prayers')
             , Versical( speaker: 'Officient', text: 'The Lord be with you.')
-            , Versical( speaker: "People", text: "And with your spirit.")
+            , Versical( speaker: "People", text: "And with your spirit.", bold: true,)
             , Versical( speaker: "Officiant", text: "Let us pray.")
             , Rubric( text:  "The People kneel or stand.")
             , LordHaveMercy()
@@ -75,7 +75,7 @@ class _EveningPrayerState extends State<EveningPrayer> {
             , GeneralThanksgiving()
             , Chrysostom()
             , Versical( speaker: "Officiant", text: "Let us bless the Lord.")
-            , Versical( speaker: "People", text: "Thanks be to God.")
+            , Versical( speaker: "People", text: "Thanks be to God.", bold: true)
             , Rubric( text: "From Easter Day through the Day of Pentecost, “Alleluia, alleluia” may be added to the preceding versicle and response.")
             , Rubric( text: "The Officiant says one of these concluding sentences (and the People may be invited to join)")
             , ScriptureRef(

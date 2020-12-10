@@ -9,6 +9,8 @@ class Line extends StatelessWidget {
   final bool center;
   final bool italic;
   final double size;
+  final double leadingSpace;
+  final double trailingSpace;
 
   Line(
       {Key key,
@@ -19,14 +21,17 @@ class Line extends StatelessWidget {
         ,
         this.center = false,
         this.italic = false,
-        this.size})
+        this.size,
+        this.leadingSpace = 0,
+        this.trailingSpace = 5,
+      })
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
         alignment: align(),
-        margin: EdgeInsets.only(left: inset(), bottom: 5),
+        margin: EdgeInsets.only(left: inset(), top: leadingSpace, bottom: trailingSpace),
         child: Text(
           CompressWhiteSpace(text),
           style: Theme.of(context).textTheme.bodyText2.merge(lineStyle())),
