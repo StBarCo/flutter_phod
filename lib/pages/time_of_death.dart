@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phod/helpers/show_canticle.dart';
+import 'package:flutter_phod/helpers/canticle_show.dart';
 import 'package:flutter_phod/helpers/iphod_scaffold.dart';
 import 'package:flutter_phod/helpers/parts.dart';
 import 'package:flutter_phod/helpers/reusablePieces/litany.dart';

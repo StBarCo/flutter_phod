@@ -45,6 +45,7 @@ class CanticleDB {
         "${litDay.service}${lesson}_${litDay.season.id}_${litDay.season.week}"
     );
     key ??= "${litDay.service}${lesson}_${litDay.now.weekday}";
+
     // for the programmer: weekday for sunday is 7 (not 0)
     String docName = canticle(key);
     return await getCanticleByName(docName);
@@ -58,6 +59,15 @@ class CanticleDB {
     //return canticleCollection.doc(name).get();
   }
 
+}
+
+String getTodaysCanticleName(LitDay litDay, int lesson) {
+  String key = canticle(
+      "${litDay.service}${lesson}_${litDay.season.id}_${litDay.season.week}");
+  key ??= canticle("${litDay.service}${lesson}_${litDay.now.weekday}");
+
+  // for the programmer: weekday for sunday is 7 (not 0)
+  return key;
 }
 String canticle(String key) {
   return {

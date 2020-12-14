@@ -11,7 +11,7 @@ import 'package:flutter_phod/helpers/reusablePieces/confession.dart';
 import 'package:flutter_phod/helpers/psalms.dart';
 import 'package:flutter_phod/stores/daily_psalms.dart';
 import 'package:flutter_phod/helpers/lesson.dart';
-import 'package:flutter_phod/helpers/show_canticle.dart';
+import 'package:flutter_phod/helpers/canticle_show.dart';
 import 'package:flutter_phod/helpers/reusablePieces/apostles_creed.dart';
 import 'package:flutter_phod/helpers/reusablePieces/lords_prayer.dart';
 import 'package:flutter_phod/helpers/reusablePieces/lord_have_mercy.dart';
