@@ -1,61 +1,77 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phod/models/canticle.dart';
+import 'package:get/get.dart';
+import 'package:get/state_manager.dart';
 import 'package:flutter_phod/helpers/show_canticle.dart';
 import 'package:flutter_phod/helpers/iphod_scaffold.dart';
 import 'package:flutter_phod/helpers/pop_up.dart';
 import 'package:flutter_phod/stores/litday.dart';
 import 'package:flutter_phod/helpers/page_header.dart';
-import 'package:provider/provider.dart';
-import 'package:flutter_phod/services/canticles_db.dart';
+import 'package:flutter_phod/controllers/canticleController.dart';
 
-class Canticles extends StatefulWidget {
-  @override
-  _CanticlesState createState() => _CanticlesState();
-}
+CanticleController controller = Get.put<CanticleController>( CanticleController() );
 
-class _CanticlesState extends State<Canticles> {
+class Canticles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<List<Canticle>>.value(
-        value: CanticleDB().canticles
-      , child: IphodScaffold(
-        title: 'Canticles',
-        body: DefaultTextStyle(
-            style: TextStyle(fontSize: 18.0, color: Colors.black87)
-          , child: ListView(
-                padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0)
-              , children: <Widget>[
-                  PageHeader(litDay: LitDay().init())
-                , Text("Canticles go here")
-                , CanticleList()
-            ],
-          ),
-        )
-      ),
+    return GetX<CanticleController>(
+        init: controller,
+        builder: (CanticleController c) {
+          if (c != null && c.canticles != null) {
+            return InnerCanticles();
+          }
+          else {
+            Text("Loading...");
+          }
+        } // end of builder
     );
   }
 }
 
-class CanticleList extends StatefulWidget {
-  @override
-  _CanticleListState createState() => _CanticleListState();
-}
-
-class _CanticleListState extends State<CanticleList> {
-  Canticle thisCanticle;
+class InnerCanticles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final canticles = Provider.of<List<Canticle>>(context);
+    return IphodScaffold(
+        title: 'Canticles',
+        body: DefaultTextStyle(
+          style: TextStyle(fontSize: 18.0, color: Colors.black87),
+          child: ListView(
+                padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0)
+              , children: <Widget>[
+                  PageHeader(litDay: LitDay().init())
+                , CanticleList()
+            ],
+          ),
+        )
+    );
+  }
+}
+
+class CanticleList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
     return Stack(
       children:
         [ Column(
-            children: canticles.map<Widget>((c) {
-              return RaisedButton
-                ( child: Text(c.name)
-                , onPressed: () { setState(() => thisCanticle = c );}
+            children: controller.canticles.map<Widget>((c) {
+              return ObxValue( (canticle) =>
+                  Column( children: <Widget>[
+                    RaisedButton(
+                      onPressed: () => canticle.value = c,
+                      child: Text("${c.number} ${c.name}"),
+                    ),
+                    (canticle.value.id == null )
+                      ? Container()
+                      : PopUp( ShowCanticle(canticle.value), ( () => canticle.value = CanticleModel() ) )
+                  ])
+                  , CanticleModel().obs);
+                RaisedButton
+                ( child: Text("${c.number} ${c.name}")
+                , onPressed: () { controller.showThis(c);
+                  }
                 );
               }).toList()
             )
-        , PopUp( ShowCanticle(canticle: thisCanticle), thisCanticle != null)
         ]
     );
   }

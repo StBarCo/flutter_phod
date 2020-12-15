@@ -21,12 +21,12 @@ class PageDrawer extends StatelessWidget {
     Nav( label: 'Communion to the Sick', route:  '/comm' ),
     Nav( label: 'Time of Death', route:  '/tod' ),
     Nav( label: 'Prayers for a Vigil', route:  '/vigil' ),
-    Nav( label: 'Prayer List', route:  '/pl' ),
+    //Nav( label: 'Prayer List', route:  '/pl' ),
     Nav( label: 'Occasional Prayers', route:  '/ops' ),
     Nav( label: 'Canticles', route:  '/cants' ),
     Nav( label: 'About', route:  '/about' ),
-    Nav( label: 'Blog', route:  '/blog' ),
-    Nav( label: 'Contact', route: '/contact'),
+    //Nav( label: 'Blog', route:  '/blog' ),
+    //Nav( label: 'Contact', route: '/contact'),
   ];
   @override
   Widget build(BuildContext context) {

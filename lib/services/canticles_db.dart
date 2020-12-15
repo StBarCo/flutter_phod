@@ -1,44 +1,33 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_phod/stores/litday.dart';
+import 'package:flutter_phod/models/canticle.dart';
 
-class Canticle {
-  String id;
-  String name;
-  String notes;
-  String number;
-  String reference;
-  String text;
-  String title;
-
-  Canticle({this.id, this.name, this.notes, this.number, this.reference, this.text, this.title});
-}
 
 class CanticleDB {
 
   final CollectionReference canticleCollection = FirebaseFirestore.instance.collection('canticles');
 
-  Stream<List<Canticle>> get canticles {
-    return canticleCollection.snapshots().map(_canticleListFromSnapshot);
-  }
+  Stream<List<CanticleModel>> get canticleStream =>
+    canticleCollection
+        .snapshots()
+        .map( (QuerySnapshot snapshot) {
+          List<CanticleModel> canticles = List();
+          snapshot.docs.forEach((element) {
+            canticles.add(CanticleModel.fromDocumentSnapshot(element));
+          });
+          return canticles;
+    });
 
- // get all the canticles
- List<Canticle> _canticleListFromSnapshot(QuerySnapshot snapshot) {
+
+
+  // get all the canticles
+ List<CanticleModel> _canticleListFromSnapshot(QuerySnapshot snapshot) {
     return snapshot.docs.map( (doc) {
-      return _canticleFromDoc( doc );
+      return CanticleModel.fromDocumentSnapshot(doc);
+      // return _canticleFromDoc( doc );
     }).toList();
  }
 
- Canticle _canticleFromDoc( doc ) {
-    return Canticle
-      ( id: doc.data()['_id'] ?? ""
-      , name: doc.data()['name'] ?? ""
-      , notes: doc.data()['notes'] ?? ""
-      , number: doc.data()['number'] ?? ""
-      , reference: doc.data()['reference'] ?? ""
-      , text: doc.data()['text'] ?? ""
-      , title: doc.data()['title'] ?? ""
-      );
- }
 
   Future getCanticle(LitDay litDay, int lesson) async {
     String key = canticle(
@@ -52,7 +41,7 @@ class CanticleDB {
 
   Future getCanticleByName(String name) async {
     DocumentSnapshot c = await canticleCollection.doc(name).get();
-    return _canticleFromDoc(c);
+    return CanticleModel.fromDocumentSnapshot(c);
     //Canticle cant = _canticleFromDoc(c);
     //print(">>>>> CANT DATA: $cant");
     //return canticleCollection.doc(name).get();

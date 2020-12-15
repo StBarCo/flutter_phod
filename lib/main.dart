@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+import 'package:flutter_phod/controllers/bindings/authBinding.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_phod/pages/calendar.dart';
@@ -23,11 +25,42 @@ import 'package:flutter_phod/pages/loading.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-void main() => runApp( Iphod() );
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(Iphod());
+}
 
 class Iphod extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    return GetMaterialApp(
+      initialBinding: AuthBinding(),
+      initialRoute: "/",
+      routes: {
+        '/': (context) => Wrapper(),
+        '/calendar': (context) => Calendar(),
+        '/mp': (context) => MorningPrayer(),
+        '/midday': (context) => Midday(),
+        '/ep': (context) => EveningPrayer(),
+        '/compline': (context) => Compline(),
+        '/fp': (context) => FamilyPrayers(),
+        '/reconciliation': (context) => Reconciliation(),
+        '/sick': (context) => ToTheSick(),
+        '/comm': (context) => CommunionToSick(),
+        '/tod': (context) => TimeOfDeath(),
+        '/vigil': (context) => PrayerForVigil(),
+        // '/pl': (context) => PrayerList(),
+        '/ops': (context) => OccasionalPrayers(),
+        '/cants': (context) => Canticles(),
+        '/about': (context) => About(),
+        // '/contact': (context) => Contact(),
+        // '/blog': (context) => Blog(),
+      }, // routes,
+    );
+  }
+
+ /*
     return FutureBuilder(
       future: Firebase.initializeApp(),
       builder: (context, snapshot) {
@@ -62,12 +95,12 @@ class Iphod extends StatelessWidget {
                 '/comm': (context) => CommunionToSick(),
                 '/tod': (context) => TimeOfDeath(),
                 '/vigil': (context) => PrayerForVigil(),
-                '/pl': (context) => PrayerList(),
+                // '/pl': (context) => PrayerList(),
                 '/ops': (context) => OccasionalPrayers(),
                 '/cants': (context) => Canticles(),
                 '/about': (context) => About(),
-                '/contact': (context) => Contact(),
-                '/blog': (context) => Blog(),
+                // '/contact': (context) => Contact(),
+                // '/blog': (context) => Blog(),
               }, // routes
             ),
 
@@ -79,5 +112,9 @@ class Iphod extends StatelessWidget {
       },
     );
   }
+
+  */
 }
+
+
 

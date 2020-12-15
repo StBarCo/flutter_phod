@@ -1,102 +1,112 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phod/models/occasional_prayer.dart';
+import 'package:get/get.dart';
+import 'package:flutter_phod/controllers/occasionalPrayerController.dart';
 import 'package:flutter_phod/helpers/iphod_scaffold.dart';
 import 'package:flutter_phod/helpers/paragraph.dart';
 import 'package:flutter_phod/helpers/pop_up.dart';
-import 'package:flutter_phod/services/occasional_prayers_db.dart';
+// import 'package:flutter_phod/services/occasional_prayers_db.dart';
 import 'package:flutter_phod/stores/litday.dart';
 import 'package:flutter_phod/helpers/page_header.dart';
-import 'package:flutter_phod/helpers/page_drawer.dart';
+// import 'package:flutter_phod/helpers/page_drawer.dart';
 import 'package:provider/provider.dart';
 
-class OccasionalPrayers extends StatefulWidget {
-  @override
-  _OccasionalPrayersState createState() => _OccasionalPrayersState();
-}
+OccasionalPrayerController controller = Get.put<OccasionalPrayerController>( OccasionalPrayerController() );
 
-class _OccasionalPrayersState extends State<OccasionalPrayers> {
+class OccasionalPrayers  extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<List<OccasionalPrayer>>.value(
-          value: OccasionalPrayerDB().occasionalPrayerList
-        , child: IphodScaffold(
-            title: 'Occasional Prayers',
-            body: DefaultTextStyle(
-                style: TextStyle(fontSize: 18.0, color: Colors.black87)
-              , child: ListView(
-                    padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0)
-                  , children: <Widget>[
-                      PageHeader(litDay: LitDay().init())
-                    , ListOPs()
-                    ],
-              ),
-            ),
-          )
-        );
+    return IphodScaffold(
+      title: 'Occasional Prayers',
+      body: DefaultTextStyle(
+        style: TextStyle(fontSize: 18.0, color: Colors.black87),
+        child: ListView(
+          padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
+          children: <Widget>[
+            PageHeader(litDay: LitDay().init()),
+            ListOPs(),
+          ]
+        )
 
+      )
+    );
   }
 }
 
-class ListOPs extends StatefulWidget {
-  @override
-  _ListOPsState createState() => _ListOPsState();
-}
-
-class _ListOPsState extends State<ListOPs> {
-  List<OccasionalPrayer> prayersOfCategory;
+class ListOPs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final ops = Provider.of<List<OccasionalPrayer>>(context);
-    final cats = (ops == null)
-      ? null
-      : ops.map((op) { return op.category;}).toSet().toList();
-    return (cats == null)
-      ? Container()
-      : Stack(
+
+    return GetX<OccasionalPrayerController>(
+        init: controller,
+        builder: (OccasionalPrayerController occasionalPrayerController) {
+          if (controller != null && controller.all != null) {
+            return InnerList();
+          }
+          else {
+            Text("Loading...");
+          }
+        } // end of builder
+    );
+  }
+}
+
+class InnerList extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // PopUpController popup = Get.put<PopUpController>( PopUpController() );
+    return Stack(
         children: [
           Column
-          ( children: cats.map<Widget>( (c)
-            { return RaisedButton
-                ( onPressed: ()
-                  { List<OccasionalPrayer> temp = new List<OccasionalPrayer>.from(ops);
-                    temp.retainWhere((element) => element.category == c );
-                    setState(() => prayersOfCategory = new List<OccasionalPrayer>.from(temp) );
-                  }
-                , child: Text(c) );
-
+          ( children: controller.categories.map<Widget>( (c)
+            {
+              return ObxValue( (cat) =>
+                Column(
+                  children: <Widget>[
+                    RaisedButton(
+                      onPressed: () => cat.value = c,
+                      child: Text( c )
+                    ),
+                    (cat.value.length > 0)
+                      ? PopUp( ShowThisCategory(cat.value), ( () => cat.value = ""))
+                      : Container()
+                    ]
+                ),
+              "".obs);
             }).toList()
-          )
-        , PopUp( ShowThisCategory(prayersOfCategory), prayersOfCategory != null)
+          ),
         ]
     );
   }
 }
 
-class ShowThisCategory extends StatefulWidget {
-  ShowThisCategory(this.ops);
-  final List<OccasionalPrayer> ops;
-  @override
-  _ShowThisCategoryState createState() => _ShowThisCategoryState();
-}
-
-class _ShowThisCategoryState extends State<ShowThisCategory> {
-   OccasionalPrayer thisPrayer;
+class ShowThisCategory extends StatelessWidget {
+  ShowThisCategory(this.category);
+  final String category;
   @override
   Widget build(BuildContext context) {
-    return ( widget.ops == null )
-      ? Container()
-      : Stack (
+    return Stack (
         children: [
             Column
-              ( children: widget.ops.map<Widget>( (op)
-                { return RaisedButton
-                    ( onPressed: ()
-                      { setState(() => thisPrayer = op ); }
-                    , child: Text(op.title)
-                    );
-                }
+              ( children: controller.ofCategory(category).map<Widget>( (op) {
+              return ObxValue((thisOP) =>
+                  Column(
+                      children: <Widget>[
+                        RaisedButton(
+                            onPressed: () => thisOP.value = op,
+                            child: Text(op.title)
+                        ),
+                        (thisOP.value.id == null)
+                            ? Container()
+                            : PopUp(PrayerDetails(thisOP.value), (() => thisOP.value = OccasionalPrayerModel()))
+                      ]
+                  ),
+                  OccasionalPrayerModel().obs
+              );
+            }
+
                 ).toList()
               )
-            , PopUp(PrayerDetails(thisPrayer), thisPrayer != null)// ShowThisPrayer(thisPrayer)
             ]
           );
   }
@@ -104,7 +114,7 @@ class _ShowThisCategoryState extends State<ShowThisCategory> {
 
 class PrayerDetails extends StatelessWidget {
   PrayerDetails(this.prayer);
-  final OccasionalPrayer prayer;
+  final OccasionalPrayerModel prayer;
   @override
   Widget build(BuildContext context) {
     return (prayer == null)
@@ -118,6 +128,3 @@ class PrayerDetails extends StatelessWidget {
     );
   }
 }
-
-
-

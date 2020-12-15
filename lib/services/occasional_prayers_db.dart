@@ -1,21 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-class OccasionalPrayer {
-  String id ="empty";
-  String category = "";
-  String source = "";
-  String prayer = "";
-  String title = "";
-  List<String> categories = [];
-
-  OccasionalPrayer({this.id, this.category, this.title, this.prayer, this.source, this.categories});
-}
+import 'package:flutter_phod/models/occasional_prayer.dart';
 
 List<String> opCategories = [];
 
 class OccasionalPrayerList {
   List<String> categories;
-  List<OccasionalPrayer> prayers;
+  List<OccasionalPrayerModel> prayers;
 
   OccasionalPrayerList({this.categories, this.prayers});
 }
@@ -25,17 +15,28 @@ class OccasionalPrayerDB {
   final CollectionReference occasionalPrayerCollection = FirebaseFirestore
       .instance.collection('occasional_prayers');
 
-  Stream<List<OccasionalPrayer>> get occasionalPrayerList {
-    Stream<List<OccasionalPrayer>> temp = occasionalPrayerCollection.snapshots().map(_ops);
+  Stream<List<OccasionalPrayerModel>> get opStream =>
+      occasionalPrayerCollection
+          .snapshots()
+          .map( (QuerySnapshot snapshot) {
+            List<OccasionalPrayerModel> ops = List();
+            snapshot.docs.forEach((element) {
+              ops.add(OccasionalPrayerModel.fromDocumentSnapshot(element));
+            });
+            return ops;
+          });
+
+  Stream<List<OccasionalPrayerModel>> get occasionalPrayerList {
+    Stream<List<OccasionalPrayerModel>> temp = occasionalPrayerCollection.snapshots().map(_ops);
     return temp;
   }
 /*
 The ChurchCreationThe NationSpecific to CanadaSpecific to the United States or MexicoSocietyThose in NeedFamily and Personal LifeThroughout the DayPersonal DevotionAt Times of Prayer and WorshipDeath, the Departed & The Communion of SaintsThanksgivings
  */
   // get all the canticles
-  List<OccasionalPrayer> _ops(QuerySnapshot snapshot) {
+  List<OccasionalPrayerModel> _ops(QuerySnapshot snapshot) {
     return snapshot.docs.map((doc) {
-        return OccasionalPrayer(
+        return OccasionalPrayerModel(
               id: doc.id
             , category: doc.data()['category'] ?? ""
             , title: doc.data()['title'] ?? ""

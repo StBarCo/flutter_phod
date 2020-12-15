@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phod/helpers/rubric.dart';
+import 'package:flutter_phod/models/canticle.dart';
 import 'package:flutter_phod/stores/litday.dart';
 import 'package:flutter_phod/services/canticles_db.dart';
 
@@ -37,7 +38,7 @@ class _TodaysCanticleState extends State<TodaysCanticle> {
             case ConnectionState.waiting:
               return Text("Waiting for Canticle");
             case ConnectionState.done:
-              return ShowCanticle(canticle: snapshot.data); // snapshot data
+              return ShowCanticle(snapshot.data); // snapshot data
             default:
               return Text('CANTICLE GOES HERE');
           }
@@ -47,9 +48,9 @@ class _TodaysCanticleState extends State<TodaysCanticle> {
 }
 
 class ShowCanticle extends StatelessWidget {
-  var canticle;
-  ShowCanticle({Key key, this.canticle}) : super(key: key);
 
+  ShowCanticle(this.canticle);
+  final CanticleModel canticle;
   @override
   Widget build(BuildContext context) {
     return (canticle == null)

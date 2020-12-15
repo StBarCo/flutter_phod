@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class PopUp extends StatefulWidget {
-  PopUp(this.widget, this.ready);
-  Widget widget;
-  bool ready;
-  @override
-  _PopUpState createState() => _PopUpState();
-}
+class PopUp extends StatelessWidget {
+  PopUp(this.widget, this.closeFn);
+  final Widget widget;
+  final Function closeFn;
 
-class _PopUpState extends State<PopUp> {
   @override
-  Widget build(BuildContext context) {
+   Widget build(BuildContext context) {
+
     return Visibility(
-      visible: widget.ready
+      visible: true
       , child: Center(
         child: Container
         ( child: Column(
           children:
-          [ widget.widget
+          [ widget
             , Ink
             ( decoration: const ShapeDecoration
             ( color: Colors.lightBlue
@@ -25,7 +23,9 @@ class _PopUpState extends State<PopUp> {
           )
             , child: IconButton
               ( icon: Icon(Icons.arrow_back_rounded)
-                , onPressed: () => setState( () => widget.ready = false )
+                , onPressed: () {
+                  closeFn();
+                }
                 , color: Colors.red
             ),
           )

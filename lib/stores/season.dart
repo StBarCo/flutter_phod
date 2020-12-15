@@ -1,11 +1,23 @@
-import 'package:date_util/date_util.dart';
+import 'package:dart_date/dart_date.dart';
 import 'package:flutter_phod/stores/helpers.dart';
+import 'package:flutter/material.dart';
+
+Color
+    _white = Colors.yellowAccent[100],
+    _gold = Colors.yellowAccent,
+    _purple = Colors.deepPurpleAccent,
+    _green = Colors.green,
+    _red = Colors.red,
+    _blue = Colors.lightBlue,
+    _rose = Colors.pinkAccent,
+    _black = Colors.black26
+;
 
 class Season {
   String id = '';
   String title = '';
   int week = 0;
-  List<String> colors = [];
+  List<Color> colors = [];
   String lityear = '';
 
   Season({this.id, this.title, this.week, this.colors, this.lityear});
@@ -14,7 +26,7 @@ class Season {
 Season findRLD(Season season, DateTime now) {
   int doy = dateToDOY(now);
   int dayOfWeek = now.weekday;
-  bool leapYear = DateUtil().leapYear(now.year);
+  bool leapYear = now.isLeapYear;
   int lastSunday = thisSunday(doy, dayOfWeek, leapYear);
   bool translateRLD = !(season.id == 'epiphany' || season.id == 'proper');
   bool isSunday = dayOfWeek == sunday;
@@ -47,10 +59,12 @@ Season findRLD(Season season, DateTime now) {
 Season findTheSeason(int doy, int easterDOY, DateTime now) {
   // Season rld = this.findRLD(season, now);
   // if (rld.id.isNotEmpty) return rld;
-  bool leapYear = DateUtil().leapYear(now.year);
+  bool leapYear = now.isLeapYear;
   int d;
   Season seasonSoFar;
-  if (inRange(doy, d = advent1DOY(now.year), dayBefore(christmasDOY))) {
+  if ( inRange(doy, d=christTheKingDOY(now.year), dayBefore(advent1DOY(now.year)))) {
+    seasonSoFar = createSeason('christTheKing', 'Christ the King', daysToWeeks(doy -d), now);
+  } else if (inRange(doy, d = advent1DOY(now.year), dayBefore(christmasDOY))) {
     seasonSoFar = createSeason('advent', 'Advent', daysToWeeks(doy -d), now);
   } else if (inRange(doy, d = christmasDOY, dayBefore(epiphanyDOY))) {
     seasonSoFar = createSeason('christmas', 'Christmas', daysToWeeks(doy -d), now);
@@ -80,82 +94,84 @@ Season findTheSeason(int doy, int easterDOY, DateTime now) {
 Map redLetterDays = {
   324: Season(id: 'confessionOfStPeter',
       title: 'Confession Of St Peter',
-      colors: white),
+      colors: [_white]),
   331: Season(id: 'conversionOfStPaul',
       title: 'Conversion of St Paul',
-      colors: white),
-  339: Season(id: 'presentation', title: 'The Presentation', colors: white),
-  361: Season(id: 'stMatthias', title: 'St Matthias', colors: red),
-  19: Season(id: 'stJoseph', title: 'St Joseph', colors: white),
-  25: Season(id: 'annunciation', title: 'The Annuciation', colors: white),
-  56: Season(id: 'stMark', title: 'St. Mark', colors: red),
+      colors: [_white]),
+  339: Season(id: 'presentation', title: 'The Presentation', colors: [_white]),
+  361: Season(id: 'stMatthias', title: 'St Matthias', colors: [_red]),
+  19: Season(id: 'stJoseph', title: 'St Joseph', colors: [_white]),
+  25: Season(id: 'annunciation', title: 'The Annuciation', colors: [_white]),
+  56: Season(id: 'stMark', title: 'St. Mark', colors: [_red]),
   62: Season(
-      id: 'stsPhilipAndJames', title: 'Saints Philip and James', colors: red),
-  92: Season(id: 'visitation', title: 'Visitation', colors: blue),
-  103: Season(id: 'stBarnabas', title: 'St. Barnabus', colors: red),
+      id: 'stsPhilipAndJames', title: 'Saints Philip and James', colors: [_red]),
+  92: Season(id: 'visitation', title: 'Visitation', colors: [_blue]),
+  103: Season(id: 'stBarnabas', title: 'St. Barnabus', colors: [_red]),
   116: Season(id: 'nativityOfJohnTheBaptist',
       title: 'Nativity of John the Baptist',
-      colors: white),
+      colors: [_white]),
   121: Season(
-      id: 'stPeterAndPaul', title: 'Saints Peter and Paul', colors: red),
-  123: Season(id: 'dominion', title: 'Dominion Day', colors: white),
-  125: Season(id: 'independence', title: 'Independence Day', colors: white),
+      id: 'stPeterAndPaul', title: 'Saints Peter and Paul', colors: [_red]),
+  123: Season(id: 'dominion', title: 'Dominion Day', colors: [_white]),
+  125: Season(id: 'independence', title: 'Independence Day', colors: [_white]),
   143: Season(
-      id: 'stMaryMagdalene', title: 'St. Mary Magdalene', colors: white),
-  147: Season(id: 'stJames', title: 'St James', colors: red),
+      id: 'stMaryMagdalene', title: 'St. Mary Magdalene', colors: [_white]),
+  147: Season(id: 'stJames', title: 'St James', colors: [_red]),
   159: Season(id: 'transfiguration',
       title: 'Feast of the Transfiguration',
-      colors: white),
-  168: Season(id: 'bvm', title: 'Blessed Virgin Mary', colors: white),
-  177: Season(id: 'stBartholomew', title: 'St. Bartholomew', colors: red),
-  198: Season(id: 'holyCross', title: 'Holy Cross', colors: red),
-  205: Season(id: 'stMatthew', title: 'St. Matthew', colors: red),
+      colors: [_white]),
+  168: Season(id: 'bvm', title: 'Blessed Virgin Mary', colors: [_white]),
+  177: Season(id: 'stBartholomew', title: 'St. Bartholomew', colors: [_red]),
+  198: Season(id: 'holyCross', title: 'Holy Cross', colors: [_red]),
+  205: Season(id: 'stMatthew', title: 'St. Matthew', colors: [_red]),
   213: Season(
-      id: 'michaelAllAngels', title: 'Michael and All Angels', colors: white),
-  232: Season(id: 'stLuke', title: 'St. Luke', colors: red),
+      id: 'michaelAllAngels', title: 'Michael and All Angels', colors: [_white]),
+  232: Season(id: 'stLuke', title: 'St. Luke', colors: [_red]),
   237: Season(
-      id: 'stJamesOfJerusalme', title: 'St. James of Jerusalem', colors: red),
+      id: 'stJamesOfJerusalme', title: 'St. James of Jerusalem', colors: [_red]),
   242: Season(
-      id: 'stsSimonAndJude', title: 'Saints Simon and Jude', colors: red),
-  256: Season(id: 'remembrance', title: 'Remembrance Day', colors: white),
-  275: Season(id: 'stAndrew', title: 'St. Andrew', colors: red),
-  296: Season(id: 'stThomas', title: 'St. Thomas', colors: red),
-  301: Season(id: 'stStephen', title: 'St. Stephen', colors: red),
-  302: Season(id: 'stJohn', title: 'St. John', colors: white),
-  303: Season(id: 'holyInnocents', title: 'Holy Innocents', colors: red),
+      id: 'stsSimonAndJude', title: 'Saints Simon and Jude', colors: [_red]),
+  256: Season(id: 'remembrance', title: 'Remembrance Day', colors: [_white]),
+  268: Season(id: 'christ_the_king', title: 'Christ The King', colors: [_white]),
+  275: Season(id: 'stAndrew', title: 'St. Andrew', colors: [_red]),
+  296: Season(id: 'stThomas', title: 'St. Thomas', colors: [_red]),
+  301: Season(id: 'stStephen', title: 'St. Stephen', colors: [_red]),
+  302: Season(id: 'stJohn', title: 'St. John', colors: [_white]),
+  303: Season(id: 'holyInnocents', title: 'Holy Innocents', colors: [_red]),
 };
 
-List<String> getColors(String season, int week, DateTime now) {
+List<Color> getColors(String season, int week, DateTime now) {
   bool isSunday = now.weekday == sunday;
   Map basicColors = {
-    'advent': ["purple"],
-    'christmas': ["white", "gold"],
-    'epiphany': ['green'],
-    'lent': ['purple'],
-    'holyWeek': ['purple'],
-    'easter': ['white'],
-    'ascension': ['white'],
-    'pentecost': ['red'],
-    'trinity': ['white'],
-    'proper': ['green'],
+    'advent': [_purple],
+    'christmas': [_white, _gold],
+    'epiphany': [_green],
+    'lent': [_purple],
+    'holyWeek': [_purple],
+    'easter': [_white],
+    'ascension': [_white],
+    'pentecost': [_red],
+    'trinity': [_white],
+    'proper': [_green],
+    'christTheKing': [_white]
   };
-  // handle the exceptions
+// handle the exceptions
   switch (season) {
     case 'advent':
       {
-        if (isSunday && week == 3) return ['rose', 'purple'];
+        if (isSunday && week == 3) return [_rose, _purple];
         return basicColors[season];
       }
       break;
     case 'epiphany':
       {
-        if (week <= 2) return ['white', 'gold'];
+        if (week <= 2) return [_white, _gold];
         return basicColors[season];
       }
       break;
     case 'lent':
       {
-        if (isSunday && week == 4) return ['rose', 'purple'];
+        if (isSunday && week == 4) return [_rose, _purple];
         return basicColors[season];
       }
       break;
@@ -164,17 +180,17 @@ List<String> getColors(String season, int week, DateTime now) {
         switch (now.weekday) {
           case 7:
             {
-              return ['red', 'purple'];
+              return [_red, _purple];
             }
             break; // Palm Sunday
           case 4:
             {
-              return ['white'];
+              return [_white];
             }
             break; // Maunday Thursday
           case 5:
             {
-              return ['black', 'purple'];
+              return [_black, _purple];
             }
             break; // Good Friday
           default:

@@ -8,11 +8,15 @@ class Contact extends StatelessWidget {
   Widget build(BuildContext context) {
     return IphodScaffold(
         title: 'Contact',
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          PageHeader(litDay: LitDay().init()),
-        ],
+      body: DefaultTextStyle(
+        style: TextStyle(fontSize: 18.0, color: Colors.black87),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            PageHeader(litDay: LitDay().init()),
+            Text("Haven't figured this out yet")
+          ],
+        ),
       )
     );
 

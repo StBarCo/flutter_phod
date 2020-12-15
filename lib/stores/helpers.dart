@@ -1,4 +1,4 @@
-import 'package:date_util/date_util.dart';
+import 'package:dart_date/dart_date.dart';
 import 'package:flutter_phod/stores/litday.dart';
 
 const List<String> white = ['white'];
@@ -83,6 +83,8 @@ int advent1DOY(int year) {
   int dow = xday.weekday;
   return christmasDOY - (21 + dow);
 }
+
+int christTheKingDOY(int year) => advent1DOY(year) - 7;
 
 int lastSundayDOY(int doy, int weekday, bool leapYear) {
   int d = doy - weekday;

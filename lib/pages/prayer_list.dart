@@ -13,11 +13,15 @@ class _PrayerListState extends State<PrayerList> {
   Widget build(BuildContext context) {
     return IphodScaffold(
         title: 'Prayer List',
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          PageHeader(litDay: LitDay().init()),
-        ],
+      body: DefaultTextStyle(
+        style: TextStyle(fontSize: 18.0, color: Colors.black87),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            PageHeader(litDay: LitDay().init()),
+            Text("Not ready yet")
+          ],
+        ),
       ),
     );
 

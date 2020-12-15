@@ -1,14 +1,35 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phod/helpers/iphod_scaffold.dart';
-import 'package:flutter_phod/helpers/section_title.dart';
-import 'package:flutter_phod/services/scripture_db.dart';
+import 'package:flutter_phod/stores/lit_calendar.dart';
 import 'package:flutter_phod/stores/litday.dart';
 import 'package:flutter_phod/helpers/page_header.dart';
-import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' show CalendarCarousel;
-import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' show defaultDayContainer;
-import 'package:intl/intl.dart';
+// import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart' show CalendarCarousel;
+
+class Calendar extends StatelessWidget {
+  CalendarController c = Get.put( CalendarController() );
+  @override
+  Widget build(BuildContext context) {
+    c.setDays( DateTime.now() );
+    return IphodScaffold(
+        title: 'Calendar',
+        body: DefaultTextStyle(
+        style: TextStyle(fontSize: 18.0, color: Colors.black87),
+          child: ListView(
+            padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
+            children: <Widget>[
+              PageHeader(litDay: LitDay().init()),
+              RenderLitCalendar( )
+            ]
+          )
+      )
+    );
+  }
+}
+
+/*
+
 class Calendar extends StatefulWidget {
   @override
   _CalendarState createState() => _CalendarState();
@@ -32,61 +53,69 @@ class _CalendarState extends State<Calendar> {
         padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
         children: <Widget>[
             PageHeader(litDay: LitDay().init())
-          , CalendarCarousel(
-              onDayPressed: (date, events) {
-                setState(() {
-                  litDay = LitDay().init(now: date);
-                  readingsFor = null;
-                });
-              }
-              , customDayBuilder: (
-                    bool isSelectable
-                  , int index
-                  , bool isSelectedDay
-                  , bool isToday
-                  , bool isPrevMonthDay
-                  , TextStyle textStyle
-                  , bool isNextMonthDay
-                  , bool isThisMonthDay
-                  , DateTime day
-                ) {
-                  LitDay thisLitDay = LitDay().init(now: day);
-                  Color liturgicalColor;
-                  switch(thisLitDay.season.colors[0]) {
-                    case 'green': liturgicalColor = Colors.green; break;
-                    case 'red': liturgicalColor = Colors.red; break;
-                    case 'white':
-                    case 'gold': liturgicalColor = Colors.yellow; break;
-                    case 'purple': liturgicalColor = Colors.purple; break;
-                    case 'blue': liturgicalColor = Colors.blue; break;
-                    case 'rose': liturgicalColor = Colors.pinkAccent; break;
-                    case 'black': liturgicalColor = Colors.grey[800]; break;
-                    default: liturgicalColor = Colors.orange;
-                  }
-                  return IphodDay(
-                        liturgicalColor
-                      , isSelectable
-                      , index
-                      , isSelectedDay
-                      , isToday
-                      , isPrevMonthDay
-                      , textStyle
-                      , isNextMonthDay
-                      , isThisMonthDay
-                      , day
-                    );
-                    // return Center(
-                    //  child: Icon(Icons.local_airport),
-                    //);
-          }
-
-
-
-              , weekFormat: false
-              // , markedDatesMap: _markedDateMap // List<Events>
-              , height: 452.0
-              , selectedDateTime: litDay.now
-              , daysHaveCircularBorder: false
+          , Container(
+            decoration: BoxDecoration(
+              color: Colors.blueGrey,
+              border: Border.all(
+                color: Colors.pinkAccent,
+                width: 2,
+              )
+              ),
+            child: CalendarCarousel(
+              weekFormat: false
+            // , markedDatesMap: _markedDateMap // List<Events>
+            , height: 497.0
+            , width: 390.0
+            , todayBorderColor: Colors.black12
+            , selectedDateTime: litDay.now
+            , selectedDayBorderColor: Colors.black12,
+                onDayPressed: (date, events) {
+                  setState(() {
+                    litDay = LitDay().init(now: date);
+                    readingsFor = null;
+                  });
+                }
+                , customDayBuilder: (
+                      bool isSelectable
+                    , int index
+                    , bool isSelectedDay
+                    , bool isToday
+                    , bool isPrevMonthDay
+                    , TextStyle textStyle
+                    , bool isNextMonthDay
+                    , bool isThisMonthDay
+                    , DateTime day
+                  ) {
+                    LitDay thisLitDay = LitDay().init(now: day);
+                    Color liturgicalColor;
+                    switch(thisLitDay.season.colors[0]) {
+                      case 'green': liturgicalColor = Colors.green; break;
+                      case 'red': liturgicalColor = Colors.red; break;
+                      case 'white':
+                      case 'gold': liturgicalColor = Colors.yellow; break;
+                      case 'purple': liturgicalColor = Colors.purple; break;
+                      case 'blue': liturgicalColor = Colors.blue; break;
+                      case 'rose': liturgicalColor = Colors.pinkAccent; break;
+                      case 'black': liturgicalColor = Colors.grey[800]; break;
+                      default: liturgicalColor = Colors.orange;
+                    }
+                    return IphodDay(
+                          liturgicalColor
+                        , isSelectable
+                        , index
+                        , isSelectedDay
+                        , isToday
+                        , isPrevMonthDay
+                        , textStyle
+                        , isNextMonthDay
+                        , isThisMonthDay
+                        , day
+                      );
+                      // return Center(
+                      //  child: Icon(Icons.local_airport),
+                      //);
+            }
+            ),
           )
           , SectionTitle(text: 'Readings For ', center: true, leadingSpace: 0.0)
           // , SizedBox(height: 12.0)
@@ -172,8 +201,8 @@ class _ReferencesForState extends State<ReferencesFor> {
 }
 
 class ShowRefs extends StatelessWidget {
-  DocumentSnapshot refs;
-  String service;
+  final DocumentSnapshot refs;
+  final String service;
   ShowRefs({Key key, this.refs, this.service}) : super(key: key);
 
   @override
@@ -188,7 +217,7 @@ class ShowRefs extends StatelessWidget {
         break;
       default:
         return Container();
-    };
+    }
   }
 }
 
@@ -250,7 +279,6 @@ class _PsalmRefs extends StatelessWidget {
   _PsalmRefs(this.psalms);
   final List psalms;
   Widget build(BuildContext context) {
-    print("PS REFS: $psalms");
     return Column(
         crossAxisAlignment: CrossAxisAlignment.start
       , children: psalms.map<Widget>((ps) {
@@ -294,9 +322,15 @@ class IphodDay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: liturgicalColor,
-      width: double.infinity,
-      height: double.infinity,
+        decoration: BoxDecoration(
+            border: Border.all(
+              color: Colors.black,
+              width: 2,
+            ),
+            color: liturgicalColor,
+        ),
+      width: 150.0,
+      height: 150.0,
       child: Row(
         crossAxisAlignment: CalendarCarousel().dayCrossAxisAlignment,
         mainAxisAlignment: CalendarCarousel().dayMainAxisAlignment,
@@ -316,3 +350,6 @@ class IphodDay extends StatelessWidget {
     );
   }
 }
+
+
+ */

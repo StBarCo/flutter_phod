@@ -1,4 +1,4 @@
-import 'package:date_util/date_util.dart';
+import 'package:dart_date/dart_date.dart';
 import 'package:flutter_phod/stores/helpers.dart';
 import 'package:flutter_phod/stores/season.dart';
 
@@ -24,7 +24,7 @@ class LitDay {
     // I want to init with or without now set
     service ??= '';
     now ??= this.now;
-    bool leapYear = DateUtil().leapYear(now.year);
+    bool leapYear = now.isLeapYear;
     int easter = easterDOY(now.year);
 
     this.service = service;
