@@ -35,7 +35,7 @@ class _MiddayState extends State<Midday> {
         controller: _scrollController,
         padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
         children: <Widget>[
-            PageHeader(litDay: LitDay().init())
+            PageHeader()
           , Versical( speaker: 'Officiant', says: 'O God, make speed to save us;')
           , Versical( speaker: 'People', says: 'O Lord, make haste to help us.')
           , Versical( speaker: 'Officiant', says: 'Glory be to the Father, and to the Son, and to the Holy Spirit;')

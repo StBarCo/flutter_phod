@@ -1,23 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phod/stores/season.dart';
+import 'package:get/get.dart';
+import 'package:flutter_phod/controllers/liturgicalCalendarController.dart';
+import 'package:flutter_phod/models/liturgical_season.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_phod/stores/litday.dart';
+import 'package:flutter_phod/models/liturgical_day.dart';
+
+LiturgicalCalendarController c = Get.put( LiturgicalCalendarController());
 
 class PageHeader extends StatelessWidget {
-  LitDay litDay;
-  PageHeader({Key key, this.litDay}) : super(key: key);
+  LiturgicalDay day = c.selected.day;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         Text(
-            DateFormat.MMMMEEEEd().format(litDay.now),
+            DateFormat.MMMMEEEEd().format(day.now),
           style: TextStyle(
             fontSize: 20.0,
             letterSpacing: 2
           )
         ),
-        SeasonTitle(litDay.season, litDay.litYear)
+        SeasonTitle(day.season, day.litYear)
       ],
     );
   }
@@ -25,7 +29,7 @@ class PageHeader extends StatelessWidget {
 
 class SeasonTitle extends StatelessWidget {
   SeasonTitle(this.season, this.litYear);
-  final Season season;
+  final LiturgicalSeason season;
   final String litYear;
   Widget build(BuildContext context) {
     return (season.id == 'proper') ? ProperTitle(season.week, litYear) : OtherTitle(season, litYear);
@@ -55,7 +59,7 @@ class ProperTitle extends StatelessWidget {
 
 class OtherTitle extends StatelessWidget {
   OtherTitle(this.season, this.litYear);
-  final Season season;
+  final LiturgicalSeason season;
   final String litYear;
   Widget build(BuildContext context) {
     String week;

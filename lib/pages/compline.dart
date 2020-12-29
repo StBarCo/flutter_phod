@@ -30,7 +30,7 @@ class _ComplineState extends State<Compline> {
             child: ListView(
               padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
               children: <Widget>[
-                      PageHeader(litDay: LitDay().init())
+                      PageHeader()
                     , Rubric("The Officiant begins")
                     , Paragraph("""
                           The Lord Almighty grant us a peaceful night

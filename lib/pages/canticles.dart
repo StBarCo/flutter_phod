@@ -38,7 +38,7 @@ class InnerCanticles extends StatelessWidget {
           child: ListView(
                 padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0)
               , children: <Widget>[
-                  PageHeader(litDay: LitDay().init())
+                  PageHeader()
                 , CanticleList()
             ],
           ),
@@ -65,11 +65,6 @@ class CanticleList extends StatelessWidget {
                       : PopUp( ShowCanticle(canticle.value), ( () => canticle.value = CanticleModel() ) )
                   ])
                   , CanticleModel().obs);
-                RaisedButton
-                ( child: Text("${c.number} ${c.name}")
-                , onPressed: () { controller.showThis(c);
-                  }
-                );
               }).toList()
             )
         ]

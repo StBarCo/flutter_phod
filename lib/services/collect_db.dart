@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_phod/stores/litday.dart';
+import 'package:flutter_phod/models/liturgical_day.dart';
 
 class CollectDB {
 
@@ -9,12 +9,12 @@ class CollectDB {
     return collectCollection.snapshots();
   }
 
-  Future getCollect(LitDay litDay, String ofType) async {
+  Future getCollect(LiturgicalDay litDay, String ofType) async {
     String docName =collectDocName(litDay, ofType);
     return (docName == null) ? null : collectCollection.doc(docName).get();
   }
 
-  String collectDocName(LitDay litDay, String ofType) {
+  String collectDocName(LiturgicalDay litDay, String ofType) {
     switch( ofType ) {
       case "week":
         return "collect_${litDay.season.id}${litDay.season.week}";

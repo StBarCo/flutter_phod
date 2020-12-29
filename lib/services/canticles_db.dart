@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_phod/stores/litday.dart';
 import 'package:flutter_phod/models/canticle.dart';
+import 'package:flutter_phod/models/liturgical_day.dart';
 
 
 class CanticleDB {
@@ -29,7 +29,7 @@ class CanticleDB {
  }
 
 
-  Future getCanticle(LitDay litDay, int lesson) async {
+  Future getCanticle(LiturgicalDay litDay, int lesson) async {
     String key = canticle(
         "${litDay.service}${lesson}_${litDay.season.id}_${litDay.season.week}"
     );

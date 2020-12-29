@@ -8,8 +8,6 @@ import 'package:flutter_phod/pages/compline.dart';
 import 'package:flutter_phod/pages/evening_prayer.dart';
 import 'package:flutter_phod/pages/midday.dart';
 import 'package:flutter_phod/pages/morning_prayer.dart';
-// import 'package:provider/provider.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
 
 
 class Wrapper extends GetWidget<AuthController> {

@@ -21,7 +21,7 @@ class _ToTheSickState extends State<ToTheSick> {
         , child: ListView(
             padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0)
           , children: <Widget>[
-                PageHeader(litDay: LitDay().init())
+                PageHeader()
               , Rubric("The Officiant begins")
               , Paragraph("Savior of the world, by your Cross and precious blood you have redeemed us;")
               , Paragraph("Save us, and help us, we humbly beseech you, O Lord.")

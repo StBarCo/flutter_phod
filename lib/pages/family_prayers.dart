@@ -31,7 +31,7 @@ class _FamilyPrayersState extends State<FamilyPrayers> {
           style: TextStyle(fontSize: 18.0, color: Colors.black87),
           child: ListView(
           children: <Widget>[
-            PageHeader(litDay: LitDay().init()),
+            PageHeader(),
             ButtonBar(
                 buttonMinWidth: 80.0
               , mainAxisSize: MainAxisSize.min

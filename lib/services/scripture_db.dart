@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_phod/stores/litday.dart';
+import 'package:flutter_phod/models/liturgical_day.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -36,7 +36,7 @@ class ScriptureDB {
     else { throw('Cannot get lesson'); };
   }
 
-  Future getDailyESV( LitDay litDay, int lesson) async {
+  Future getDailyESV( LiturgicalDay litDay, int lesson) async {
     String lessonKey = "${litDay.service}${lesson}";
     var dailyRefs = await getDailyRef(litDay);
 
@@ -58,13 +58,13 @@ class ScriptureDB {
        */
   }
 
-  Future getDailyRef (LitDay litDay) async {
+  Future getDailyRef (LiturgicalDay litDay) async {
     // String lessonKey = "${litDay.service}${lesson}";
     String docId = "mpep${litDay.now.month.toString().padLeft(2,'0')}${litDay.now.day.toString().padLeft(2, '0')}";
     return dailyLectionaryCollection.doc(docId).get();
   }
 
-  Future getServiceRefs(LitDay litDay, String service) async {
+  Future getServiceRefs(LiturgicalDay litDay, String service) async {
     if (service == "eu") {
       String docId;
       if (litDay.season.week == null) {

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phod/helpers/section_title.dart';
-import 'package:flutter_phod/stores/litday.dart';
+import 'package:flutter_phod/models/liturgical_day.dart';
 
 
 class CollectForMission extends StatefulWidget {
-  LitDay litDay;
+  LiturgicalDay litDay;
   CollectForMission({Key key, this.litDay}) : super(key: key);
   @override
   _CollectForMissionState createState() => _CollectForMissionState();

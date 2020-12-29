@@ -18,7 +18,7 @@ class Reconciliation extends StatelessWidget {
       ( controller: _scrollController
       , padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0)
       , children: <Widget>
-        [ PageHeader(litDay: LitDay().init())
+        [ PageHeader()
         , Rubric("The Penitent begins")
         , Paragraph("Bless me, for I have sinned.")
         , Rubric("Priest says")

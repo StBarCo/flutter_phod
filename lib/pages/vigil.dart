@@ -31,7 +31,7 @@ class _PrayerForVigilState extends State<PrayerForVigil> {
         controller: _scrollController
       , padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0)
       , children: <Widget>[
-          PageHeader(litDay: LitDay().init())
+          PageHeader()
         , Rubric("It is appropriate that family and friends come together prior to a funeral. This rite may be used on such an occasion, whether at the church, a funeral home, or elsewhere.")
         , Rubric("The Minister says")
 

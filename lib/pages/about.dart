@@ -3,8 +3,9 @@ import 'package:flutter_phod/helpers/iphod_app_bar.dart';
 import 'package:flutter_phod/helpers/iphod_scaffold.dart';
 import 'package:flutter_phod/helpers/paragraph.dart';
 import 'package:flutter_phod/helpers/section_title.dart';
-import 'package:flutter_phod/stores/litday.dart';
+// import 'package:flutter_phod/stores/litday.dart';
 import 'package:flutter_phod/helpers/page_header.dart';
+
 
 class About extends StatelessWidget {
   @override
@@ -16,7 +17,7 @@ class About extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            PageHeader(litDay: LitDay().init()),
+            PageHeader(),
             SectionTitle(text: "From Whence Cometh..."),
             Paragraph("""
               The Legereme app is a ministry of St. Elizabeth's Anglican Mission, 

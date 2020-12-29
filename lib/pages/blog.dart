@@ -19,7 +19,7 @@ class _BlogState extends State<Blog> {
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              PageHeader(litDay: LitDay().init()),
+              PageHeader(),
               Text("Nothing to say yet")
             ]
         ),

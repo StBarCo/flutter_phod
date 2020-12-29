@@ -27,7 +27,7 @@ class _TimeOfDeathState extends State<TimeOfDeath> {
         , child: ListView(
               padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0)
             , children: <Widget>[
-                  PageHeader(litDay: LitDay().init())
+                  PageHeader()
                 , Rubric( "The Officiant begins")
                 , ScriptureRef(
                     text: "Peace be to this house [or place], and to all who dwell in it."

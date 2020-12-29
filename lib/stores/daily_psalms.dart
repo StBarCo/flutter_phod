@@ -1,10 +1,10 @@
-import 'package:flutter_phod/stores/litday.dart';
+import 'package:flutter_phod/models/liturgical_day.dart';
 import 'package:flutter_phod/stores/psalm_map.dart';
 
 
 class DailyPsalms {
 
-  getDailyPsalms(LitDay litDay, String cycle) {
+  getDailyPsalms(LiturgicalDay litDay, String cycle) {
     Map map = (cycle == '60DayCycle') ? DailyPsalms.map60Day : DailyPsalms.map30Day;
     Map innerMap = map[litDay.season.id];
     innerMap ??= map[litDay.now.day.toString()];

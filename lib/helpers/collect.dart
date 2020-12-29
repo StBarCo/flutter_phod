@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phod/stores/litday.dart';
+import 'package:flutter_phod/models/liturgical_day.dart';
 import 'package:flutter_phod/services/collect_db.dart';
 
 class Collect extends StatefulWidget {
   String ofType;
-  LitDay litDay;
+  LiturgicalDay litDay;
   Collect({Key key, this.litDay, this.ofType}) : super(key: key);
   @override
   _CollectState createState() => _CollectState();

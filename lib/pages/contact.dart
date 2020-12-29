@@ -13,7 +13,7 @@ class Contact extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            PageHeader(litDay: LitDay().init()),
+            PageHeader(),
             Text("Haven't figured this out yet")
           ],
         ),

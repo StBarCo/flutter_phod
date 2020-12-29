@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phod/models/liturgical_day.dart';
 import 'package:flutter_phod/stores/litday.dart';
 import 'package:flutter_phod/helpers/rubric.dart';
 import 'package:flutter_phod/helpers/line.dart';
@@ -6,7 +7,7 @@ import 'package:flutter_phod/helpers/scripture_ref.dart';
 // import 'dart:developer' as dev;
 
 class OpeningSentences extends StatelessWidget {
-  LitDay litDay;
+  LiturgicalDay litDay;
   OpeningSentences({Key key, this.litDay}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class OpeningSentences extends StatelessWidget {
     );
   }
 
-  List<Widget> findOpeningSentences(LitDay liyDay, String key) {
+  List<Widget> findOpeningSentences(LiturgicalDay liyDay, String key) {
     List<Widget> resp = [];
     List<Map> maps = ops[litDay.service][litDay.season.id];
     maps ??= ops[litDay.service]['proper']; // for RLDs

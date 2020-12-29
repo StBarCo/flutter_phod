@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_phod/helpers/rubric.dart';
 import 'package:flutter_phod/helpers/section_title.dart';
 import 'package:flutter_phod/helpers/versical.dart';
-import 'package:flutter_phod/stores/litday.dart';
+import 'package:flutter_phod/models/liturgical_day.dart';
 import 'package:flutter_phod/services/canticles_db.dart';
 
 import 'antiphon.dart';
 
 class Invitatory extends StatefulWidget {
-  LitDay litDay;
+  LiturgicalDay litDay;
   Invitatory({Key key, this.litDay}) : super(key: key);
 
   @override
@@ -114,7 +114,7 @@ class ShowInvitatory extends StatelessWidget {
 }
 
 
-String _getCollect(LitDay litDay) {
+String _getCollect(LiturgicalDay litDay) {
   String invitatory;
 
   if (litDay.service == "ep") {

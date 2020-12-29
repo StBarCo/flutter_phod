@@ -18,7 +18,7 @@ class _PrayerListState extends State<PrayerList> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            PageHeader(litDay: LitDay().init()),
+            PageHeader(),
             Text("Not ready yet")
           ],
         ),

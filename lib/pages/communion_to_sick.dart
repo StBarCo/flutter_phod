@@ -33,7 +33,7 @@ class _CommunionToSickState extends State<CommunionToSick> {
             ( controller: _scrollController
             , padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0)
             , children: <Widget>
-              [ PageHeader(litDay: LitDay().init())
+              [ PageHeader()
               , Rubric( """
                   This rite is used when the consecrated elements are brought 
                   from an earlier celebration of Holy Communion.

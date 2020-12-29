@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phod/models/calendar_day.dart';
+import 'package:get/get.dart';
+import 'package:flutter_phod/models/liturgical_day.dart';
+import 'package:flutter_phod/controllers/liturgicalCalendarController.dart';
 import 'package:flutter_phod/helpers/invitatory.dart';
 import 'package:flutter_phod/helpers/iphod_scaffold.dart';
 import 'package:flutter_phod/helpers/scripture_ref.dart';
 import 'package:flutter_phod/helpers/section_title.dart';
-import 'package:flutter_phod/stores/litday.dart';
 import 'package:flutter_phod/helpers/page_header.dart';
 import 'package:flutter_phod/helpers/rubric.dart';
 import 'package:flutter_phod/helpers/opening_sentences.dart';
@@ -22,17 +25,13 @@ import 'package:flutter_phod/helpers/collect_for_mission.dart';
 import 'package:flutter_phod/helpers/general_thanksgiving.dart';
 import 'package:flutter_phod/helpers/chrysostom.dart';
 
+LiturgicalCalendarController c = Get.put( LiturgicalCalendarController() );
 
-class MorningPrayer extends StatefulWidget {
-  @override
-  _MorningPrayerState createState() => _MorningPrayerState();
-}
-
-class _MorningPrayerState extends State<MorningPrayer> {
-  final LitDay litDay = LitDay().init(service: 'mp');
-
+class MorningPrayer extends StatelessWidget {
+  CalendarDayModel thisDay = c.selectService('mp');
   @override
   Widget build(BuildContext context) {
+    LiturgicalDay litDay = thisDay.day;
     return IphodScaffold(
         title: 'Morning Prayer',
         body: DefaultTextStyle(
@@ -41,7 +40,7 @@ class _MorningPrayerState extends State<MorningPrayer> {
           // crossAxisAlignment: CrossAxisAlignment.stretch,
           padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
           children: <Widget>[
-              PageHeader(litDay: litDay)
+              PageHeader()
             , Rubric("The Officiant may begin Morning Prayer by reading an opening sentence of Scripture. One of the following, or a sentence from among those provided at the end of the Office (pages 27-29), is customary.")
             , OpeningSentences(litDay: litDay)
             , Confession()

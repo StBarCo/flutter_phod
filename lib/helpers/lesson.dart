@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/style.dart';
+import 'package:flutter_phod/models/liturgical_day.dart';
 import 'package:flutter_phod/services/scripture_db.dart';
-import 'package:flutter_phod/stores/litday.dart';
 import 'package:flutter_html/flutter_html.dart';
 
 
 class Lesson extends StatefulWidget {
   int lesson;
-  LitDay litDay;
+  LiturgicalDay litDay;
   Lesson({Key key, this.lesson, this.litDay}) : super(key: key);
   @override
   _LessonState createState() => _LessonState();
