@@ -6,19 +6,30 @@ import 'package:flutter_phod/helpers/section_title.dart';
 // import 'package:flutter_phod/stores/litday.dart';
 import 'package:flutter_phod/helpers/page_header.dart';
 
+import 'package:petitparser/petitparser.dart';
 
 class About extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final vss =
+    ( digit().plus()
+        .seq(char(':').seq(digit().plus()).optional()
+          .seq(char('-').seq(digit().plus()).optional())
+        )
+    ).flatten().plus();
+
+    final book =  ((char('1') | char('2') | char('3')).star() & (letter() | char(' ')).plus()).flatten().seq(char(':'));
     return IphodScaffold(
       title: 'About',
       body: DefaultTextStyle(
         style: TextStyle(fontSize: 18.0, color: Colors.black87),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+        child: ListView(
+          // crossAxisAlignment: CrossAxisAlignment.stretch,
+          padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
           children: <Widget>[
             PageHeader(),
             SectionTitle(text: "From Whence Cometh..."),
+            Text("PARSE: ${vss.matchesSkipping("3 song of solomon 15:1-10, 16:1")}"),
             Paragraph("""
               The Legereme app is a ministry of St. Elizabeth's Anglican Mission, 
               a member of the ACNA Anglican Diocese of Pittsburgh. 

@@ -6,7 +6,6 @@ class Antiphon extends StatelessWidget {
   Antiphon({Key key, this.season}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    print('ANTIPHON $season: ${antiphons[season]}');
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: antiphons[season].map<Widget>( (a) {

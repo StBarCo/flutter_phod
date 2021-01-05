@@ -1,19 +1,34 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_phod/models/collect.dart';
 import 'package:flutter_phod/models/liturgical_day.dart';
 
 class CollectDB {
 
   final CollectionReference collectCollection = FirebaseFirestore.instance.collection('collects');
 
-  Stream<QuerySnapshot> get collect {
-    return collectCollection.snapshots();
+
+  Future<CollectModel> getCollect( LiturgicalDay litDay, String ofType) async {
+    String docName = collectDocName(litDay, ofType);
+    // var resp = await collectCollection.doc(docName).get(); ) async {
+    try {
+    DocumentSnapshot doc = await collectCollection.doc(docName).get();
+    CollectModel resp = CollectModel.fromDocumentSnapshot(doc);
+    return resp;
+    }
+    catch (e) {
+    print('>>>>> ERROR getting user: $e');
+    rethrow;
+    }
+    }
   }
 
-  Future getCollect(LiturgicalDay litDay, String ofType) async {
-    String docName =collectDocName(litDay, ofType);
-    return (docName == null) ? null : collectCollection.doc(docName).get();
+/*
+  Future<CollectModel> getCollect(LiturgicalDay litDay, String ofType) async {
+    String docName = collectDocName(litDay, ofType);
+    DocumentSnapshot snapshot = await collectCollection.doc(docName).get();
+    return CollectModel.fromDocumentSnapshot(snapshot);
   }
-
+*/
   String collectDocName(LiturgicalDay litDay, String ofType) {
     switch( ofType ) {
       case "week":
@@ -46,4 +61,3 @@ class CollectDB {
       'sunday'
     ][i];
   }
-}

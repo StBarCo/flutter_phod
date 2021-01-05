@@ -27,6 +27,7 @@ dependencies:
   direct_select_flutter: ^1.0.6
   http: ^0.12.2
   provider: ^4.3.2+1
+  petitparser: ^3.1.0
   flutter:
     sdk: flutter
   intl: ^0.16.1

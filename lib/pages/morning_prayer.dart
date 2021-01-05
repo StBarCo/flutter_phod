@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phod/controllers/collectController.dart';
 import 'package:flutter_phod/models/calendar_day.dart';
 import 'package:get/get.dart';
 import 'package:flutter_phod/models/liturgical_day.dart';
@@ -25,10 +26,11 @@ import 'package:flutter_phod/helpers/collect_for_mission.dart';
 import 'package:flutter_phod/helpers/general_thanksgiving.dart';
 import 'package:flutter_phod/helpers/chrysostom.dart';
 
-LiturgicalCalendarController c = Get.put( LiturgicalCalendarController() );
+LiturgicalCalendarController lcc = Get.put( LiturgicalCalendarController() );
+CollectController cc = Get.put( CollectController() );
 
 class MorningPrayer extends StatelessWidget {
-  CalendarDayModel thisDay = c.selectService('mp');
+  CalendarDayModel thisDay = lcc.selectService('mp');
   @override
   Widget build(BuildContext context) {
     LiturgicalDay litDay = thisDay.day;
