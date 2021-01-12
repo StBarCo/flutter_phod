@@ -62,7 +62,6 @@ class LiturgicalCalendarController extends GetxController {
         while (thisDay <= last) {
           theseCalendarDays.add( CalendarDayModel().init(now, thisDay, index) );
           if (isSameDay(thisDay, now)) {
-            print(">>>>> THISDAY & NOW: $thisDay, $now, ${now.isToday}");
             _today.value = (now.isToday) ? theseCalendarDays[index] : _today.value;
             _selectedDay.value = theseCalendarDays[index];
           }

@@ -43,10 +43,6 @@ class Wrapper extends GetWidget<AuthController> {
         Get.put<UserController>(UserController());
       },
       builder: (_) {
-        print("CURRENT USER ${Get
-            .find<AuthController>()
-            .user
-            ?.uid}");
         if (Get
             .find<AuthController>()
             .user

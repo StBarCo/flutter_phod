@@ -72,14 +72,18 @@ class ShowLesson extends StatelessWidget {
   ShowLesson({Key key, this.lesson}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    print("SHOW LESSONS: ${lesson.passage.split('\\r').length}");
     return (lesson == null)
         ? Container()
         : Html(
           data: lesson.passage,
           style: {
             "p": Style(
-              fontSize: FontSize(18.0)
+              fontSize: FontSize(18.0),
+            ),
+            "span": Style(
+              color: Colors.red[700],
+              // Should'ought'a be superscript
+              fontSize: FontSize(12.0)
             )
           }
         );

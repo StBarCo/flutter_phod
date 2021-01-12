@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_phod/models/liturgical_day.dart';
+import 'package:flutter_phod/models/world_english_bible.com.dart';
+import 'package:flutter_phod/services/citation_parser.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -10,6 +12,24 @@ class Lesson {
   String style;
 
   Lesson({this.passage, this.style});
+
+}
+
+class WEBDB {
+  final CollectionReference WEBCollection = FirebaseFirestore.instance.collection('web');
+
+  Future<WEB> getVss(String ref) async {
+    List refCodes = parseCitation(ref)[0];
+    String from = "web" + refCodes[0].toString();
+    String to = "web" + refCodes[1].toString();
+    var snapshots = await WEBCollection
+        .where(FieldPath.documentId, isGreaterThanOrEqualTo: from)
+        .where(FieldPath.documentId, isLessThanOrEqualTo: to)
+        .get();
+
+    WEB webVss = WEB.getDocumentSnapshot(snapshots.docs);
+    return webVss;
+  }
 
 }
 
@@ -24,18 +44,29 @@ class ScriptureDB {
   final String esvOptions = ";include-audio-link=false";
 
   Future getFromEsv(String ref) async {
-    String query = "$esvUrl$ref$esvOptions";
+    String xref = "Tobit 1:1-end";
+    String query = "$esvUrl$xref$esvOptions";
     Response resp = await get
       ( query
       , headers: { HttpHeaders.authorizationHeader: authToken }
       );
     if ( resp.statusCode == 200 ) {
       Map body = jsonDecode(resp.body);
+      // if ESV fails to parse a ref, e.g. Tobit 1:1-10,
+      // it does not fail, but returns mostly empty data
+      // we check to see if the "parsed" field is empty
+      if(body['parsed'].isEmpty) return getFromWEB(xref);
       return Lesson(passage: body['passages'][0], style: 'req');
     }
-    else { throw('Cannot get lesson'); };
+    else { return getFromWEB(xref); };
   }
 
+  Future<Lesson> getFromWEB( String ref) async {
+    WEB web = await WEBDB().getVss(ref);
+    return Lesson( passage: web.passage, style: 'req');
+  }
+
+  
   Future getDailyESV( LiturgicalDay litDay, int lesson) async {
     String lessonKey = "${litDay.service}${lesson}";
     var dailyRefs = await getDailyRef(litDay);
@@ -43,19 +74,6 @@ class ScriptureDB {
       var x = dailyRefs.get(lessonKey).map( (r) { return r['read']; });
       String esvRefs = dailyRefs.get(lessonKey).map( (r) { return r['read']; }).join(';');
       return await getFromEsv(esvRefs);
-      /*
-      String query = "$esvUrl$esvRefs$esvOptions";
-      Response resp = await get(
-        query,
-        headers: { HttpHeaders.authorizationHeader: authToken }
-      );
-      if ( resp.statusCode == 200) {
-        Map body = jsonDecode(resp.body);
-        return Lesson(passage: body['passages'][0], style: 'req');
-      }
-      else { throw('Cannot get lesson'); }
-
-       */
   }
 
   Future getDailyRef (LiturgicalDay litDay) async {
