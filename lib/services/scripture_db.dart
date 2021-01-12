@@ -44,8 +44,7 @@ class ScriptureDB {
   final String esvOptions = ";include-audio-link=false";
 
   Future getFromEsv(String ref) async {
-    String xref = "Tobit 1:1-end";
-    String query = "$esvUrl$xref$esvOptions";
+    String query = "$esvUrl$ref$esvOptions";
     Response resp = await get
       ( query
       , headers: { HttpHeaders.authorizationHeader: authToken }
@@ -55,10 +54,10 @@ class ScriptureDB {
       // if ESV fails to parse a ref, e.g. Tobit 1:1-10,
       // it does not fail, but returns mostly empty data
       // we check to see if the "parsed" field is empty
-      if(body['parsed'].isEmpty) return getFromWEB(xref);
+      if(body['parsed'].isEmpty) return getFromWEB(ref);
       return Lesson(passage: body['passages'][0], style: 'req');
     }
-    else { return getFromWEB(xref); };
+    else { return getFromWEB(ref); };
   }
 
   Future<Lesson> getFromWEB( String ref) async {
