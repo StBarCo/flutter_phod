@@ -13,7 +13,6 @@ import 'package:flutter_phod/helpers/rubric.dart';
 import 'package:flutter_phod/helpers/opening_sentences.dart';
 import 'package:flutter_phod/helpers/confession.dart';
 import 'package:flutter_phod/helpers/psalms.dart';
-import 'package:flutter_phod/stores/daily_psalms.dart';
 import 'package:flutter_phod/helpers/lesson.dart';
 import 'package:flutter_phod/helpers/show_canticle.dart';
 import 'package:flutter_phod/helpers/apostles_creed.dart';
@@ -28,9 +27,9 @@ import 'package:flutter_phod/helpers/chrysostom.dart';
 LiturgicalCalendarController c = Get.put( LiturgicalCalendarController() );
 
 class EveningPrayer extends StatelessWidget {
-  CalendarDayModel thisDay = c.selectService('ep');
   @override
   Widget build(BuildContext context) {
+    CalendarDayModel thisDay = c.selectService('ep');
     LiturgicalDay litDay = thisDay.day;
     return IphodScaffold(
         title: 'Evening Prayer',
@@ -45,11 +44,11 @@ class EveningPrayer extends StatelessWidget {
             , OpeningSentences(litDay: litDay)
             , Confession()
             , Rubric('Then follows the psalm or psalms appointed')
-            , Psalms( pss: DailyPsalms().getDailyPsalms(litDay, "30DayCycle") )
+            , Psalms()
             , SectionTitle(text: 'The Lessons')
-            , Lesson(litDay: litDay, lesson: 1)
+            , Lesson(lesson: 1)
             , TodaysCanticle(litDay: litDay, lesson: 1)
-            , Lesson(litDay: litDay, lesson: 2)
+            , Lesson(lesson: 2)
             , TodaysCanticle(litDay: litDay, lesson: 2)
             , ApostlesCreed()
             , SectionTitle(text: 'The Prayers')

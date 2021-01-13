@@ -1,57 +1,61 @@
+import 'package:flutter_phod/models/reading_model.dart';
 import 'package:petitparser/petitparser.dart';
+import 'package:flutter_phod/models/psalm_model.dart';
+
 
 class CitationGrammar extends GrammarDefinition {
   start() => ref(citation).end();
-  citation() => ref(book).flatten() & ref(chapVss).separatedBy(char(',').trim()).optional(); // ref(number).optional() & ref(vss).optional();
-  number() => digit().plus().flatten() | ref(end).trim();
-  // for vs numbers, one letter is allowed, but it is ignored - you get the whole vs
-  vssNumber() => (ref(number) & letter().optional().trim()).pick(0);
-  end() => string('end').trim();
-  vss() => ((char(':') & ref(vssNumber)).pick(1) & ((char('-') & ref(vssNumber)).pick(1).optional()));
-  chapVss() => ((ref(number) & ref(vss).optional()));
-  book() => ref(vol).seq(ref(words));
+
+  citation() => ref(citationFromToSpanChap)
+      | ref(citationFromToInChap)
+      | ref(citationFromChapVs)
+      | ref(citationChap)
+      | ref(citationBook);
+
+  citationFromToSpanChap() => ( ref(book) & ref(fromToSpanChap) ).map( (el) => [el[0] + el[1][0], el[0] + el[1][1]]);
+  citationFromToInChap() => ( ref(book) & ref(fromToInChap) ).map( (el) => [el[0] + el[1][0], el[0] + el[1][1]] );
+  citationFromChapVs() => ( ref(book) & ref(chapVs)).map( (el) => [el[0] + el[1], el[0] + el[1]]);
+  citationChap() => ( ref(book) & ref(chap) ).map( (el) => [el[0] + el[1] + 1, el[0] + el[1] + 999] );
+  citationBook() => ( ref(book) ).map( (el) => [el[0] + 1001, el[0] + 1999]);
+  end() => string('end').trim().map( (end) => '999'); // end is always vs#999
+  number() => (digit().plus().flatten() | ref(end).trim()).map( (n) => int.parse(n));
+  chap() => ref(number).map( (n) => n * 1000);
+  chapVs() => (ref(chap) & char(':') & ref(number)).map( (el) => el[0] + el[2] );
+  fromToInChap() => (ref(chap) & char(':') & ref(number) & char('-') & ref(number)).map( (el) => [el[0] + el[2], el[0] + el[4]] );
+  fromToSpanChap() => (ref(chapVs) & char('-') & ref(chapVs)).map( (el) => [el[0], el[2]]);
+  book() => ref(vol).seq(ref(words)).flatten().map( (b) => getBookKey(b) );
   vol() => ref(number).optional(); //(char('1')|char('2')|char('3')).optional();
   words() => (letter().plus().trim()).plus();
 }
+
 final citation = new CitationGrammar().build();
 
-List parseCitation(String s) {
+parseCitation(String s) {
   final parsed = citation.parse(s);
   if (parsed.isFailure) {
     print("!!!!! {PARSED FAILED: $s");
-    return List<List<int>>();
-  }; // dosomething smart
-  final String book = bookName[parsed.value[0].trim().toLowerCase()];
-  final webName = web_names[book];
-  final bookKey = bookKeys[webName];
-  final vss = (parsed.value[1] == null)
-      ? [] // for books without chapters e.g. jude
-      : parsed.value[1].where((el) => el is List).toList();
-  List listOfVerses =
-  vss.map( (ref) {
-    int chap = (ref[0] == null) ? 1000 : int.parse(ref[0]) * 1000;
-    List fromTo = ref[1];
-    int from = 1;
-    int to = 999;
-    if (fromTo != null) {
-      from = int.parse(fromTo[0]);
-      // hi next-programmer!
-      // in the switch below, we force to everything to a String
-      // so we can test for null
-      // dart requires all case statement (except default) to be the same type
-      // so we can't have a case null:
-      // which is just DUMB!
-      switch(fromTo[1].toString()) {
-        case 'null': to = from; break;
-        case 'end': to = 999; break;
-        default: to = int.parse(fromTo[1]);
-      }
-    }
-    return [bookKey + chap + from, bookKey + chap + to];
-  }).toList();
-  if (listOfVerses.isEmpty) listOfVerses = [[bookKey + 1001, bookKey + 1999]];
-  return listOfVerses;
+    return [];
+  }
+  return parsed.value;
+}
 
+String esvQueryString( List<ReadingModel> refs) {
+  String query = refs.map( (r) {
+    List ifromAndito = parseCitation(r.read); // [fromKey, toKey]
+    return ifromAndito[0].toString() + "-" + ifromAndito[1].toString();
+  }).toList().join(",");
+  return query;
+}
+
+Ps parsePsalmCitation(String s) {
+  int psalmKey = 19;
+  List iFromiTo = parseCitation(s);
+  if ((iFromiTo[0] ~/ 1000000) != psalmKey) return null;
+  int chap = ((iFromiTo[0] % 100000) ~/ 1000).toInt();
+  int from = iFromiTo[0] % 1000;
+  int to = iFromiTo[1] % 1000;
+  // if the book referenced is not Psalms return null
+  return Ps(chap, from, to);
 }
 
 int vsToKey( int bookKey, from, to) => bookKey + (1000 * from) + to;
@@ -339,6 +343,9 @@ Map bookKeys = {
   "FRT": 82000000, "GLO": 83000000
 };
 
-
-
-
+int getBookKey( String ref) {
+  String lowerCaseName = ref.toLowerCase().trim();
+  String normalizedName = bookName[lowerCaseName];
+  String webName = web_names[normalizedName];
+  return bookKeys[ webName ];
+}

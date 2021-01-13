@@ -1,6 +1,12 @@
+import 'package:flutter_phod/controllers/canticleController.dart';
+import 'package:flutter_phod/services/psalms_db.dart';
+import 'package:flutter_phod/services/scripture_db.dart';
+import 'package:flutter_phod/stores/helpers.dart';
 import 'package:get/get.dart';
 import 'package:dart_date/dart_date.dart';
 import 'package:flutter_phod/models/calendar_day.dart';
+
+CanticleController cc = Get.put( CanticleController() );
 
 class LiturgicalCalendar {
   List<CalendarDayModel> days = [];
@@ -10,10 +16,10 @@ class LiturgicalCalendar {
 }
 
 class LiturgicalCalendarController extends GetxController {
-  Rx<LiturgicalCalendar> _cal = Rx<LiturgicalCalendar>();
-  Rx<CalendarDayModel> _today = Rx<CalendarDayModel>();
-  Rx<CalendarDayModel> _selectedDay = Rx<CalendarDayModel>();
-  Rx<String> _readingsFor = Rx<String>();
+  final _cal = LiturgicalCalendar().obs;
+  final _today = CalendarDayModel().obs;
+  final _selectedDay = CalendarDayModel().obs;
+  final _currentService = "".obs;
 
   List<String> dayNames = ["Sun", "Mon", "Tues", "Wed", "Thr", "Fri", "Sat"];
 
@@ -23,34 +29,62 @@ class LiturgicalCalendarController extends GetxController {
     return _cal.value.days.getRange(n * 7, n * 7 + 7).toList();
   }
 
-    void nextMonth() => init(  _selectedDay.value.day.now.addMonths(1) ); // init(_today.value.day.now.addMonths(1));
-    void lastMonth() => init( _selectedDay.value.day.now.addMonths(-1) ) ; // init(_today.value.day.now.addMonths(-1));
-    void backToToday() {
+  void nextMonth() => init(  _selectedDay.value.day.now.addMonths(1) ); // init(_today.value.day.now.addMonths(1));
+  void lastMonth() => init( _selectedDay.value.day.now.addMonths(-1) ) ; // init(_today.value.day.now.addMonths(-1));
+  void backToToday() {
       init( DateTime.now() );
-    }
-      void nextAshWednesday() => _selectedDay.value = _selectedDay.value;
-      void nextEaster() => _selectedDay.value = _selectedDay.value;
-      String get month => _cal.value.monthName;
+  }
+  void nextAshWednesday() {
+    this.init( getNextAshWednesday(_selectedDay.value.day.now) ); // sets _selectedDay.value;
+  }
 
-      CalendarDayModel get today => _today.value;
-      CalendarDayModel get selected => _selectedDay.value;
+  void nextEaster() {
+    this.init( getNextEaster(_selectedDay.value.day.now) ); // sets _selectedDay.value;
+}
 
-      String get readingsFor => _readingsFor.value;
 
-      CalendarDayModel select(thisDay) {
-        return _selectedDay.value = thisDay;
-      }
+  String get month => _cal.value.monthName;
 
-      CalendarDayModel selectService( String service) {
-        CalendarDayModel day = _today.value;
-        day.day.service = service;
-        return day;
-      }
+  CalendarDayModel get today => _today.value;
+  CalendarDayModel get selected => _selectedDay.value;
 
-      String selectReadingFor(s) => _readingsFor.value = s;
+  String get readingsFor => _selectedDay.value.day.service;
+  String get selectedService => _currentService.value;
+
+  CalendarDayModel select(thisDay) {
+        thisDay.day.service = _selectedDay.value.day.service;
+        _selectedDay.value = thisDay;
+        _currentService.value = thisDay.day.service;
+        initLessons(_selectedDay.value.day.service);
+        return _selectedDay.value;
+  }
+
+  CalendarDayModel selectService( String service) {
+        // if service changes, we'll have to update the lessons
+        _selectedDay.value.day.service = service; // set the litDay service value
+        _currentService.value = service;
+        initLessons(service);
+        return _selectedDay.value;
+  }
+
+      // if service has a value - update the lessons
+  void initLessons(String service) {
+        if (service == null || service.isBlank) return;
+        _selectedDay.value.day.service = service;
+        _currentService.value = service;
+        if ( service == 'eu') {
+          ScriptureDB().getEucharisticLessons(_selectedDay.value.day);
+        }
+        else {
+          PsalmsDB().getDailyPsalms(_selectedDay.value, service);
+          cc.setDefaultInvitatory(_selectedDay.value.day);
+          ScriptureDB().getDailyESV(_selectedDay.value.day);
+
+        }
+  }
 
       // changing the month will require an init function
-      void init(DateTime now) {
+  void init(DateTime now) {
         _cal.value = LiturgicalCalendar();
         // DateTime now = DateTime.now();
         DateTime thisDay = startOfMonth(now);
@@ -60,24 +94,25 @@ class LiturgicalCalendarController extends GetxController {
         int index = 0;
         // _today.value = (now.isToday) ? now : _today.value;
         while (thisDay <= last) {
-          theseCalendarDays.add( CalendarDayModel().init(now, thisDay, index) );
+          theseCalendarDays.add(CalendarDayModel().init(now, thisDay, index));
           if (isSameDay(thisDay, now)) {
-            _today.value = (now.isToday) ? theseCalendarDays[index] : _today.value;
+            _today.value =
+            (now.isToday) ? theseCalendarDays[index] : _today.value;
             _selectedDay.value = theseCalendarDays[index];
           }
           index += 1;
           thisDay = nextDay(thisDay);
         }
+        initLessons( _selectedDay.value.day.service);
         _cal.value.days = theseCalendarDays;
-        index = 0; // we'll just reuse it
-      }
+  }
 
-      @override
-      void onInit() {
+  @override
+  void onInit() {
         init(DateTime.now() );
         super.onInit();
       }
-    }
+  }
 
   DateTime startOfMonth( DateTime now ) => (now.startOfMonth.isSunday) ? now.startOfMonth.nextDay : now.startOfMonth.startOfWeek;
   DateTime lastOfMonth( DateTime now ) => now.endOfMonth.endOfWeek.addDays(7);

@@ -11,9 +11,8 @@ import 'package:flutter_phod/helpers/rubric.dart';
 import 'package:flutter_phod/helpers/scripture_ref.dart';
 import 'package:flutter_phod/helpers/section_title.dart';
 import 'package:flutter_phod/helpers/versical.dart';
-import 'package:flutter_phod/stores/litday.dart';
 import 'package:flutter_phod/helpers/page_header.dart';
-import 'package:flutter_phod/stores/psalm_map.dart';
+import 'package:flutter_phod/models/psalm_model.dart';
 
 class Compline extends StatefulWidget {
   @override

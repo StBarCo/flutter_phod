@@ -1,93 +1,57 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phod/controllers/lessonController.dart';
+import 'package:get/get.dart';
 import 'package:flutter_html/style.dart';
-import 'package:flutter_phod/models/liturgical_day.dart';
 import 'package:flutter_phod/services/scripture_db.dart';
 import 'package:flutter_html/flutter_html.dart';
 
+LessonController lc = Get.put(LessonController());
 
-class Lesson extends StatefulWidget {
+class Lesson extends StatelessWidget {
   int lesson;
-  LiturgicalDay litDay;
-  Lesson({Key key, this.lesson, this.litDay}) : super(key: key);
-  @override
-  _LessonState createState() => _LessonState();
-}
-
-class _LessonState extends State<Lesson> {
-  Future futureLesson;
-  @override
-  void  initState() {
-    super.initState();
-    futureLesson = _getESV();
-  }
-
-  _getESV() async {
-    return await ScriptureDB().getDailyESV(widget.litDay, widget.lesson);
-  }
-
-  Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: ScriptureDB().getDailyESV(widget.litDay, widget.lesson),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return ShowLesson(lesson: snapshot.data);
-          }
-          else if (snapshot.hasError) {
-            return Text('Error getting lesson: ${snapshot.error}');
-          };
-          return Container();
-        }
-    );
-  }
-}
-
-class ShowScripture extends StatefulWidget {
-  String ref;
-  ShowScripture({Key key, this.ref}) : super(key: key);
-  @override
-  _ShowScriptureState createState() => _ShowScriptureState();
-}
-
-class _ShowScriptureState extends State<ShowScripture> {
+  Lesson({Key key, this.lesson}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: ScriptureDB().getFromEsv( widget.ref),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return ShowLesson(lesson: snapshot.data);
-          }
-          else if (snapshot.hasError) {
-            return Text('Error getting lesson: ${snapshot.error}');
-          };
-          return Container();
-        }
-    );
+    return ShowLesson(iLesson: lesson);
   }
 }
-
 
 class ShowLesson extends StatelessWidget {
-  var lesson;
-  ShowLesson({Key key, this.lesson}) : super(key: key);
-  @override
+  int iLesson;
+  ShowLesson( {Key key, this.iLesson}) : super(key: key);
+  // @override
   Widget build(BuildContext context) {
-    return (lesson == null)
-        ? Container()
-        : Html(
-          data: lesson.passage,
+    return Obx( () =>  Html(
+          data: (lc.getLesson(iLesson).passage == null) ? "<p>Not Ready</p>" : lc.getLesson(iLesson).passage,
           style: {
             "p": Style(
               fontSize: FontSize(18.0),
             ),
+            "div": Style(
+              fontSize: FontSize(18.0),
+              color: Colors.blue[900],
+            ),
             "mark": Style(
               color: Colors.red[700],
               // Should'ought'a be superscript
-              fontSize: FontSize(12.0)
+              // fontSize: FontSize(12.0)
             )
           }
-        );
+        )
+    );
   }
 }
+
+class ShowScripture extends StatelessWidget {
+  ShowScripture( String ref);
+  String ref;
+  @override
+  Widget build(BuildContext context) {
+    ScriptureDB().getRandomScripture(ref);
+    // will need to ShowLesson
+    return ShowLesson();
+  }
+}
+
 
 

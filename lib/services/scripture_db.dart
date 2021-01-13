@@ -1,25 +1,27 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_phod/controllers/lessonController.dart';
+import 'package:flutter_phod/models/daily_lectionary_model.dart';
+import 'package:flutter_phod/models/eucharist_lectionary_model.dart';
+import 'package:flutter_phod/models/psalm_model.dart';
+import 'package:flutter_phod/services/psalms_db.dart';
+import 'package:get/get.dart';
 import 'package:flutter_phod/models/liturgical_day.dart';
 import 'package:flutter_phod/models/world_english_bible.com.dart';
 import 'package:flutter_phod/services/citation_parser.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart';
+import 'package:flutter_phod/models/lesson_model.dart';
 
-class Lesson {
-  String passage;
-  String style;
-
-  Lesson({this.passage, this.style});
-
-}
+LessonController lc = Get.put(LessonController());
 
 class WEBDB {
   final CollectionReference WEBCollection = FirebaseFirestore.instance.collection('web');
 
   Future<WEB> getVss(String ref) async {
-    List refCodes = parseCitation(ref)[0];
+    List refCodes = parseCitation(ref);
     String from = "web" + refCodes[0].toString();
     String to = "web" + refCodes[1].toString();
     var snapshots = await WEBCollection
@@ -43,9 +45,9 @@ class ScriptureDB {
   final String esvUrl = 'https://api.esv.org/v3/passage/html?q=';
   final String esvOptions = ";include-audio-link=false";
 
-  Future getFromEsv(String ref) async {
+  Future<LessonModel> getFromEsv(String ref) async {
     String query = "$esvUrl$ref$esvOptions";
-    Response resp = await get
+    var resp = await get
       ( query
       , headers: { HttpHeaders.authorizationHeader: authToken }
       );
@@ -55,30 +57,64 @@ class ScriptureDB {
       // it does not fail, but returns mostly empty data
       // we check to see if the "parsed" field is empty
       if(body['parsed'].isEmpty) return getFromWEB(ref);
-      return Lesson(passage: body['passages'][0], style: 'req');
+      return LessonModel(passage: body['passages'].join(' '), style: 'req', source: 'ESV', ref: ref);
     }
-    else { return getFromWEB(ref); };
+    return getFromWEB(ref);
   }
 
-  Future<Lesson> getFromWEB( String ref) async {
+  Future<LessonModel> getFromWEB( String ref) async {
     WEB web = await WEBDB().getVss(ref);
-    return Lesson( passage: web.passage, style: 'req');
+    return LessonModel( passage: web.passage, style: 'req', source: 'WEB', ref: ref);
   }
+
+  void getEucharisticLessons( LiturgicalDay litDay) {
+    String litSeason = litDay.season.id + litDay.season.week.toString() + litDay.litYear;
+    Future sundayRefs = getSundayRefs(litSeason);
+    sundayRefs
+      .then( (snapshot) {
+      EucharistLectionaryModel lessons = EucharistLectionaryModel.fromDocumentSnapshot(snapshot);
+        // got all the references, now I have to get the content!
+        List<Ps> pss = lessons.psalms.map<Ps>( (s) => parsePsalmCitation(s.read)).toList();
+        PsalmsDB().getListOfPsalms(pss);
+        Future<LessonModel> ot = getFromEsv( esvQueryString(lessons.ot));
+        ot.then( (resp) => lc.setLesson(resp, 'ot'));
+        Future<LessonModel> nt = getFromEsv( esvQueryString(lessons.nt));
+        nt.then( (resp) => lc.setLesson(resp, 'nt'));
+        Future<LessonModel> gs = getFromEsv( esvQueryString(lessons.gs));
+        gs.then( (resp) => lc.setLesson(resp, 'gs'));
+      })
+      .catchError( (err) {
+        print("!!!!! ERROR getting Sunday references: $err");
+        return null;
+      });
+    }
 
   
-  Future getDailyESV( LiturgicalDay litDay, int lesson) async {
-    String lessonKey = "${litDay.service}${lesson}";
-    var dailyRefs = await getDailyRef(litDay);
+  void getDailyESV( LiturgicalDay litDay)  {
+    String lesson1 = "${litDay.service}1";
+    String lesson2 = "${litDay.service}2";
+    Future resp = getDailyRef(litDay);
+    resp
+        .then( (snapshot) {
+          DailyLectionaryModel refs = DailyLectionaryModel.fromDocumentSnapshot(snapshot);
+          Future<LessonModel> firstReading = getFromEsv( esvQueryString(refs.readingModel(lesson1)));
+          firstReading.then( (resp) => lc.setLesson(resp, 1));
+          Future<LessonModel> secondReading = getFromEsv( esvQueryString(refs.readingModel(lesson2)));
+          secondReading.then( (resp) => lc.setLesson(resp, 2));
+        })
+        .catchError( (err) => print("!!!!! COULDN'T GET REFS: $err"));
 
-      var x = dailyRefs.get(lessonKey).map( (r) { return r['read']; });
-      String esvRefs = dailyRefs.get(lessonKey).map( (r) { return r['read']; }).join(';');
-      return await getFromEsv(esvRefs);
+
   }
 
   Future getDailyRef (LiturgicalDay litDay) async {
     // String lessonKey = "${litDay.service}${lesson}";
     String docId = "mpep${litDay.now.month.toString().padLeft(2,'0')}${litDay.now.day.toString().padLeft(2, '0')}";
     return dailyLectionaryCollection.doc(docId).get();
+  }
+
+  Future getSundayRefs(String seasonId) async {
+    return sundaylectionaryCollection.doc(seasonId).get();
   }
 
   Future getServiceRefs(LiturgicalDay litDay, String service) async {
@@ -94,5 +130,10 @@ class ScriptureDB {
       return sundaylectionaryCollection.doc(docId).get();
     }
     return getDailyRef(litDay);
+  }
+
+  Future<void> getRandomScripture( String ref) async {
+    LessonModel lesson = await getFromEsv(ref);
+    lc.setLesson(lesson, null);
   }
 }

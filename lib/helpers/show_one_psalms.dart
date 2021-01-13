@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_phod/helpers/psalm_verses.dart';
+import 'package:flutter_phod/models/psalm_model.dart';
 
 class ShowOnePsalm extends StatelessWidget {
-  var psalm;
+  PsalmModel psalm;
   ShowOnePsalm({Key key, this.psalm}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return (psalm == null) ? Container() : Column(
+    bool psalmNotAvailable = psalm.vss == null;
+    return (psalmNotAvailable) ? Container() : Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           SizedBox(height: 20.0),

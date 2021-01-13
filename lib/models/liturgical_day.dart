@@ -1,5 +1,4 @@
 import 'package:dart_date/dart_date.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_phod/stores/helpers.dart';
 import 'package:flutter_phod/models/liturgical_season.dart';
 
@@ -19,11 +18,11 @@ class LiturgicalDay {
   int nextSunday; // LitDOY of next Sunday
   LiturgicalSeason season; // Lit season
   String litYear; // a, b, or c
-  String service = ''; // current service
+  String service = 'mp'; // current service; default is mp
 
   LiturgicalDay init({String service, DateTime now}) {
     // I want to init with or without now set
-    service ??= '';
+    service ??= 'mp'; // default is mp
     now ??= this.now;
     bool leapYear = now.isLeapYear;
     int easter = easterDOY(now.year);

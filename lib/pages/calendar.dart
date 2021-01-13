@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_phod/helpers/lesson.dart';
 import 'package:flutter_phod/helpers/psalms.dart';
-import 'package:flutter_phod/stores/daily_psalms.dart';
 import 'package:get/get.dart';
 import 'package:dart_date/dart_date.dart';
 import 'package:flutter_phod/models/calendar_day.dart';
 import 'package:flutter_phod/controllers/liturgicalCalendarController.dart';
-import 'package:flutter_phod/models/liturgical_day.dart';
 import 'package:flutter_phod/helpers/iphod_scaffold.dart';
 import 'package:flutter_phod/helpers/section_title.dart';
 import 'package:flutter_phod/helpers/page_header.dart';
@@ -25,7 +23,7 @@ class Calendar extends StatelessWidget {
             padding: EdgeInsets.symmetric(vertical: 0.0, horizontal: 10.0),
             children: <Widget>[
               PageHeader(),
-              Obx( () => selectedDayHeader(c.selected)),
+              // Obx( () => (selectedDay: c.selected)),
               RenderLiturgicalCalendar( )
             ]
           )
@@ -91,22 +89,12 @@ class RenderLiturgicalCalendar extends StatelessWidget {
           Row (
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                RaisedButton(
-                  child: Text("Morning Prayer"),
-                  onPressed: () => c.selectReadingFor("morningPrayer"),
-                ),
-                RaisedButton(
-                  child: Text("Eucharist"),
-                  onPressed: () => c.selectReadingFor("eucharist"),
-                ),
-                RaisedButton(
-                  child: Text("Evening Prayer"),
-                  onPressed: () => c.selectReadingFor("eveningPrayer"),
-                )
-
+                Obx( () => ServiceSelectButton(currentService: c.selectedService, serviceKey: 'mp')),
+                Obx( () => ServiceSelectButton(currentService: c.selectedService, serviceKey: 'eu')),
+                Obx( () => ServiceSelectButton(currentService: c.selectedService, serviceKey: 'ep')),
               ]
           ),
-          Obx( () => showReadingsFor( c.readingsFor ) ),
+          Obx( () => ShowReadingsFor( thisDay: c.selected ) ),
         ]
     );
   }
@@ -119,11 +107,9 @@ class CalendarDays extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     int index = 0;
-    int i = 0;
     List<TableRow> theseRows = [];
     List<CalendarDayModel> thisWeek = c.week(index);
     while ( thisWeek != null && thisWeek.length > 0 ) {
-      //List<Day> thisWeek = c.days.getRange(index, index + 7).toList();
       theseRows.add( renderWeek( thisWeek ) );
       index += 1;
       thisWeek = c.week(index);
@@ -134,11 +120,6 @@ class CalendarDays extends StatelessWidget {
       // children: weekRows(calendar)
     );
   }
-}
-
-List<TableRow> weekRows( LiturgicalCalendar calendar) {
-  int index = 0;
-
 }
 
 TableRow renderWeek( List<CalendarDayModel> days ) {
@@ -167,30 +148,36 @@ class CalendarDayBox extends StatelessWidget {
           onTap: () => {
             c.select(day),
           },
-          child: Obx( () => DayContainer(day, c.selected) )
+          child: Obx( () => DayContainer(day: day, selected: c.selected) )
       )
       )
       );
   }
 }
 
-Container DayContainer( CalendarDayModel day, CalendarDayModel selected) {
-  bool withBorder = day.day.now.isToday || (day == selected);
-  return Container(
-    height: 50.0,
-    decoration: BoxDecoration(
-      color:  day.day.season.colors[0],
-      shape: BoxShape.rectangle,
-      borderRadius: BorderRadius.only(
-      topLeft: Radius.circular(5.0),
-      bottomRight: Radius.circular(5.0)),
-      border: Border.all(
-        color: withBorder ? Colors.black :  day.day.season.colors[0],
-        width: withBorder ? 4 :  0
-      ),
-    ),
-    child: Text("${ day.day.now.getDate}")
-  );
+class DayContainer extends StatelessWidget {
+  CalendarDayModel day;
+  CalendarDayModel selected;
+  DayContainer({Key key, this.day, this.selected}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    bool withBorder = day.day.now.isToday || (day == selected);
+    return Container(
+        height: 50.0,
+        decoration: BoxDecoration(
+          color:  day.day.season.colors[0],
+          shape: BoxShape.rectangle,
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(5.0),
+              bottomRight: Radius.circular(5.0)),
+          border: Border.all(
+              color: withBorder ? Colors.black :  day.day.season.colors[0],
+              width: withBorder ? 4 :  0
+          ),
+        ),
+        child: Text("${ day.day.now.getDate}")
+    );
+  }
 }
 
 TableRow calendarHeader( List<String> daynames) {
@@ -198,44 +185,99 @@ TableRow calendarHeader( List<String> daynames) {
   return TableRow( children: theseDayNames);
 }
 
-Column selectedDayHeader( CalendarDayModel thisDay) {
-  String title = thisDay.day.season.title;
-  int iweek = thisDay.day.season.week ?? 0;
-  String week = (iweek > 0) ? "- Week $iweek " : "";
-  String selectedDate = thisDay.day.now.format('yMMMMd');
-
-  return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Text( "[ $selectedDate: $title $week]")
-      ]
-  );
-}
-Container showReadingsFor( String service ) {
-  switch( service ) {
-    case "morningPrayer": return Container( child: officeReadings('mp'));
-    case "eveningPrayer": return Container( child: officeReadings('ep'));
-    case "eucharist": return Container( child: eucharisticReadings());
-    default: return Container( child: Text('Service Readings go here'));
+class SelectedDayHeader extends StatelessWidget {
+  CalendarDayModel selectedDay;
+  SelectedDayHeader({Key key, this.selectedDay}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    String title = selectedDay.day.season.title;
+    int iweek = selectedDay.day.season.week ?? 0;
+    String week = (iweek > 0) ? "- Week $iweek " : "";
+    String selectedDate = selectedDay.day.now.format('yMMMMd');
+    return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text( "$selectedDate: $title $week")
+        ]
+    );
   }
 }
 
-Column officeReadings(String office) {
-  LiturgicalDay litDay = c.selected.day;
-  litDay.service = office;
-  return Column(
-  children: <Widget>[
-    Psalms( pss: DailyPsalms().getDailyPsalms(litDay, "30DayCycle") ),
-    Lesson(litDay: litDay, lesson: 1),
-    Lesson(litDay: litDay, lesson: 2),
-    ]
-  );
+class ShowReadingsFor extends StatelessWidget {
+  CalendarDayModel thisDay;
+  ShowReadingsFor({Key key, this.thisDay}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    switch( thisDay.day.service ) {
+      case "mp": return Obx( () => OfficeReadings(calendarDay: c.selected, office: 'mp'));
+      case "ep": return Obx( () => OfficeReadings(calendarDay: c.selected, office: 'ep'));
+      case "eu": return Obx( () => OfficeReadings(calendarDay: c.selected, office: 'eu'));
+      default: return Container( child: Text('Service Readings go here'));
+    }
+  }
 }
 
+class OfficeReadings extends StatelessWidget {
+  CalendarDayModel calendarDay;
+  String office;
+  OfficeReadings({Key key, this.calendarDay, this.office}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+        children: <Widget>[
+          Obx( () => CurrentServiceTitle(header: c.selectedService)),
+          Obx( () => SelectedDayHeader(selectedDay: c.selected) ),
+
+          Psalms(),
+          Lesson(lesson: 1),
+          Lesson(lesson: 2),
+          Obx( () => (c.selectedService == 'eu') ? Lesson(lesson: 3) : Container() ),
+        ]
+    );
+  }
+}
 Column eucharisticReadings() {
   return Column(
     children: <Widget>[
       Text( 'Eucharistic Readings go here'),
       ]
   );
+}
+class ServiceSelectButton extends StatelessWidget {
+  String currentService;
+  String serviceKey;
+  ServiceSelectButton({Key key, this.currentService, this.serviceKey });
+  @override
+  Widget build(BuildContext context) {
+    return RaisedButton(
+      child: Text( serviceTitle(serviceKey) ),
+      onPressed: () => c.initLessons(serviceKey),
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(0.0),
+          side:
+            BorderSide(
+                color: (currentService == serviceKey)
+                    ? Colors.red
+                    : Colors.transparent)
+            ),
+    );
+  }
+}
+
+class CurrentServiceTitle extends StatelessWidget {
+  String header;
+  CurrentServiceTitle({Key key, this.header}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Text('Reading for ${serviceTitle(header)}');
+    }
+}
+
+String serviceTitle(String serviceKey) {
+  switch( serviceKey ) {
+    case "mp": return "Morning Prayer"; break;
+    case "ep": return "Evening Prayer"; break;
+    case "eu": return "Eucharist";
+  }
+  return "$serviceKey not Recognized";
 }

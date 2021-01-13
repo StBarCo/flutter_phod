@@ -1,19 +1,17 @@
-import 'package:flutter_phod/helpers/collect.dart';
 import 'package:flutter_phod/models/liturgical_day.dart';
 import 'package:get/get.dart';
 import 'package:flutter_phod/models/collect.dart';
 import 'package:flutter_phod/services/collect_db.dart';
-import 'package:meta/meta.dart';
 
 import 'liturgicalCalendarController.dart';
 
 class CollectController extends GetxController {
-  Rx<CollectModel> _seasonalCollect = CollectModel().obs;
-  Rx<CollectModel> _collectOfDay = CollectModel().obs;
-  Rx<CollectModel> _collectPeaceMP = CollectModel().obs;
-  Rx<CollectModel> _collectPeaceEP = CollectModel().obs;
-  Rx<CollectModel> _collectGrace = CollectModel().obs;
-  Rx<CollectModel> _collectPeril = CollectModel().obs;
+  final _seasonalCollect = CollectModel().obs;
+  final _collectOfDay = CollectModel().obs;
+  final _collectPeaceMP = CollectModel().obs;
+  final _collectPeaceEP = CollectModel().obs;
+  final _collectGrace = CollectModel().obs;
+  final _collectPeril = CollectModel().obs;
 
 
   CollectModel get seasonalCollect => _seasonalCollect.value;
@@ -23,7 +21,32 @@ class CollectController extends GetxController {
   CollectModel get collectForGrace => _collectGrace.value;
   CollectModel get collectForPeril => _collectPeril.value;
 
+  void setCollect( CollectModel collect, String ofType) {
+    switch(ofType) {
+      case "week":
+        _seasonalCollect.value = collect;
+        break;
+      case "day":
+        _collectOfDay.value = collect;
+        break;
+      case "MPpeace":
+        _collectPeaceMP.value = collect;
+        break;
+      case "EPpeace":
+        _collectPeaceEP.value = collect;
+        break;
+      case "grace":
+        _collectGrace.value = collect;
+        break;
+      case "perils":
+        _collectPeril.value = collect;
+        break;
+    }
+
+  }
+
   CollectModel collectOfType(String ofType) {
+    print(">>>>> GET COLLECT OF TYPE: $ofType");
     switch ( ofType ) {
       case 'week': return _seasonalCollect.value;
       case 'day': return _collectOfDay.value;
@@ -40,33 +63,11 @@ class CollectController extends GetxController {
     LiturgicalCalendarController c = Get.put( LiturgicalCalendarController() );
 
     LiturgicalDay litDay = c.today.day;
-    _seasonalCollect.value = await CollectDB().getCollect(litDay, "week");
-    _collectOfDay.value = await CollectDB().getCollect(litDay, 'day');
-    _collectPeaceMP.value = await CollectDB().getCollect(litDay, 'MPPeace');
-    _collectPeaceEP.value = await CollectDB().getCollect(litDay, 'EPPeace');
-    _collectGrace.value = await CollectDB().getCollect(litDay, 'grace');
-    _collectPeril.value = await CollectDB().getCollect(litDay, 'perils');
+    CollectDB().getCollect(litDay, "week");
+    CollectDB().getCollect(litDay, 'day');
+    CollectDB().getCollect(litDay, 'MPPeace');
+    CollectDB().getCollect(litDay, 'EPPeace');
+    CollectDB().getCollect(litDay, 'grace');
+    CollectDB().getCollect(litDay, 'perils');
   }
-
-/*
-  Rx<List<CanticleModel>> canticleList = Rx<List<CanticleModel>>();
-  Rx<CanticleModel> _selected = Rx<CanticleModel>();
-
-  List<CanticleModel> get canticles => canticleList.value;
-  Rx<CanticleModel> get unselect => _selected = Rx<CanticleModel>();
-  CanticleModel showThis(value) => _selected.value = value;
-
-  CanticleModel get selected => _selected?.value;
-  CanticleModel getByName(id) {
-    for (var c in canticleList.value) {
-      if ( c.id == id ) return c;
-    }
-    return CanticleModel(id: id, name: id, notes: "This canticle is missing");
-  }
-
-  @override
-  void onInit() {
-    canticleList.bindStream( CanticleDB().canticleStream);
-  }
-*/
 }

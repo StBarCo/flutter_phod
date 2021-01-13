@@ -1,21 +1,49 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_phod/controllers/psalmController.dart';
 import 'package:flutter_phod/models/calendar_day.dart';
+import 'package:flutter_phod/models/psalm_model.dart';
 import 'package:get/get.dart';
 import 'package:flutter_phod/models/liturgical_day.dart';
 import 'package:flutter_phod/controllers/configController.dart';
-import 'package:flutter_phod/stores/psalm_map.dart';
 
 ConfigController cc = Get.put( ConfigController() );
+PsalmController psc = Get.put( PsalmController() );
 
-class DailyPsalms {
+class PsalmsDB {
+  final CollectionReference psalmsCollection = FirebaseFirestore.instance.collection('psalms');
 
   getDailyPsalms( CalendarDayModel selectedDay, String selectedService) {
     LiturgicalDay litDay = selectedDay.day;
-    Map map = (cc.psalmCycle == '60DayCycle') ? DailyPsalms.map60Day : DailyPsalms.map30Day;
+    Map map = (cc.psalmCycle == '60DayCycle') ? map60Day : map30Day;
     Map innerMap = map[litDay.season.id];
     innerMap ??= map[litDay.now.day.toString()];
-    print(">>>>> GET DAILY PSALMS: ${litDay.now}, ${selectedService}");
-    return innerMap[selectedService];
+    List<Ps> pss = innerMap[selectedService];
+    getListOfPsalms(pss);
   }
+
+  getListOfPsalms( List<Ps> pss) {
+    List<String> pKeys = pss.map( (p) => 'acna${p.ps}').toList();
+    var resp = Future.wait( pKeys.map( (k) => psalmsCollection.doc(k).get()));
+    int i = 0;
+    resp.then( (snapshots) {
+      psc.clearPsalms; // clear out the old psalms only after getting the new
+      snapshots.forEach( (snapshot) {
+        psc.appendPsalm(PsalmModel.fromDocumentSnapshot(pss[i++], snapshot));
+      });
+    })
+    .catchError( (err) => print("!!!!! Error getting psalms: $err"));
+  }
+
+  Future getPsalmByName(Ps ps ) {
+    Future resp =  psalmsCollection.doc("acna${ps.ps}").get();
+    resp
+    .then( (snapshot) {
+      psc.clearPsalms;
+      psc.appendPsalm( PsalmModel.fromDocumentSnapshot(ps, snapshot));
+      } )
+    .catchError( (err) => print("!!!!! Error getting single psalm: $err"));
+  }
+
 
   static Map<String, Map> map30Day = {
     'maundy_thursday': {
@@ -111,8 +139,8 @@ class DailyPsalms {
     '16': {
       'mp': [Ps(79, 1, 999), Ps(80, 1, 999), Ps(81, 1, 999)]
       ,
-      'ep': 
-          [Ps(82, 1, 999), Ps(83, 1, 999), Ps(84, 1, 999), Ps(85, 1, 999)]
+      'ep':
+      [Ps(82, 1, 999), Ps(83, 1, 999), Ps(84, 1, 999), Ps(85, 1, 999)]
     }
     // 16
     ,
@@ -127,8 +155,8 @@ class DailyPsalms {
     '19': {
       'mp': [Ps(95, 1, 999), Ps(96, 1, 999), Ps(97, 1, 999)]
       ,
-      'ep': 
-          [Ps(98, 1, 999), Ps(99, 1, 999), Ps(100, 1, 999), Ps(101, 1, 999)]
+      'ep':
+      [Ps(98, 1, 999), Ps(99, 1, 999), Ps(100, 1, 999), Ps(101, 1, 999)]
     }
     // 19
     ,
@@ -145,8 +173,8 @@ class DailyPsalms {
     // 22
     ,
     '23': {
-      'mp': 
-          [Ps(110, 1, 999), Ps(111, 1, 999), Ps(112, 1, 999), Ps(113, 1, 999)]
+      'mp':
+      [Ps(110, 1, 999), Ps(111, 1, 999), Ps(112, 1, 999), Ps(113, 1, 999)]
       ,
       'ep': [Ps(114, 1, 999), Ps(115, 1, 999)]
     }
@@ -186,8 +214,8 @@ class DailyPsalms {
     // 27
     ,
     '28': {
-      'mp': 
-          [Ps(132, 1, 999), Ps(133, 1, 999), Ps(134, 1, 999), Ps(135, 1, 999)]
+      'mp':
+      [Ps(132, 1, 999), Ps(133, 1, 999), Ps(134, 1, 999), Ps(135, 1, 999)]
       ,
       'ep': [Ps(136, 1, 999), Ps(137, 1, 999), Ps(138, 1, 999)]
     }
@@ -200,8 +228,8 @@ class DailyPsalms {
     '30': {
       'mp': [Ps(144, 1, 999), Ps(145, 1, 999), Ps(146, 1, 999)]
       ,
-      'ep': 
-          [Ps(147, 1, 999), Ps(148, 1, 999), Ps(149, 1, 999), Ps(150, 1, 999)]
+      'ep':
+      [Ps(147, 1, 999), Ps(148, 1, 999), Ps(149, 1, 999), Ps(150, 1, 999)]
     }
     // 30
     ,

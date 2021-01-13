@@ -1,7 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_phod/controllers/canticleController.dart';
+import 'package:get/get.dart';
+import 'package:flutter_phod/controllers/liturgicalCalendarController.dart';
 import 'package:flutter_phod/models/canticle.dart';
 import 'package:flutter_phod/models/liturgical_day.dart';
 
+LiturgicalCalendarController lcc = Get.put( LiturgicalCalendarController() );
+CanticleController cc = Get.put( CanticleController() );
 
 class CanticleDB {
 
@@ -18,17 +23,6 @@ class CanticleDB {
           return canticles;
     });
 
-
-
-  // get all the canticles
- List<CanticleModel> _canticleListFromSnapshot(QuerySnapshot snapshot) {
-    return snapshot.docs.map( (doc) {
-      return CanticleModel.fromDocumentSnapshot(doc);
-      // return _canticleFromDoc( doc );
-    }).toList();
- }
-
-
   Future getCanticle(LiturgicalDay litDay, int lesson) async {
     String key = canticle(
         "${litDay.service}${lesson}_${litDay.season.id}_${litDay.season.week}"
@@ -38,6 +32,13 @@ class CanticleDB {
     String docName = canticle(key);
     return await getCanticleByName(docName);
 }
+
+  initInvitatory(String name) {
+   Future resp = getCanticleByName(name);
+   resp
+   .then( (invit) => cc.initInvitatory( invit ) )
+   .catchError((err) => print("!!!!! Error getting Invitatory: $err"));
+  }
 
   Future getCanticleByName(String name) async {
     DocumentSnapshot c = await canticleCollection.doc(name).get();

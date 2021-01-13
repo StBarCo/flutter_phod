@@ -20,9 +20,8 @@ class LiturgicalSeason {
   String title = '';
   int week = 0;
   List<Color> colors = [];
-  String lityear = '';
 
-  LiturgicalSeason({this.id, this.antiphon, this.title, this.week, this.colors, this.lityear});
+  LiturgicalSeason({this.id, this.antiphon, this.title, this.week, this.colors});
 
   // Sunday on May 8 - May 14 is proper 1
   LiturgicalSeason findTheSeason(int doy, int easterDOY, DateTime now) {

@@ -1,14 +1,41 @@
+import 'package:flutter_phod/models/liturgical_day.dart';
 import 'package:get/get.dart';
 import 'package:flutter_phod/models/canticle.dart';
 import 'package:flutter_phod/services/canticles_db.dart';
-import 'package:meta/meta.dart';
 
 class CanticleController extends GetxController {
-  Rx<List<CanticleModel>> canticleList = Rx<List<CanticleModel>>();
-  Rx<CanticleModel> _selected = Rx<CanticleModel>();
+  final canticleList = <CanticleModel>[].obs;
+  final _selected = CanticleModel().obs;
+  final _invitatory = CanticleModel().obs;
+
+  CanticleModel get invitatory => _invitatory.value;
+  void initInvitatory(invit) => _invitatory.value = invit;
+  void setInvitatory(s) => _invitatory.value = getByName(s);
+  void setDefaultInvitatory(LiturgicalDay litDay) {
+    String invit;
+
+      if (litDay.service == "ep") invit = "phos_hilaron";
+    invit = (litDay.doy % 2) == 1 ? "venite" : "jubilate";
+
+      // during Eastertide, Pascha Nostrum only
+      if (litDay.season == 'easter') invit = "pascha_nostrum";
+
+      //  on the 19th of the month (paslm 95 day), do not use venite
+      if (litDay.now.day == 19) invit = "jubilate";
+
+      //  during Lent, Venite (long version) only
+      if (litDay.season == "ashWednesday" || litDay.season == "lent") {
+        //  Sundays in lent: jubilate
+        litDay.now.weekday == 7
+            ? invit = "jubilate"
+            : invit = "venite_long";
+      }
+      CanticleDB().initInvitatory(invit);
+
+    }
 
   List<CanticleModel> get canticles => canticleList.value;
-  Rx<CanticleModel> get unselect => _selected = Rx<CanticleModel>();
+  void get unselect => _selected.value = CanticleModel();
   CanticleModel showThis(value) => _selected.value = value;
 
   CanticleModel get selected => _selected?.value;

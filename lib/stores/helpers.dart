@@ -1,5 +1,4 @@
 import 'package:dart_date/dart_date.dart';
-import 'package:flutter_phod/stores/litday.dart';
 
 const List<String> white = ['white'];
 const List<String> red = ['red'];
@@ -69,6 +68,18 @@ int ascensionDOY(int easterDOY) => easterDOY + ascensionOffset;
 int pentecostDOY(int easterDOY) => easterDOY + pentecostOffset;
 int trinityDOY(int easterDOY) => easterDOY + trinityOffset;
 
+DateTime getNextEaster( DateTime now ) {
+  DateTime easter = yearToEaster(now.year);
+  if (easter <= now ) easter = yearToEaster(now.year + 1);
+  return easter;
+}
+DateTime getNextAshWednesday( DateTime now) {
+  DateTime aw = ashWednesdayFromEaster( yearToEaster(now.year) );
+  if ( aw <= now ) aw = ashWednesdayFromEaster( yearToEaster(now.year + 1));
+  return aw;
+}
+DateTime ashWednesdayFromEaster( DateTime easter) => easter.addDays(ashWednesdayOffset + 1);
+
 int ashWednesdayDOY(int easterDOY, bool leapYear) {
   int doy = easterDOY + ashWednesdayOffset;
   if (doy < 1) {
@@ -115,7 +126,9 @@ List<int> doyToMonDay(int doy) {
     if (doy >= dOfMonth1 && doy < (dOfMonth1 + dInMonth)) {
       return [monthNumber, doy - dOfMonth1 + 1];
     }
+
   });
+  return [];
 }
 
 

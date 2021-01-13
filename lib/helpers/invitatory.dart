@@ -1,36 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_phod/controllers/canticleController.dart';
+import 'package:flutter_phod/models/canticle.dart';
+import 'package:get/get.dart';
 import 'package:flutter_phod/helpers/rubric.dart';
 import 'package:flutter_phod/helpers/section_title.dart';
 import 'package:flutter_phod/helpers/versical.dart';
 import 'package:flutter_phod/models/liturgical_day.dart';
-import 'package:flutter_phod/services/canticles_db.dart';
 
 import 'antiphon.dart';
 
-class Invitatory extends StatefulWidget {
+CanticleController c = Get.put( CanticleController());
+
+class Invitatory extends StatelessWidget {
   LiturgicalDay litDay;
   Invitatory({Key key, this.litDay}) : super(key: key);
-
   @override
-  _InvitatoryState createState() => _InvitatoryState();
-}
-
-class _InvitatoryState extends State<Invitatory> {
-  Future futureInvitatory;
-  String invitatoryName;
-
-  @override
-  void initState() {
-    super.initState();
-    futureInvitatory = _getInvitatory();
-  }
-
-  _getInvitatory() async {
-    setState(() {
-      invitatoryName ??= _getCollect(widget.litDay);
-    });
-    return await CanticleDB().getCanticleByName( invitatoryName );
-  }
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,48 +30,29 @@ class _InvitatoryState extends State<Invitatory> {
         , Versical( speaker: "Officiant", says: "Praise the Lord.")
         , Versical( speaker: "People", says: "The Lord’s Name be praised.")
         , Rubric("Then follows the Venite. Alternatively, the Jubilate may be used. One of these antiphons, or one from the seasonal antiphons provided at the end of the Office (pages 29-30), may be sung or said before and after the Invitatory Psalm.")
-        , Antiphon(season: widget.litDay.season.id)
+        , Antiphon(season: litDay.season.id)
         , ButtonBar(
               mainAxisSize: MainAxisSize.min
             , children: <Widget>[
                   RaisedButton(
-                      onPressed: () { setState( () {
-                        futureInvitatory = CanticleDB().getCanticleByName( 'venite' );
-                      }  ); }
+                      onPressed: () => c.setInvitatory('venite')
                     , child: Text('Venite')
                   )
                   , RaisedButton(
-                      onPressed: () { setState( () {
-                        futureInvitatory = CanticleDB().getCanticleByName( 'venite_long');
-                      }  ); }
+                      onPressed: () => c.setInvitatory('venite_long')
                     , child: Text('Venite(L)')
                   )
                   , RaisedButton(
-                      onPressed: () { setState( () {
-                        futureInvitatory = CanticleDB().getCanticleByName( 'jubilate');
-                      }  ); }
+                      onPressed: () => c.setInvitatory('jubilate')
                     , child: Text('Jubilate')
                   )
                   , RaisedButton(
-                      onPressed: () { setState( () {
-                        futureInvitatory = CanticleDB().getCanticleByName( 'pascha_nostrum');
-                      }  ); }
+                      onPressed: () => c.setInvitatory('pascha_nostrum')
                     , child: Text('Pascha Nostrum')
                   )
                 ]
           )
-        , FutureBuilder(
-              future: futureInvitatory
-            , builder: (context, snapshot) {
-                switch( snapshot.connectionState) {
-                  case ConnectionState.done:
-                    return ShowInvitatory(inv: snapshot.data); // snapshot data
-
-                  default:
-                  return Container();
-                }
-            }
-        )
+        , Obx( () => ShowInvitatory(inv: c.invitatory))
         // <Antiphon />
         ]
     );
@@ -99,43 +64,16 @@ class ShowInvitatory extends StatelessWidget {
   ShowInvitatory({Key key, this.inv}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return (inv == null)
+    return (inv == null || inv == CanticleModel())
       ? Text("Invitatory not available")
       : Column(
           crossAxisAlignment: CrossAxisAlignment.start
         , children: <Widget>[
-              Text(inv.name)
-            , Text(inv.title)
+              if(inv.name != null) Text(inv.name)
+            , if(inv.title != null) Text(inv.title)
             , SizedBox(height: 16.0)
-            , Text(inv.text)
+            , if(inv.text != null) Text(inv.text)
     ]);
   }
 
-}
-
-
-String _getCollect(LiturgicalDay litDay) {
-  String invitatory;
-
-  if (litDay.service == "ep") {
-    return "phos_hilaron";
-  }
-  invitatory = (litDay.doy % 2) == 1 ? "venite" : "jubilate";
-
-  // during Eastertide, Pascha Nostrum only
-  if (litDay.season == 'easter') {
-    return "pascha_nostrum";
-  }
-
-  //  on the 19th of the month (paslm 95 day), do not use venite
-  if (litDay.now.day == 19) {
-    return "jubilate";
-  }
-
-  //  during Lent, Venite (long version) only
-  if (litDay.season == "ashWednesday" || litDay.season == "lent") {
-    //  Sundays in lent: jubilate
-    invitatory = litDay.now.weekday == 7 ? "jubilate" : "venite_long";
-  }
-  return invitatory;
 }

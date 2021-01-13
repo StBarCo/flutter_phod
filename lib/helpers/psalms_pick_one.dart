@@ -1,54 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:flutter_phod/controllers/psalmController.dart';
 import 'package:flutter_phod/helpers/show_one_psalms.dart';
-import 'package:flutter_phod/services/database.dart';
-import 'package:flutter_phod/stores/psalm_map.dart';
+import 'package:flutter_phod/models/psalm_model.dart';
+import 'package:flutter_phod/services/psalms_db.dart';
 
-class PsalmsPickOne extends StatefulWidget {
-  List<Ps> psalms; // 
-  PsalmsPickOne({Key key, this.psalms}) : super (key: key);
+PsalmController c = Get.put( PsalmController() );
+
+class PsalmsPickOne extends StatelessWidget {
+  List<Ps> psalms;
+  PsalmsPickOne({Key key, this.psalms}) : super(key: key);
   @override
-  _PsalmsPickOneState createState() => _PsalmsPickOneState();
-}
-
-
-
-class _PsalmsPickOneState extends State<PsalmsPickOne> {
-  Future futurePsalm;
-
-  @override
-  void initState() {
-    super.initState();
-    futurePsalm = _getPsalm();
-  }
-
-  _getPsalm() async {
-    return await DatabaseService().getPsalmByName(widget.psalms[0]);
-  }
-
   Widget build(BuildContext context) {
+    PsalmsDB().getListOfPsalms(psalms);
     return Column(
         crossAxisAlignment: CrossAxisAlignment.start
         , children: <Widget>[
           ButtonBar(
           mainAxisSize: MainAxisSize.min
-          , children: widget.psalms.map<Widget>((ps)
+          , children: c.psalmsAvailable.map<Widget>((ps)
           { return RaisedButton(
-                  onPressed: () {
-                setState(() {
-                    futurePsalm = DatabaseService().getPsalmByName(ps);
-                  });
-                }
-              , child: Text("Psalm ${ps.ps}")
+                onPressed: () => c.select(ps)
+              , child: Text("$ps")
             );
           }).toList())
-      , FutureBuilder(
-          future: futurePsalm
-          , builder: (context, snapshot) {
-        return (snapshot.connectionState == ConnectionState.done)
-            ? ShowOnePsalm(psalm: snapshot.data)
-            : Container();
-      }
-      )
+      , Obx( () => ShowOnePsalm(psalm: c.selected))
     ]
     );
   }

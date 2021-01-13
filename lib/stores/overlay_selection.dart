@@ -135,6 +135,7 @@ class ScriptureOverlay extends StatelessWidget {
   ScriptureOverlay(this.ref);
   final String ref;
   Widget build(BuildContext context) {
-    return ListView( children: <Widget>[ShowScripture(ref: ref)]);
+    return ListView( children: <Widget>[ShowScripture(ref)]);
   }
 }
+

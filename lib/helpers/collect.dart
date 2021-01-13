@@ -3,7 +3,6 @@ import 'package:flutter_phod/models/collect.dart';
 import 'package:get/get.dart';
 import 'package:flutter_phod/controllers/collectController.dart';
 import 'package:flutter_phod/models/liturgical_day.dart';
-import 'package:flutter_phod/services/collect_db.dart';
 
 CollectController c = Get.put( CollectController() );
 class Collect extends StatelessWidget {
@@ -12,20 +11,30 @@ class Collect extends StatelessWidget {
   String ofType;
   @override
   Widget build(BuildContext context) {;
-    CollectModel collect = c.collectOfType(ofType);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-            "${collect.title}"
-          , style: TextStyle( fontSize: 18.0 )
-        ),
-        Text(
-            "${collect.text}"
-          , style: TextStyle( fontSize: 14.0 )
-        ),
-        SizedBox(height: 20.0)
-      ]
+    return Obx( () => RenderCollect(collect: c.collectOfType(ofType)));
+  }
+}
+
+class RenderCollect extends StatelessWidget {
+  CollectModel collect;
+  RenderCollect({Key key, this.collect}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return (collect == null || collect.title == null)
+      ? Container()
+      : Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+              "${collect.title}"
+              , style: TextStyle( fontSize: 18.0 )
+          ),
+          Text(
+              "${collect.text}"
+              , style: TextStyle( fontSize: 14.0 )
+          ),
+          SizedBox(height: 20.0)
+        ]
     );
   }
 }

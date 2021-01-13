@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_phod/helpers/psalms_pick_one.dart';
-import 'package:flutter_phod/helpers/show_one_psalms.dart';
 import 'package:flutter_phod/helpers/word_of_the_lord.dart';
-import 'package:flutter_phod/services/database.dart';
 import 'package:flutter_phod/helpers/gloria.dart';
 import 'package:flutter_phod/helpers/iphod_scaffold.dart';
 import 'package:flutter_phod/helpers/lord_have_mercy.dart';
@@ -12,9 +10,8 @@ import 'package:flutter_phod/helpers/paragraph.dart';
 import 'package:flutter_phod/helpers/rubric.dart';
 import 'package:flutter_phod/helpers/scripture_ref.dart';
 import 'package:flutter_phod/helpers/versical.dart';
-import 'package:flutter_phod/stores/litday.dart';
 import 'package:flutter_phod/helpers/page_header.dart';
-import 'package:flutter_phod/stores/psalm_map.dart';
+import 'package:flutter_phod/models/psalm_model.dart';
 
 class Midday extends StatefulWidget {
   @override
