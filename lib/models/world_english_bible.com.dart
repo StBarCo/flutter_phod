@@ -31,5 +31,9 @@ class WEB {
           .cast<WEBVerse>();
     // wrap passage in paragraph for consistancy with ESV
     this.passage = "<p>" + this.vss.map( (vs) => vs.text).toList().join(" ") + "</p>";
+    // change span to mark because flutter_html doesn't parse classes
+    // ESV doesn't have any <mark> tags, so we'll use it for WEB vs numbers
+    this.passage.replaceAll('<span',  '<mark');
+    this.passage.replaceAll('</span', '</mark');
   }
 }

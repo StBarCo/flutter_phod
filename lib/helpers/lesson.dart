@@ -80,7 +80,7 @@ class ShowLesson extends StatelessWidget {
             "p": Style(
               fontSize: FontSize(18.0),
             ),
-            "span": Style(
+            "mark": Style(
               color: Colors.red[700],
               // Should'ought'a be superscript
               fontSize: FontSize(12.0)
