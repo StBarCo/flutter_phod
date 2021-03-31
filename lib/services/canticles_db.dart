@@ -44,8 +44,6 @@ class CanticleDB {
     DocumentSnapshot c = await canticleCollection.doc(name).get();
     return CanticleModel.fromDocumentSnapshot(c);
     //Canticle cant = _canticleFromDoc(c);
-    //print(">>>>> CANT DATA: $cant");
-    //return canticleCollection.doc(name).get();
   }
 
 }

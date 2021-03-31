@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_phod/models/user.dart';
-import 'package:flutter_phod/stores/daily_psalms.dart';
 import 'package:flutter_phod/stores/psalm_map.dart';
 
 class DatabaseService {
@@ -20,7 +19,6 @@ class DatabaseService {
       return true;
     }
     catch(e) {
-      print(">>>>> ERROR creating user: $e");
       return false;
     }
 }
@@ -31,7 +29,6 @@ class DatabaseService {
       return UserModel.fromDocumentSnapshot(doc);
     }
     catch (e) {
-      print('>>>>> ERROR getting user: $e');
       rethrow;
     }
   }

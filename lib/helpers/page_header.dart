@@ -9,19 +9,19 @@ import 'package:flutter_phod/models/liturgical_day.dart';
 LiturgicalCalendarController c = Get.put( LiturgicalCalendarController());
 
 class PageHeader extends StatelessWidget {
-  LiturgicalDay day = c.selected.day;
+  LiturgicalDay litDay = c.selectedDay.litDay;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         Text(
-            DateFormat.MMMMEEEEd().format(day.now),
+            DateFormat.MMMMEEEEd().format(litDay.now),
           style: TextStyle(
             fontSize: 20.0,
             letterSpacing: 2
           )
         ),
-        SeasonTitle(day.season, day.litYear)
+        SeasonTitle(litDay.season, litDay.litYear)
       ],
     );
   }

@@ -63,27 +63,27 @@ Season findTheSeason(int doy, int easterDOY, DateTime now) {
   int d;
   Season seasonSoFar;
   if ( inRange(doy, d=christTheKingDOY(now.year), dayBefore(advent1DOY(now.year)))) {
-    seasonSoFar = createSeason('christTheKing', 'Christ the King', daysToWeeks(doy -d), now);
+    seasonSoFar = createSeason('christTheKing', 'Christ the King', daysToWeeks(doy -d, leapYear), now);
   } else if (inRange(doy, d = advent1DOY(now.year), dayBefore(christmasDOY))) {
-    seasonSoFar = createSeason('advent', 'Advent', daysToWeeks(doy -d), now);
+    seasonSoFar = createSeason('advent', 'Advent', daysToWeeks(doy -d, leapYear), now);
   } else if (inRange(doy, d = christmasDOY, dayBefore(epiphanyDOY))) {
-    seasonSoFar = createSeason('christmas', 'Christmas', daysToWeeks(doy -d), now);
+    seasonSoFar = createSeason('christmas', 'Christmas', daysToWeeks(doy -d, leapYear), now);
   } else if (inRange(doy, d = epiphanyDOY, dayBefore(ashWednesdayDOY(easterDOY, leapYear)))) {
-    seasonSoFar = createSeason('epiphany', 'Epiphany', daysToWeeks(doy -d), now);
+    seasonSoFar = createSeason('epiphany', 'Epiphany', daysToWeeks(doy -d, leapYear), now);
   } else if (inRange(doy, d = ashWednesdayDOY(easterDOY, leapYear), dayBefore(palmSundayDOY(easterDOY)))) {
-    seasonSoFar = createSeason('lent', 'Lent', daysToWeeks(doy -d), now);
+    seasonSoFar = createSeason('lent', 'Lent', daysToWeeks(doy -d, leapYear), now);
   } else if (inRange(doy, d = palmSundayDOY(easterDOY), dayBefore(easterDOY))) {
-    seasonSoFar = createSeason('holyWeek', 'Holy Week', daysToWeeks(doy -d), now);
+    seasonSoFar = createSeason('holyWeek', 'Holy Week', daysToWeeks(doy -d, leapYear), now);
   } else if (inRange(doy, d = ascensionDOY(easterDOY), d + 2)) {
-    seasonSoFar = createSeason('ascension', 'Ascension', daysToWeeks(doy -d), now);
+    seasonSoFar = createSeason('ascension', 'Ascension', daysToWeeks(doy -d, leapYear), now);
   } else if (inRange(doy, d = easterDOY, dayBefore(pentecostDOY(easterDOY)))) {
-    seasonSoFar = createSeason('easter', 'Easter', daysToWeeks(doy -d), now);
+    seasonSoFar = createSeason('easter', 'Easter', daysToWeeks(doy -d, leapYear), now);
   } else if (inRange(doy, d = pentecostDOY(easterDOY), d + 6)) {
-    seasonSoFar = createSeason('pentecost', 'Pentecost', daysToWeeks(doy -d), now);
+    seasonSoFar = createSeason('pentecost', 'Pentecost', daysToWeeks(doy -d, leapYear), now);
   } else if (inRange(doy, d = trinityDOY(easterDOY), d + 6)) {
-    seasonSoFar = createSeason('trinity', 'Trinity Sunday', daysToWeeks(doy -d), now);
+    seasonSoFar = createSeason('trinity', 'Trinity Sunday', daysToWeeks(doy -d, leapYear), now);
   } else { // season following Pentecost
-    seasonSoFar = createSeason('proper', 'Season following Pentecost', daysToWeeks(doy - proper1Sunday(now)), now);
+    seasonSoFar = createSeason('proper', 'Season following Pentecost', daysToWeeks(doy - proper1Sunday(now), leapYear), now);
   }
   
   return findRLD(seasonSoFar, now);

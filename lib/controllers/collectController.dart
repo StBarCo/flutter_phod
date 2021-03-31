@@ -46,7 +46,6 @@ class CollectController extends GetxController {
   }
 
   CollectModel collectOfType(String ofType) {
-    print(">>>>> GET COLLECT OF TYPE: $ofType");
     switch ( ofType ) {
       case 'week': return _seasonalCollect.value;
       case 'day': return _collectOfDay.value;
@@ -62,7 +61,7 @@ class CollectController extends GetxController {
   void onInit() async {
     LiturgicalCalendarController c = Get.put( LiturgicalCalendarController() );
 
-    LiturgicalDay litDay = c.today.day;
+    LiturgicalDay litDay = c.today.litDay;
     CollectDB().getCollect(litDay, "week");
     CollectDB().getCollect(litDay, 'day');
     CollectDB().getCollect(litDay, 'MPPeace');

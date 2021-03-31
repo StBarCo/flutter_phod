@@ -13,13 +13,14 @@ class PsalmsDB {
   final CollectionReference psalmsCollection = FirebaseFirestore.instance.collection('psalms');
 
   getDailyPsalms( CalendarDayModel selectedDay, String selectedService) {
-    LiturgicalDay litDay = selectedDay.day;
+    LiturgicalDay litDay = selectedDay.litDay;
     Map map = (cc.psalmCycle == '60DayCycle') ? map60Day : map30Day;
     Map innerMap = map[litDay.season.id];
     innerMap ??= map[litDay.now.day.toString()];
     List<Ps> pss = innerMap[selectedService];
     getListOfPsalms(pss);
   }
+
 
   getListOfPsalms( List<Ps> pss) {
     List<String> pKeys = pss.map( (p) => 'acna${p.ps}').toList();
@@ -46,16 +47,16 @@ class PsalmsDB {
 
 
   static Map<String, Map> map30Day = {
-    'maundy_thursday': {
+    'holyWeek4': {
       'mp': [Ps(41, 1, 999)],
       'ep': [Ps(142, 1, 999), Ps(143, 1, 999)]
     }
     ,
-    'good_friday': { 'mp': [Ps(40, 1, 999)], 'ep': [Ps(102, 1, 999)]}
+    'holyWeek5': { 'mp': [Ps(40, 1, 999)], 'ep': [Ps(102, 1, 999)]}
     ,
-    'holy_saturday': { 'mp': [Ps(88, 1, 999)], 'ep': [Ps(91, 1, 999)]}
+    'holyWeek6': { 'mp': [Ps(88, 1, 999)], 'ep': [Ps(91, 1, 999)]}
     ,
-    'easter_day': {
+    'easter1': {
       'mp': [Ps(118, 1, 999)],
       'ep': [Ps(111, 1, 999), Ps(113, 1, 999), Ps(114, 1, 999)]
     }

@@ -9,6 +9,7 @@ class EucharistLectionaryModel {
   List<ReadingModel> ot;
   List<ReadingModel> nt;
   List<ReadingModel> gs;
+  List<ReadingModel> entryGospel;
 
   EucharistLectionaryModel(
       { this.id
@@ -18,14 +19,26 @@ class EucharistLectionaryModel {
       , this.ot
       , this.nt
       , this.gs
+      , this.entryGospel
       });
 
   EucharistLectionaryModel.fromDocumentSnapshot( DocumentSnapshot snapshot) {
+    // var x = snapshot.data().
     id = snapshot.id;
-    title = snapshot.data()["title"];
-    psalms = ReadingModel().mapReadingModel(snapshot.data()["ps"]);
-    nt = ReadingModel().mapReadingModel(snapshot.data()["nt"]);
-    ot = ReadingModel().mapReadingModel(snapshot.data()["ot"]);
-    gs = ReadingModel().mapReadingModel(snapshot.data()["gs"]);
+    title = dataWithDefault(snapshot, "title", "");
+    psalms = readingModelWithDefault(snapshot, 'ps');
+    nt = readingModelWithDefault(snapshot, 'nt');
+    ot = readingModelWithDefault(snapshot, 'ot');
+    gs = readingModelWithDefault(snapshot, 'gs');
+    entryGospel = readingModelWithDefault(snapshot, 'entryGospel');
   }
+
+  dataWithDefault( DocumentSnapshot snapshot, String field, defaultData) =>
+    snapshot.data().containsKey(field) ? snapshot.data()[field] : defaultData;
+
+  readingModelWithDefault( DocumentSnapshot snapshot, String field) =>
+      snapshot.data().containsKey(field)
+          ? ReadingModel().mapReadingModel(snapshot.data()[field])
+          : [new ReadingModel()];
+
 }

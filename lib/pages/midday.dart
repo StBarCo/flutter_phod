@@ -23,7 +23,6 @@ class _MiddayState extends State<Midday> {
   bool noAdditionalDirections = true;
   @override
   Widget build(BuildContext context) {
-    print("NO ADD DIRS: $noAdditionalDirections");
     return IphodScaffold(
         title: 'Midday Prayer',
       body: DefaultTextStyle(

@@ -55,7 +55,7 @@ class CalendarController extends GetxController{
     index += 1;
     thisDay = nextDay(thisDay);
   }
-  days.value = theseDays;
+  days = theseDays;
   }
 
   setMonthName() { monthName.value = dateTimeFormat( today.value, "MMMM"); }
@@ -75,65 +75,6 @@ int diffMonth( DateTime today, DateTime now ) {
   // diff < 0 when now is next month except when today is in January
   if (diff < 0) return (today.getMonth == 1) ? 1 : -1;
 }
-
-/*
-class Month {
-  String name;
-  List<String> dayNames;
-  List<Day> days = [];
-
-  Month init(DateTime now) {
-    final CalendarController c = Get.put(CalendarController());
-
-    // to properly initialize `thisDay`, we have to also say `nextDay`
-    // beats me why this is the case
-    DateTime thisDay = (now.startOfMonth.isSunday) ? now.startOfMonth.nextDay : now.startOfMonth.startOfWeek; // first day to display
-
-    DateTime last = now.endOfMonth.endOfWeek.addDays(7);
-    this.name = now.format("MMMM");
-    int index = 0;
-    while (thisDay <= last) {
-      this.days.add( Day().init(now, thisDay, index) );
-      if (thisDay.isSameDay(now)) {
-        c.setToday( thisDay );
-        c.selectedDay( index );
-      }
-      index += 1;
-      thisDay = thisDay.nextDay;
-    }
-    this.dayNames = ["Sun", "Mon", "Tues", "Wed", "Thr", "Fri", "Sat"];
-    return this;
-  }
-}
-
-*/
-/*
-List<Day> daysInit( DateTime now ) {
-  final CalendarController c = Get.put(CalendarController());
-
-  // to properly initialize `thisDay`, we have to also say `nextDay`
-  // beats me why this is the case
-  DateTime thisDay = (now.startOfMonth.isSunday) ? now.startOfMonth.nextDay : now.startOfMonth.startOfWeek; // first day to display
-  DateTime last = now.endOfMonth.endOfWeek.addDays(7);
-  List<Day> days = [];
-  c.setMonthName( now.format("MMMM") );
-  int index = 0;
-  while (thisDay <= last) {
-    days.add( Day().init(now, thisDay, index) );
-    if (thisDay.isSameDay(now)) {
-      c.setToday( thisDay );
-      c.selectedDay( index );
-    }
-    index += 1;
-    thisDay = thisDay.nextDay;
-  }
-  c.setDays(days);
-  return days;
-}
-}
-
-
- */
 
 class RenderLitCalendar extends StatelessWidget {
   // RenderLitCalendar( this.now );
@@ -240,12 +181,10 @@ TableRow renderWeek( int day1 ) {
   final CalendarController c = Get.put( CalendarController() );
   // List<Widget> theseDays = c.days.getRange(day1, day1 + 7).map<Widget>( (idx) {
   List<Widget> theseDays = List<int>.generate(7, (day1) => day1 + 1).map<Widget>( (idx) {
-    print(">>>>> DATE SELECTED: ${c.selectedDay.value} == $idx");
 
     return TableCell(
       child: InkWell(
         onTap: () {
-          print(">>>>> INDEX: $idx, ");
           c.setSelectedDay(  idx );
         },
         child: CalendarDayBox( idx )
@@ -264,23 +203,23 @@ class CalendarDayBox extends StatelessWidget {
   final CalendarController c = Get.put( CalendarController() );
   @override
   Widget build(BuildContext context) {
-    Day day = c.days[idx];
-    print(">>>>> CALENDAR DAY BOX: ${day.index} ?=? $idx");
+    Day thisDay = c.days[idx];
+    LitDay litDay = thisDay.day;
     return SizedBox(
       height: 50.0,
       child: Container(
         margin: EdgeInsets.all(2.0),
         decoration: BoxDecoration(
-          color:  c.days[idx].day.season.colors[0],
+          color:  litDay.season.colors[0],
           shape: BoxShape.rectangle,
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(5.0),
               bottomRight: Radius.circular(5.0)),
           border: Border.all(
-              color: ( idx ==  c.days[idx].index ) ? Colors.black :  c.days[idx].day.season.colors[0],
-              width: ( idx ==  c.days[idx].index ) ? 4 :  0),
+              color: ( idx ==  thisDay.index ) ? Colors.black :  litDay.season.colors[0],
+              width: ( idx ==  thisDay.index ) ? 4 :  0),
         ),
-        child: Obx( () => Text("${ c.days[idx].day.now.getDate}")),
+        child: Obx( () => Text("${ litDay.now.getDate}")),
       ),
     );
   }

@@ -6,52 +6,90 @@ import 'package:flutter_phod/models/psalm_model.dart';
 class CitationGrammar extends GrammarDefinition {
   start() => ref(citation).end();
 
-  citation() => ref(citationFromToSpanChap)
-      | ref(citationFromToInChap)
-      | ref(citationFromChapVs)
-      | ref(citationChap)
-      | ref(citationBook);
+  citation() {
+    return ref(citationFromToSpanChap) |
+        ref(citationFromToInChap).end() |
+        ref(citationFromChapVs).end() |
+        ref(citationChap).end() |
+        ref(citationBook).end()
+        ;
+  }
 
-  citationFromToSpanChap() => ( ref(book) & ref(fromToSpanChap) ).map( (el) => [el[0] + el[1][0], el[0] + el[1][1]]);
-  citationFromToInChap() => ( ref(book) & ref(fromToInChap) ).map( (el) => [el[0] + el[1][0], el[0] + el[1][1]] );
-  citationFromChapVs() => ( ref(book) & ref(chapVs)).map( (el) => [el[0] + el[1], el[0] + el[1]]);
-  citationChap() => ( ref(book) & ref(chap) ).map( (el) => [el[0] + el[1] + 1, el[0] + el[1] + 999] );
-  citationBook() => ( ref(book) ).map( (el) => [el[0] + 1001, el[0] + 1999]);
-  end() => string('end').trim().map( (end) => '999'); // end is always vs#999
-  number() => (digit().plus().flatten() | ref(end).trim()).map( (n) => int.parse(n));
-  chap() => ref(number).map( (n) => n * 1000);
-  chapVs() => (ref(chap) & char(':') & ref(number)).map( (el) => el[0] + el[2] );
-  fromToInChap() => (ref(chap) & char(':') & ref(number) & char('-') & ref(number)).map( (el) => [el[0] + el[2], el[0] + el[4]] );
-  fromToSpanChap() => (ref(chapVs) & char('-') & ref(chapVs)).map( (el) => [el[0], el[2]]);
-  book() => ref(vol).seq(ref(words)).flatten().map( (b) => getBookKey(b) );
-  vol() => ref(number).optional(); //(char('1')|char('2')|char('3')).optional();
-  words() => (letter().plus().trim()).plus();
+  citationFromToSpanChap() {
+    return (ref(book) & ref(fromToSpanChap)).map((el) =>
+    [
+      el[0] + el[1][0],
+      el[0] + el[1][1]
+    ]);
+  }
+  citationFromToInChap() {
+    return (ref(book) & ref(fromToInChap)).map((el) =>
+    [
+      el[0] + el[1][0],
+      el[0] + el[1][1]
+    ]);
+
+  }
+  citationFromChapVs() {
+    return (ref(book) & ref(chapVs)).map((el) => [el[0] + el[1], el[0] + el[1]]);
+  }
+  citationChap() {
+    return (ref(book) & ref(chap)).map((el) =>
+    [
+      el[0] + el[1] + 1,
+      el[0] + el[1] + 999
+    ]);
+  }
+  citationBook() {
+    return (ref(book)).map((el) => [el[0] + 1001, el[0] + 1999]);
+  }
+  end() {
+    return string('end').trim().map((end) => '999'); // end is always vs#999
+    }
+  number() {
+    return (digit().plus().flatten() | ref(end).trim()).map((n) => int.parse(n));
+  }
+  chap() {
+    return ref(number).map((n) => n * 1000);
+  }
+  chapVs() {
+    return (ref(chap) & char(':') & ref(number)).map((el) => el[0] + el[2]);
+  }
+  fromToInChap() {
+    return (ref(chap) & char(':') & ref(number) & char('-') & ref(number)).map((el) => [el[0] + el[2], el[0] + el[4]]);
+  }
+  fromToSpanChap() {
+    return (ref(chapVs) & char('-') & ref(chapVs)).map((el) => [el[0], el[2]]);
+  }
+  book() {
+    return ref(vol).seq(ref(words)).flatten().map((b) => getBookKey(b));
+  }
+  vol() {
+    return (char('1') | char('2') | char('3') | char('4')).optional();
+  }
+  words() {
+    return (letter().plus().trim()).plus();
+  }
 }
 
 final citation = new CitationGrammar().build();
 
 parseCitation(String s) {
-  final parsed = citation.parse(s);
-  if (parsed.isFailure) {
-    print("!!!!! {PARSED FAILED: $s");
-    return [];
-  }
+  if (s == "null") return [0,0];
+  var parsed = citation.parse(s.trim());
+  if (parsed.isFailure) return [0,0];
   return parsed.value;
 }
 
 String esvQueryString( List<ReadingModel> refs) {
-  String query = refs.map( (r) {
-    List ifromAndito = parseCitation(r.read); // [fromKey, toKey]
-    return ifromAndito[0].toString() + "-" + ifromAndito[1].toString();
-  }).toList().join(",");
-  return query;
+  return refs.map( (r) => r.read ).toList().join(",");
 }
 
 Ps parsePsalmCitation(String s) {
   int psalmKey = 19;
   List iFromiTo = parseCitation(s);
   if ((iFromiTo[0] ~/ 1000000) != psalmKey) return null;
-  int chap = ((iFromiTo[0] % 100000) ~/ 1000).toInt();
+  int chap = ((iFromiTo[0] % 1000000) ~/ 1000).toInt();
   int from = iFromiTo[0] % 1000;
   int to = iFromiTo[1] % 1000;
   // if the book referenced is not Psalms return null

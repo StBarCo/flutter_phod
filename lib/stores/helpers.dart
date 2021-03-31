@@ -134,7 +134,7 @@ List<int> doyToMonDay(int doy) {
 
 String litYearName(int doy, int yr) {
   int advent1 = advent1DOY(yr);
-  return ['c', 'a', 'b'][((doy >= advent1 ) ? yr + 1 : yr) % 3];
+  return ['c', 'a', 'b'][((doy >= advent1 && doy < newyearsDOY) ? yr + 1 : yr) % 3];
 }
 
 bool inRange(int target, from, int to) {
@@ -147,7 +147,10 @@ bool inRange(int target, from, int to) {
 // it's just syntactial candy
 int dayBefore(int d) => d -= 1;
 
-int daysToWeeks( int n ) => (n / 7).floor() + 1;
+int daysToWeeks( int n, bool leapYear ) {
+  if ( n < 0 ) n += leapYear ? 366 : 365;
+  return n ~/ 7 + 1;
+}
 
 int calculateProper( int doy ) => ((doy - proper1DOY) / 7).floor() + 1;
 

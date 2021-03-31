@@ -9,11 +9,10 @@ ConfigController cc = Get.put( ConfigController() );
 class DailyPsalms {
 
   getDailyPsalms( CalendarDayModel selectedDay, String selectedService) {
-    LiturgicalDay litDay = selectedDay.day;
+    LiturgicalDay litDay = selectedDay.litDay;
     Map map = (cc.psalmCycle == '60DayCycle') ? DailyPsalms.map60Day : DailyPsalms.map30Day;
     Map innerMap = map[litDay.season.id];
     innerMap ??= map[litDay.now.day.toString()];
-    print(">>>>> GET DAILY PSALMS: ${litDay.now}, ${selectedService}");
     return innerMap[selectedService];
   }
 

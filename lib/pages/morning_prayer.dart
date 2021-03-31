@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_phod/controllers/collectController.dart';
-import 'package:flutter_phod/models/calendar_day.dart';
+import 'package:flutter_phod/controllers/liturgicalDayController.dart';
 import 'package:get/get.dart';
 import 'package:flutter_phod/models/liturgical_day.dart';
 import 'package:flutter_phod/controllers/liturgicalCalendarController.dart';
@@ -25,14 +25,17 @@ import 'package:flutter_phod/helpers/collect_for_mission.dart';
 import 'package:flutter_phod/helpers/general_thanksgiving.dart';
 import 'package:flutter_phod/helpers/chrysostom.dart';
 
-LiturgicalCalendarController lcc = Get.put( LiturgicalCalendarController() );
 CollectController cc = Get.put( CollectController() );
+LiturgicalDayController dayc = Get.put( LiturgicalDayController() );
 
 class MorningPrayer extends StatelessWidget {
-  CalendarDayModel thisDay = lcc.selectService('mp');
+  // CalendarDayModel thisDay = lcc.selectService('mp');
+
   @override
   Widget build(BuildContext context) {
-    LiturgicalDay litDay = thisDay.day;
+    LiturgicalCalendarController lcc = Get.put( LiturgicalCalendarController() );
+    lcc.initLessons("mp");
+    LiturgicalDay litDay = lcc.selectedDay.litDay;
     return IphodScaffold(
         title: 'Morning Prayer',
         body: DefaultTextStyle(

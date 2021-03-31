@@ -21,8 +21,9 @@ class ShowLesson extends StatelessWidget {
   ShowLesson( {Key key, this.iLesson}) : super(key: key);
   // @override
   Widget build(BuildContext context) {
-    return Obx( () =>  Html(
-          data: (lc.getLesson(iLesson).passage == null) ? "<p>Not Ready</p>" : lc.getLesson(iLesson).passage,
+    return
+      Obx( () =>  Html(
+          data: (lc.getLesson(iLesson).passage == null) ? "" : lc.getLesson(iLesson).passage,
           style: {
             "p": Style(
               fontSize: FontSize(18.0),

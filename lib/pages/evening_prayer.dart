@@ -24,13 +24,13 @@ import 'package:flutter_phod/helpers/collect_for_mission.dart';
 import 'package:flutter_phod/helpers/general_thanksgiving.dart';
 import 'package:flutter_phod/helpers/chrysostom.dart';
 
-LiturgicalCalendarController c = Get.put( LiturgicalCalendarController() );
 
 class EveningPrayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    LiturgicalCalendarController c = Get.put( LiturgicalCalendarController() );
     CalendarDayModel thisDay = c.selectService('ep');
-    LiturgicalDay litDay = thisDay.day;
+    LiturgicalDay litDay = thisDay.litDay;
     return IphodScaffold(
         title: 'Evening Prayer',
         body: DefaultTextStyle(

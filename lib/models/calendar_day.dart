@@ -12,7 +12,7 @@ class CalendarDayModel {
   TextStyle textStyle;
   bool isNextMonthDay = false;
   bool isThisMonthDay = true;
-  LiturgicalDay day;
+  LiturgicalDay litDay;
 
   CalendarDayModel(
       { this.id
@@ -24,7 +24,7 @@ class CalendarDayModel {
       , this.textStyle
       , this.isNextMonthDay
       , this.isThisMonthDay
-      , this.day
+      , this.litDay
       }
   );
 
@@ -37,7 +37,7 @@ class CalendarDayModel {
     this.isPrevMonthDay = thisMonthDiff > 0;
     this.isNextMonthDay = thisMonthDiff < 0;
     this.isThisMonthDay = thisMonthDiff == 0;
-    this.day = LiturgicalDay().init(now: now);
+    this.litDay = LiturgicalDay().init(now: now);
     return this;
 
   }

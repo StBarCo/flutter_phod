@@ -35,7 +35,6 @@ class WEB {
     // ESV doesn't have any <mark> tags, so we'll use it for WEB vs numbers
     this.passage = this.passage.replaceAll('<span',  '<mark');
     this.passage = this.passage.replaceAll('</span', '</mark');
-    print(">>>>> WEB: ${this.passage}");
 
   }
 }
