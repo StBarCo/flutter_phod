@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phod/models/liturgical_day.dart';
-import 'package:flutter_phod/helpers/rubric.dart';
-import 'package:flutter_phod/helpers/line.dart';
+import 'package:legereme/models/liturgical_day.dart';
+import 'package:legereme/helpers/rubric.dart';
+import 'package:legereme/helpers/line.dart';
 
 class OpeningSentences extends StatelessWidget {
   LiturgicalDay litDay;

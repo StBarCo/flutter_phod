@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_phod/controllers/psalmController.dart';
-import 'package:flutter_phod/models/calendar_day.dart';
-import 'package:flutter_phod/models/psalm_model.dart';
+import 'package:legereme/controllers/psalmController.dart';
+import 'package:legereme/models/calendar_day.dart';
+import 'package:legereme/models/psalm_model.dart';
 import 'package:get/get.dart';
-import 'package:flutter_phod/models/liturgical_day.dart';
-import 'package:flutter_phod/controllers/configController.dart';
+import 'package:legereme/models/liturgical_day.dart';
+import 'package:legereme/controllers/configController.dart';
 
 ConfigController cc = Get.put( ConfigController() );
 PsalmController psc = Get.put( PsalmController() );

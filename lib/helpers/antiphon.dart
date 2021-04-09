@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phod/helpers/rubric.dart';
+import 'package:legereme/helpers/rubric.dart';
 
 class Antiphon extends StatelessWidget {
   String season;

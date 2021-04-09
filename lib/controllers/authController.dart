@@ -1,9 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_phod/controllers/userController.dart';
-import 'package:flutter_phod/models/user.dart';
-import 'package:flutter_phod/services/database.dart';
+import 'package:legereme/controllers/userController.dart';
+import 'package:legereme/models/user.dart';
+import 'package:legereme/services/database.dart';
 import 'package:get/get.dart';
-import 'package:meta/meta.dart';
 
 class AuthController extends GetxController {
   FirebaseAuth _auth = FirebaseAuth.instance;

@@ -1,16 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phod/helpers/iphod_app_bar.dart';
-import 'package:flutter_phod/helpers/iphod_scaffold.dart';
-import 'package:flutter_phod/helpers/lesson.dart';
-import 'package:flutter_phod/helpers/paragraph.dart';
-import 'package:flutter_phod/helpers/section_title.dart';
-// import 'package:flutter_phod/stores/litday.dart';
-import 'package:flutter_phod/helpers/page_header.dart';
-import 'package:flutter_phod/services/scripture_db.dart';
-
-import 'package:petitparser/petitparser.dart';
-import 'package:flutter_phod/services/citation_parser.dart';
-
+import 'package:legereme/helpers/iphod_scaffold.dart';
+import 'package:legereme/helpers/paragraph.dart';
+import 'package:legereme/helpers/section_title.dart';
+import 'package:legereme/helpers/page_header.dart';
 
 class About extends StatelessWidget {
   @override

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phod/helpers/rubric.dart';
-import 'package:flutter_phod/models/canticle.dart';
-import 'package:flutter_phod/models/liturgical_day.dart';
-import 'package:flutter_phod/services/canticles_db.dart';
+import 'package:legereme/helpers/rubric.dart';
+import 'package:legereme/models/canticle.dart';
+import 'package:legereme/models/liturgical_day.dart';
+import 'package:legereme/services/canticles_db.dart';
 
 class TodaysCanticle extends StatefulWidget {
   int lesson;

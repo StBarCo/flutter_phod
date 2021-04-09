@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phod/models/occasional_prayer.dart';
+import 'package:legereme/models/occasional_prayer.dart';
 import 'package:get/get.dart';
-import 'package:flutter_phod/controllers/occasionalPrayerController.dart';
-import 'package:flutter_phod/helpers/iphod_scaffold.dart';
-import 'package:flutter_phod/helpers/paragraph.dart';
-import 'package:flutter_phod/helpers/pop_up.dart';
-// import 'package:flutter_phod/services/occasional_prayers_db.dart';
-import 'package:flutter_phod/stores/litday.dart';
-import 'package:flutter_phod/helpers/page_header.dart';
-// import 'package:flutter_phod/helpers/page_drawer.dart';
-import 'package:provider/provider.dart';
+import 'package:legereme/controllers/occasionalPrayerController.dart';
+import 'package:legereme/helpers/iphod_scaffold.dart';
+import 'package:legereme/helpers/paragraph.dart';
+import 'package:legereme/helpers/pop_up.dart';
+import 'package:legereme/helpers/page_header.dart';
 
 OccasionalPrayerController controller = Get.put<OccasionalPrayerController>( OccasionalPrayerController() );
 

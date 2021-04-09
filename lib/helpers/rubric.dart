@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phod/helpers/compress_white_space.dart';
+import 'package:legereme/helpers/compress_white_space.dart';
 
 class Rubric extends StatelessWidget {
   Rubric(this.text);

@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_phod/models/occasional_prayer.dart';
+import 'package:legereme/models/occasional_prayer.dart';
 
 List<String> opCategories = [];
 

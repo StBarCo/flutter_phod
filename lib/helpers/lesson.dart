@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phod/controllers/lessonController.dart';
+import 'package:legereme/controllers/lessonController.dart';
 import 'package:get/get.dart';
 import 'package:flutter_html/style.dart';
-import 'package:flutter_phod/services/scripture_db.dart';
+import 'package:legereme/services/scripture_db.dart';
 import 'package:flutter_html/flutter_html.dart';
 
 LessonController lc = Get.put(LessonController());
@@ -30,13 +30,21 @@ class ShowLesson extends StatelessWidget {
             ),
             "div": Style(
               fontSize: FontSize(18.0),
-              color: Colors.blue[900],
+              color: Colors.black,
             ),
-            "mark": Style(
+            "mark.vs": Style(
               color: Colors.red[700],
               // Should'ought'a be superscript
-              // fontSize: FontSize(12.0)
-            )
+              fontSize: FontSize(12.0)
+            ),
+            "h2": Style(
+                fontSize: FontSize(20.0),
+                color: Colors.black,
+            ),
+            "h3": Style(
+                fontSize: FontSize(20.0),
+                color: Colors.black
+            ),
           }
         )
     );

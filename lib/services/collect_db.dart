@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import 'package:flutter_phod/controllers/collectController.dart';
-import 'package:flutter_phod/models/collect.dart';
-import 'package:flutter_phod/models/liturgical_day.dart';
+import 'package:legereme/controllers/collectController.dart';
+import 'package:legereme/models/collect.dart';
+import 'package:legereme/models/liturgical_day.dart';
 
 CollectController c = Get.put( CollectController());
 class CollectDB {

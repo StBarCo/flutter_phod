@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
-import 'package:flutter_phod/models/occasional_prayer.dart';
-import 'package:flutter_phod/services/occasional_prayers_db.dart';
-import 'package:meta/meta.dart';
+import 'package:legereme/models/occasional_prayer.dart';
+import 'package:legereme/services/occasional_prayers_db.dart';
 
 class OccasionalPrayerController extends GetxController {
   Rx<List<OccasionalPrayerModel>> opList = Rx<List<OccasionalPrayerModel>>();

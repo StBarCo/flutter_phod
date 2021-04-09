@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_phod/helpers/lesson.dart';
-import 'package:flutter_phod/helpers/psalms.dart';
-import 'package:flutter_phod/models/liturgical_day.dart';
+import 'package:legereme/helpers/lesson.dart';
+import 'package:legereme/helpers/psalms.dart';
+import 'package:legereme/models/liturgical_day.dart';
 import 'package:get/get.dart';
 import 'package:dart_date/dart_date.dart';
-import 'package:flutter_phod/models/calendar_day.dart';
-import 'package:flutter_phod/controllers/liturgicalCalendarController.dart';
-import 'package:flutter_phod/helpers/iphod_scaffold.dart';
-import 'package:flutter_phod/helpers/section_title.dart';
-import 'package:flutter_phod/helpers/page_header.dart';
+import 'package:legereme/models/calendar_day.dart';
+import 'package:legereme/controllers/liturgicalCalendarController.dart';
+import 'package:legereme/helpers/iphod_scaffold.dart';
+import 'package:legereme/helpers/section_title.dart';
+import 'package:legereme/helpers/page_header.dart';
 
  LiturgicalCalendarController c = Get.put( LiturgicalCalendarController() );
 

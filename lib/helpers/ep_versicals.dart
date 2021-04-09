@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phod/helpers/versical.dart';
+import 'package:legereme/helpers/versical.dart';
 
 class EPVersicals extends StatefulWidget {
   @override

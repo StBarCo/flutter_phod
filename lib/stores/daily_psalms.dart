@@ -1,8 +1,8 @@
-import 'package:flutter_phod/models/calendar_day.dart';
+import 'package:legereme/models/calendar_day.dart';
 import 'package:get/get.dart';
-import 'package:flutter_phod/models/liturgical_day.dart';
-import 'package:flutter_phod/controllers/configController.dart';
-import 'package:flutter_phod/stores/psalm_map.dart';
+import 'package:legereme/models/liturgical_day.dart';
+import 'package:legereme/controllers/configController.dart';
+import 'package:legereme/stores/psalm_map.dart';
 
 ConfigController cc = Get.put( ConfigController() );
 

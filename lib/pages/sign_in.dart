@@ -1,12 +1,10 @@
 import 'package:get/get.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_phod/services/auth.dart';
-import 'package:flutter_phod/helpers/constants.dart';
-import 'package:flutter_phod/pages/loading.dart';
+import 'package:legereme/helpers/constants.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
-import 'package:flutter_phod/controllers/authController.dart';
-import 'package:flutter_phod/pages/sign_up.dart';
+import 'package:legereme/controllers/authController.dart';
+import 'package:legereme/pages/sign_up.dart';
 
 class SignIn extends GetWidget<AuthController> {
   final TextEditingController emailController = TextEditingController();

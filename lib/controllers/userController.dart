@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
-import 'package:meta/meta.dart';
-import 'package:flutter_phod/models/user.dart';
+import 'package:legereme/models/user.dart';
 
 class UserController extends GetxController {
   Rx<UserModel> _user = UserModel().obs;

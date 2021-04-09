@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_phod/controllers/psalmController.dart';
-import 'package:flutter_phod/helpers/show_one_psalms.dart';
+import 'package:legereme/controllers/psalmController.dart';
+import 'package:legereme/helpers/show_one_psalms.dart';
 
 PsalmController c = Get.put( PsalmController() );
 

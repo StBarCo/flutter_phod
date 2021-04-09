@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phod/helpers/confession_short.dart';
-import 'package:flutter_phod/helpers/iphod_scaffold.dart';
-import 'package:flutter_phod/helpers/lamb_of_god.dart';
-import 'package:flutter_phod/helpers/lesson.dart';
-import 'package:flutter_phod/helpers/lords_prayer.dart';
-import 'package:flutter_phod/helpers/paragraph.dart';
-import 'package:flutter_phod/helpers/pick_one.dart';
-import 'package:flutter_phod/helpers/post_communion_prayer.dart';
-import 'package:flutter_phod/helpers/rubric.dart';
-import 'package:flutter_phod/helpers/scripture_ref.dart';
-import 'package:flutter_phod/helpers/section_title.dart';
-import 'package:flutter_phod/helpers/versical.dart';
-import 'package:flutter_phod/stores/litday.dart';
-import 'package:flutter_phod/helpers/page_header.dart';
-import 'package:flutter_phod/stores/overlay_selection.dart';
+import 'package:legereme/helpers/confession_short.dart';
+import 'package:legereme/helpers/iphod_scaffold.dart';
+import 'package:legereme/helpers/lamb_of_god.dart';
+import 'package:legereme/helpers/lords_prayer.dart';
+import 'package:legereme/helpers/paragraph.dart';
+import 'package:legereme/helpers/post_communion_prayer.dart';
+import 'package:legereme/helpers/rubric.dart';
+import 'package:legereme/helpers/scripture_ref.dart';
+import 'package:legereme/helpers/section_title.dart';
+import 'package:legereme/helpers/versical.dart';
+import 'package:legereme/helpers/page_header.dart';
+import 'package:legereme/stores/overlay_selection.dart';
 
 
 class CommunionToSick extends StatefulWidget {

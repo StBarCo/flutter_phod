@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phod/helpers/lesson.dart';
-import 'package:flutter_phod/helpers/paragraph.dart';
+import 'package:legereme/helpers/lesson.dart';
+import 'package:legereme/helpers/paragraph.dart';
 
 class OLItem {
   String key;

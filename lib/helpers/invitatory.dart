@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phod/controllers/canticleController.dart';
-import 'package:flutter_phod/models/canticle.dart';
+import 'package:legereme/controllers/canticleController.dart';
+import 'package:legereme/models/canticle.dart';
 import 'package:get/get.dart';
-import 'package:flutter_phod/helpers/rubric.dart';
-import 'package:flutter_phod/helpers/section_title.dart';
-import 'package:flutter_phod/helpers/versical.dart';
-import 'package:flutter_phod/models/liturgical_day.dart';
+import 'package:legereme/helpers/rubric.dart';
+import 'package:legereme/helpers/section_title.dart';
+import 'package:legereme/helpers/versical.dart';
+import 'package:legereme/models/liturgical_day.dart';
 
 import 'antiphon.dart';
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phod/helpers/line.dart';
-import 'package:flutter_phod/helpers/rubric.dart';
-import 'package:flutter_phod/helpers/section_title.dart';
+import 'package:legereme/helpers/line.dart';
+import 'package:legereme/helpers/rubric.dart';
+import 'package:legereme/helpers/section_title.dart';
 
 class Confession extends StatelessWidget {
 

@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import 'package:flutter_phod/controllers/bindings/authBinding.dart';
+import 'package:legereme/controllers/bindings/authBinding.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_phod/pages/wrapper.dart';
+import 'package:legereme/pages/wrapper.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

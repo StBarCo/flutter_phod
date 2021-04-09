@@ -1,8 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_phod/models/liturgical_day.dart';
-import 'package:dart_date/dart_date.dart';
-import 'package:flutter_phod/stores/helpers.dart';
+import 'package:legereme/models/liturgical_day.dart';
 
 class LiturgicalDayController extends GetxController {
   Rx<LiturgicalDay> _day = Rx<LiturgicalDay>();

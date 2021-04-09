@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phod/helpers/iphod_scaffold.dart';
-import 'package:flutter_phod/helpers/lords_prayer.dart';
-import 'package:flutter_phod/helpers/paragraph.dart';
-import 'package:flutter_phod/helpers/rubric.dart';
-import 'package:flutter_phod/stores/litday.dart';
-import 'package:flutter_phod/helpers/page_header.dart';
+import 'package:legereme/helpers/iphod_scaffold.dart';
+import 'package:legereme/helpers/lords_prayer.dart';
+import 'package:legereme/helpers/paragraph.dart';
+import 'package:legereme/helpers/rubric.dart';
+import 'package:legereme/helpers/page_header.dart';
 
 class ToTheSick extends StatefulWidget {
   @override

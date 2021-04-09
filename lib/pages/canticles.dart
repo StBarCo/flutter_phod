@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phod/models/canticle.dart';
+import 'package:legereme/models/canticle.dart';
 import 'package:get/get.dart';
 import 'package:get/state_manager.dart';
-import 'package:flutter_phod/helpers/show_canticle.dart';
-import 'package:flutter_phod/helpers/iphod_scaffold.dart';
-import 'package:flutter_phod/helpers/pop_up.dart';
-import 'package:flutter_phod/stores/litday.dart';
-import 'package:flutter_phod/helpers/page_header.dart';
-import 'package:flutter_phod/controllers/canticleController.dart';
+import 'package:legereme/helpers/show_canticle.dart';
+import 'package:legereme/helpers/iphod_scaffold.dart';
+import 'package:legereme/helpers/pop_up.dart';
+import 'package:legereme/helpers/page_header.dart';
+import 'package:legereme/controllers/canticleController.dart';
 
 CanticleController controller = Get.put<CanticleController>( CanticleController() );
 

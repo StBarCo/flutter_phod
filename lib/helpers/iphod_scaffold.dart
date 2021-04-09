@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phod/helpers/iphod_app_bar.dart';
-import 'package:flutter_phod/helpers/page_drawer.dart';
+import 'package:legereme/helpers/iphod_app_bar.dart';
+import 'package:legereme/helpers/page_drawer.dart';
 
 Scaffold IphodScaffold(
     { String title

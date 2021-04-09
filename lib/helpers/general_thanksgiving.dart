@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phod/helpers/line.dart';
+import 'package:legereme/helpers/line.dart';
 
 class GeneralThanksgiving extends StatelessWidget {
   @override

@@ -1,6 +1,6 @@
-import 'package:flutter_phod/models/reading_model.dart';
+import 'package:legereme/models/reading_model.dart';
 import 'package:petitparser/petitparser.dart';
-import 'package:flutter_phod/models/psalm_model.dart';
+import 'package:legereme/models/psalm_model.dart';
 
 
 class CitationGrammar extends GrammarDefinition {

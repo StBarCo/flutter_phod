@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_phod/controllers/authController.dart';
-import 'package:flutter_phod/controllers/userController.dart';
-import 'package:flutter_phod/pages/authenticate.dart';
-import 'package:flutter_phod/pages/compline.dart';
-import 'package:flutter_phod/pages/evening_prayer.dart';
-import 'package:flutter_phod/pages/midday.dart';
-import 'package:flutter_phod/pages/morning_prayer.dart';
+import 'package:legereme/controllers/authController.dart';
+import 'package:legereme/controllers/userController.dart';
+import 'package:legereme/pages/authenticate.dart';
+import 'package:legereme/pages/compline.dart';
+import 'package:legereme/pages/evening_prayer.dart';
+import 'package:legereme/pages/midday.dart';
+import 'package:legereme/pages/morning_prayer.dart';
 
 
 class Wrapper extends GetWidget<AuthController> {

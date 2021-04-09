@@ -1,6 +1,6 @@
 import 'package:dart_date/dart_date.dart';
-import 'package:flutter_phod/stores/helpers.dart';
-import 'package:flutter_phod/stores/season.dart';
+import 'package:legereme/stores/helpers.dart';
+import 'package:legereme/stores/season.dart';
 
 class LitDay {
   DateTime now = DateTime.now();

@@ -1,7 +1,7 @@
-import 'package:flutter_phod/models/liturgical_day.dart';
+import 'package:legereme/models/liturgical_day.dart';
 import 'package:get/get.dart';
-import 'package:flutter_phod/models/canticle.dart';
-import 'package:flutter_phod/services/canticles_db.dart';
+import 'package:legereme/models/canticle.dart';
+import 'package:legereme/services/canticles_db.dart';
 
 class CanticleController extends GetxController {
   final canticleList = <CanticleModel>[].obs;

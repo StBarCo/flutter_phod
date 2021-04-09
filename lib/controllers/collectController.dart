@@ -1,7 +1,7 @@
-import 'package:flutter_phod/models/liturgical_day.dart';
+import 'package:legereme/models/liturgical_day.dart';
 import 'package:get/get.dart';
-import 'package:flutter_phod/models/collect.dart';
-import 'package:flutter_phod/services/collect_db.dart';
+import 'package:legereme/models/collect.dart';
+import 'package:legereme/services/collect_db.dart';
 
 import 'liturgicalCalendarController.dart';
 

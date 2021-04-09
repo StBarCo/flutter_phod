@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_phod/controllers/liturgicalCalendarController.dart';
-import 'package:flutter_phod/models/liturgical_season.dart';
+import 'package:legereme/controllers/liturgicalCalendarController.dart';
+import 'package:legereme/models/liturgical_season.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_phod/models/liturgical_day.dart';
+import 'package:legereme/models/liturgical_day.dart';
 
 LiturgicalCalendarController c = Get.put( LiturgicalCalendarController());
 

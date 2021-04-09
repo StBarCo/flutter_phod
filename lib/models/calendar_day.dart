@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phod/models/liturgical_day.dart';
+import 'package:legereme/models/liturgical_day.dart';
 import 'package:dart_date/dart_date.dart';
 
 class CalendarDayModel {

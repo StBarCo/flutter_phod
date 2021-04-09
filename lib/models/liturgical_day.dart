@@ -1,6 +1,6 @@
 import 'package:dart_date/dart_date.dart';
-import 'package:flutter_phod/stores/helpers.dart';
-import 'package:flutter_phod/models/liturgical_season.dart';
+import 'package:legereme/stores/helpers.dart';
+import 'package:legereme/models/liturgical_season.dart';
 
 class LiturgicalDay {
   DateTime now = DateTime.now();

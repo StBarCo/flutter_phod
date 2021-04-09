@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phod/helpers/apostles_creed.dart';
-import 'package:flutter_phod/helpers/gloria.dart';
-import 'package:flutter_phod/helpers/iphod_scaffold.dart';
-import 'package:flutter_phod/helpers/line.dart';
-import 'package:flutter_phod/helpers/lords_prayer.dart';
-import 'package:flutter_phod/helpers/paragraph.dart';
-import 'package:flutter_phod/helpers/reference.dart';
-import 'package:flutter_phod/helpers/rubric.dart';
-import 'package:flutter_phod/helpers/scripture_ref.dart';
-import 'package:flutter_phod/helpers/section_title.dart';
-import 'package:flutter_phod/stores/litday.dart';
-import 'package:flutter_phod/helpers/page_header.dart';
-import 'package:flutter_phod/helpers/page_drawer.dart';
+import 'package:legereme/helpers/apostles_creed.dart';
+import 'package:legereme/helpers/gloria.dart';
+import 'package:legereme/helpers/iphod_scaffold.dart';
+import 'package:legereme/helpers/line.dart';
+import 'package:legereme/helpers/lords_prayer.dart';
+import 'package:legereme/helpers/paragraph.dart';
+import 'package:legereme/helpers/reference.dart';
+import 'package:legereme/helpers/rubric.dart';
+import 'package:legereme/helpers/scripture_ref.dart';
+import 'package:legereme/helpers/section_title.dart';
+import 'package:legereme/helpers/page_header.dart';
 
 class FamilyPrayers extends StatefulWidget {
   @override

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phod/pages/authenticate.dart';
-import 'package:flutter_phod/services/auth.dart';
+import 'package:legereme/pages/authenticate.dart';
+import 'package:legereme/services/auth.dart';
 
 AppBar IphodAppBar({String title}) {
   final AuthService _auth = AuthService();

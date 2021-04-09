@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phod/helpers/gloria.dart';
-import 'package:flutter_phod/helpers/iphod_scaffold.dart';
-import 'package:flutter_phod/helpers/line.dart';
-import 'package:flutter_phod/helpers/lord_have_mercy.dart';
-import 'package:flutter_phod/helpers/lords_prayer.dart';
-import 'package:flutter_phod/helpers/paragraph.dart';
-import 'package:flutter_phod/helpers/psalms_pick_one.dart';
-import 'package:flutter_phod/helpers/reference.dart';
-import 'package:flutter_phod/helpers/rubric.dart';
-import 'package:flutter_phod/helpers/scripture_ref.dart';
-import 'package:flutter_phod/helpers/section_title.dart';
-import 'package:flutter_phod/helpers/versical.dart';
-import 'package:flutter_phod/helpers/page_header.dart';
-import 'package:flutter_phod/models/psalm_model.dart';
+import 'package:legereme/helpers/gloria.dart';
+import 'package:legereme/helpers/iphod_scaffold.dart';
+import 'package:legereme/helpers/line.dart';
+import 'package:legereme/helpers/lord_have_mercy.dart';
+import 'package:legereme/helpers/lords_prayer.dart';
+import 'package:legereme/helpers/paragraph.dart';
+import 'package:legereme/helpers/psalms_pick_one.dart';
+import 'package:legereme/helpers/reference.dart';
+import 'package:legereme/helpers/rubric.dart';
+import 'package:legereme/helpers/scripture_ref.dart';
+import 'package:legereme/helpers/section_title.dart';
+import 'package:legereme/helpers/versical.dart';
+import 'package:legereme/helpers/page_header.dart';
+import 'package:legereme/models/psalm_model.dart';
 
 class Compline extends StatefulWidget {
   @override

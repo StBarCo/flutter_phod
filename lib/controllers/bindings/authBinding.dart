@@ -1,11 +1,11 @@
-import 'package:flutter_phod/controllers/canticleController.dart';
-import 'package:flutter_phod/controllers/collectController.dart';
-import 'package:flutter_phod/controllers/configController.dart';
-import 'package:flutter_phod/controllers/liturgicalCalendarController.dart';
-import 'package:flutter_phod/controllers/psalmController.dart';
+import 'package:legereme/controllers/canticleController.dart';
+import 'package:legereme/controllers/collectController.dart';
+import 'package:legereme/controllers/configController.dart';
+import 'package:legereme/controllers/liturgicalCalendarController.dart';
+import 'package:legereme/controllers/psalmController.dart';
 import 'package:get/get.dart';
-import 'package:flutter_phod/controllers/authController.dart';
-import 'package:flutter_phod/controllers/lessonController.dart';
+import 'package:legereme/controllers/authController.dart';
+import 'package:legereme/controllers/lessonController.dart';
 
 class AuthBinding extends Bindings {
   @override

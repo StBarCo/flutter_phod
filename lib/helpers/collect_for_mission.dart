@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phod/helpers/section_title.dart';
-import 'package:flutter_phod/models/liturgical_day.dart';
+import 'package:legereme/helpers/section_title.dart';
+import 'package:legereme/models/liturgical_day.dart';
 
 
 class CollectForMission extends StatefulWidget {

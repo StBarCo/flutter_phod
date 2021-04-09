@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phod/models/psalm_model.dart';
+import 'package:legereme/models/psalm_model.dart';
 
 class PsalmVerses extends StatelessWidget {
   List<PsalmVs> vss;

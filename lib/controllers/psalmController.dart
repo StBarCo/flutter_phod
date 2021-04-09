@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:flutter_phod/models/psalm_model.dart';
+import 'package:legereme/models/psalm_model.dart';
 
 class PsalmController extends GetxController {
   final Rx<List<PsalmModel>> _psalms = Rx<List<PsalmModel>>();

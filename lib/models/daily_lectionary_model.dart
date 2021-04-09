@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_phod/models/reading_model.dart';
+import 'package:legereme/models/reading_model.dart';
 
 class DailyLectionaryModel {
   String id;

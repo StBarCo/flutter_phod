@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_phod/models/user.dart';
-import 'package:flutter_phod/stores/psalm_map.dart';
+import 'package:legereme/models/user.dart';
+import 'package:legereme/stores/psalm_map.dart';
 
 class DatabaseService {
   final FirebaseFirestore _fireStore = FirebaseFirestore.instance;

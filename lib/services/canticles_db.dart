@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_phod/controllers/canticleController.dart';
+import 'package:legereme/controllers/canticleController.dart';
 import 'package:get/get.dart';
-import 'package:flutter_phod/controllers/liturgicalCalendarController.dart';
-import 'package:flutter_phod/models/canticle.dart';
-import 'package:flutter_phod/models/liturgical_day.dart';
+import 'package:legereme/controllers/liturgicalCalendarController.dart';
+import 'package:legereme/models/canticle.dart';
+import 'package:legereme/models/liturgical_day.dart';
 
 LiturgicalCalendarController lcc = Get.put( LiturgicalCalendarController() );
 CanticleController cc = Get.put( CanticleController() );

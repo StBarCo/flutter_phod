@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phod/helpers/rubric.dart';
-import 'package:flutter_phod/helpers/versical.dart';
+import 'package:legereme/helpers/rubric.dart';
+import 'package:legereme/helpers/versical.dart';
 
 class WordOfTheLord extends StatelessWidget {
   @override

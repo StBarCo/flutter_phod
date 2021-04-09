@@ -1,12 +1,14 @@
-import 'package:flutter_phod/controllers/canticleController.dart';
-import 'package:flutter_phod/services/psalms_db.dart';
-import 'package:flutter_phod/services/scripture_db.dart';
-import 'package:flutter_phod/stores/helpers.dart';
+import 'package:legereme/controllers/canticleController.dart';
+import 'package:legereme/controllers/lessonController.dart';
+import 'package:legereme/services/psalms_db.dart';
+import 'package:legereme/services/scripture_db.dart';
+import 'package:legereme/stores/helpers.dart';
 import 'package:get/get.dart';
 import 'package:dart_date/dart_date.dart';
-import 'package:flutter_phod/models/calendar_day.dart';
+import 'package:legereme/models/calendar_day.dart';
 
 CanticleController cc = Get.put( CanticleController() );
+LessonController lc = Get.put( LessonController() );
 
 class LiturgicalCalendar {
   List<CalendarDayModel> days = [];
@@ -81,6 +83,7 @@ class LiturgicalCalendarController extends GetxController {
       // if service has a value - update the lessons
   void initLessons(String service) {
         if (service == null || service.isBlank) return;
+        lc.reset();
         _selectedDay.value.litDay.service = service;
         _currentService.value = service;
         if (service == 'mp' || service == 'ep') {

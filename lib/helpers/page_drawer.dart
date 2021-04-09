@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_phod/models/pages.dart';
-import 'package:flutter_phod/controllers/liturgicalCalendarController.dart';
+import 'package:legereme/models/pages.dart';
+import 'package:legereme/controllers/liturgicalCalendarController.dart';
 
 
 class PageDrawer extends StatelessWidget {

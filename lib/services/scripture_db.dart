@@ -1,20 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_phod/controllers/lessonController.dart';
-import 'package:flutter_phod/models/daily_lectionary_model.dart';
-import 'package:flutter_phod/models/eucharist_lectionary_model.dart';
-import 'package:flutter_phod/models/psalm_model.dart';
-import 'package:flutter_phod/services/psalms_db.dart';
+import 'package:legereme/controllers/lessonController.dart';
+import 'package:legereme/models/daily_lectionary_model.dart';
+import 'package:legereme/models/eucharist_lectionary_model.dart';
+import 'package:legereme/models/psalm_model.dart';
+import 'package:legereme/services/psalms_db.dart';
 import 'package:get/get.dart';
-import 'package:flutter_phod/models/liturgical_day.dart';
-import 'package:flutter_phod/models/world_english_bible.com.dart';
-import 'package:flutter_phod/services/citation_parser.dart';
+import 'package:legereme/models/liturgical_day.dart';
+import 'package:legereme/models/world_english_bible.com.dart';
+import 'package:legereme/services/citation_parser.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart';
-import 'package:flutter_phod/models/lesson_model.dart';
-import 'package:flutter_phod/controllers/liturgicalCalendarController.dart';
+import 'package:legereme/models/lesson_model.dart';
+import 'package:legereme/controllers/liturgicalCalendarController.dart';
 
 LessonController lc = Get.put(LessonController());
 
@@ -47,9 +47,10 @@ class ScriptureDB {
 
   // axios.get('https://api.esv.org/v3/passage/html?q=' + ref + ";include-audio-link=false")
   final String esvUrl = 'https://api.esv.org/v3/passage/html?q=';
-  final String esvOptions = ";include-audio-link=false";
+  final String esvOptions = ";include-audio-link=true";
 
   Future<LessonModel> getFromEsv(String ref) async {
+    if(ref == "null") return LessonModel(ref: 'empty');
     String query = "$esvUrl$ref$esvOptions";
     var resp = await get
       (query
@@ -78,29 +79,32 @@ class ScriptureDB {
   void getEucharisticLessons(LiturgicalDay litDay) async {
     String litSeason = litDay.season.id + litDay.season.week.toString() +
         litDay.litYear;
-    var sundayRefs = await getSundayRefs(litSeason);
-    EucharistLectionaryModel lessons = EucharistLectionaryModel
-        .fromDocumentSnapshot(sundayRefs);
-    // got all the references, now I have to get the content!
-    LessonModel eg = lessons.entryGospel.isNotEmpty
-        ? await getFromEsv(esvQueryString(lessons.entryGospel))
-        : new LessonModel();
-    lc.setLesson(eg, 'entryGospel');
-    List<Ps> pss = lessons.psalms.map<Ps>((s) => parsePsalmCitation(s.read))
-        .toList();
-    PsalmsDB().getListOfPsalms(pss);
-    LessonModel ot = lessons.ot.isNotEmpty
-        ? await getFromEsv(esvQueryString(lessons.ot))
-        : new LessonModel();
-    lc.setLesson(ot, 'ot');
-    LessonModel nt = lessons.nt.isNotEmpty
-        ? await getFromEsv(esvQueryString(lessons.nt))
-        : new LessonModel();
-    lc.setLesson(nt, 'nt');
-    LessonModel gs = lessons.gs.isNotEmpty
-        ? await getFromEsv(esvQueryString(lessons.gs))
-        : new LessonModel();
-    lc.setLesson(gs, 'gs');
+    Future futureSundayRefs = getSundayRefs(litSeason);
+    futureSundayRefs
+      .then((snapshot) async {
+      EucharistLectionaryModel refs = EucharistLectionaryModel
+          .fromDocumentSnapshot(snapshot);
+      // got all the references, now I have to get the content!
+      LessonModel eg = refs.entryGospel.isNotEmpty
+          ? await getFromEsv(esvQueryString(refs.entryGospel))
+          : new LessonModel(ref: 'empty');
+      lc.setLesson(eg, 'entryGospel');
+      List<Ps> pss = refs.psalms.map<Ps>((s) => parsePsalmCitation(s.read))
+          .toList();
+      PsalmsDB().getListOfPsalms(pss);
+      LessonModel ot = refs.ot.isNotEmpty
+          ? await getFromEsv(esvQueryString(refs.ot))
+          : new LessonModel(ref: 'empty');
+      lc.setLesson(ot, 'ot');
+      LessonModel nt = refs.nt.isNotEmpty
+          ? await getFromEsv(esvQueryString(refs.nt))
+          : new LessonModel(ref: 'empty');
+      lc.setLesson(nt, 'nt');
+      LessonModel gs = refs.gs.isNotEmpty
+          ? await getFromEsv(esvQueryString(refs.gs))
+          : new LessonModel(ref: 'empty');
+      lc.setLesson(gs, 'gs');
+    });
   }
 
 

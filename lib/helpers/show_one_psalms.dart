@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_phod/helpers/psalm_verses.dart';
-import 'package:flutter_phod/models/psalm_model.dart';
+import 'package:legereme/helpers/psalm_verses.dart';
+import 'package:legereme/models/psalm_model.dart';
 
 class ShowOnePsalm extends StatelessWidget {
   PsalmModel psalm;

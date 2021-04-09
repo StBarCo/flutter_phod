@@ -2,8 +2,8 @@ import 'package:dart_date/dart_date.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_phod/helpers/section_title.dart';
-import 'package:flutter_phod/stores/litday.dart';
+import 'package:legereme/helpers/section_title.dart';
+import 'package:legereme/stores/litday.dart';
 
 class Day {
   bool isSelectable = true;

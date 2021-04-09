@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_phod/helpers/constants.dart';
-import 'package:flutter_phod/services/auth.dart';
-import 'package:flutter_phod/pages/loading.dart';
+import 'package:legereme/helpers/constants.dart';
+import 'package:legereme/services/auth.dart';
+import 'package:legereme/pages/loading.dart';
 
 
 class Register extends StatefulWidget {
